@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 const nav = [
@@ -20,8 +21,14 @@ export function Header() {
   return (
     <header className="header shell">
       <Link className="brand" href="/" aria-label="Yunnan Unfolded home">
-        <span className="brand__mark" aria-hidden="true"><i /><b /><em /></span>
-        <span className="brand__name">Yunnan <small>Unfolded</small></span>
+        <Image
+          src="/brand/logo-horizontal-light.svg"
+          alt="Yunnan Unfolded"
+          width={700}
+          height={190}
+          priority
+          className="brand__logo"
+        />
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
