@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { ArrowLink } from "../components/ArrowLink";
 import { Header } from "../components/Header";
 
@@ -13,6 +14,9 @@ export function generateStaticParams() { return Object.keys(pages).map((slug) =>
 
 export default async function PlaceholderPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const page = pages[slug] ?? { title: "Page Not Found", copy: "This page is not part of the current site foundation." };
+  const page = pages[slug];
+
+  if (!page) notFound();
+
   return <main className="placeholder"><Header /><div className="placeholder__inner shell"><p className="eyebrow">Yunnan Unfolded</p><h1>{page.title}</h1><p>{page.copy}</p>{slug === "plan-my-trip" ? <ArrowLink href="mailto:hello@yunnanunfolded.com">Email Chloe</ArrowLink> : <ArrowLink href="/">Return home</ArrowLink>}</div></main>;
 }
