@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import "./brand-overrides.css";
 
@@ -20,6 +21,25 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 
+const tawkPropertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
+const tawkWidgetId = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID;
+const tawkSrc = tawkPropertyId && tawkWidgetId
+  ? `https://embed.tawk.to/${tawkPropertyId}/${tawkWidgetId}`
+  : null;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" data-scroll-behavior="smooth" className={playfair.variable}><body>{children}</body></html>;
+  return (
+    <html lang="en" data-scroll-behavior="smooth" className={playfair.variable}>
+      <body>
+        {children}
+        {tawkSrc ? (
+          <Script
+            src={tawkSrc}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        ) : null}
+      </body>
+    </html>
+  );
 }
