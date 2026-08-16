@@ -1,0 +1,32 @@
+:root { --font-serif: var(--font-playfair), "Times New Roman", serif; }
+
+.brand { flex: 0 0 auto; width: clamp(10.75rem, 14.5vw, 12.75rem); }
+.brand__logo { display: block; width: 100%; height: auto; object-fit: contain; }
+.brand__name, .brand__mark { display: none !important; }
+
+.hero h1 {
+  font-family: var(--font-playfair), "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: .78;
+  letter-spacing: -.04em;
+}
+.hero__title-second {
+  display: inline-block;
+  margin-left: clamp(2rem, 9vw, 9rem);
+  color: #f2e8d5;
+  font: inherit;
+  font-style: normal;
+}
+.hero h1 em { font-style: normal; }
+
+@media (max-width: 1024px) {
+  .brand { width: 10.5rem; }
+  .desktop-nav { margin-right: 1.25rem; }
+}
+
+@media (max-width: 760px) {
+  .brand { width: 9.25rem; max-width: calc(100% - 4.5rem); }
+  .brand__logo { width: 100%; height: auto; }
+  .hero__title-second { margin-left: 1.3rem; }
+}
