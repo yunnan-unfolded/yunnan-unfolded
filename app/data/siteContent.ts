@@ -1,4 +1,13 @@
-export const journeys = [
+export type Journey = {
+  title: string;
+  route: string;
+  description: string;
+  image: string;
+  alt: string;
+  startingPrice?: string;
+};
+
+export const journeys: Journey[] = [
   {
     title: "Beyond the Snow Mountains",
     route: "Northwest Yunnan · High country",
