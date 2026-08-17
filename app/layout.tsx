@@ -3,6 +3,7 @@ import { Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import "./brand-overrides.css";
+import { StructuredData } from "./components/StructuredData";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-scroll-behavior="smooth" className={playfair.variable}>
       <body>
+        <StructuredData />
         {children}
         {tawkSrc ? (
           <Script
