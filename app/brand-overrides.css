@@ -1,12 +1,12 @@
 :root {
   --font-serif: var(--font-playfair), "Times New Roman", serif;
-  --forest: #173c33;
-  --forest-dark: #0d2a24;
-  --ivory: #f4efe5;
-  --paper: #faf7f0;
-  --gold: #b18e53;
-  --charcoal: #232823;
-  --muted: #6f756f;
+  --forest: #14362E;
+  --forest-dark: #14362E;
+  --ivory: #F7F3EB;
+  --paper: #F7F3EB;
+  --gold: #C9A46A;
+  --charcoal: #222222;
+  --muted: #6F7F6A;
 }
 
 /* Brand / header */
@@ -42,8 +42,8 @@
   transition: background .25s, color .25s, border-color .25s;
 }
 .header__cta:hover {
-  background: rgba(245,241,232,.96);
-  border-color: rgba(245,241,232,.96);
+  background: rgba(247,243,235,.96);
+  border-color: rgba(247,243,235,.96);
   color: var(--forest-dark);
 }
 
@@ -148,7 +148,7 @@
 }
 .journey-card__number {
   padding: .7rem .82rem;
-  background: rgba(244,239,229,.94);
+  background: rgba(247,243,235,.94);
   font-size: .8rem;
 }
 .journey-card__route {
@@ -193,7 +193,7 @@
 .local__content h2 { color: var(--forest-dark); }
 .local__lead { color: #214b40; }
 .image-note {
-  background: rgba(244,239,229,.96);
+  background: rgba(247,243,235,.96);
   color: #70756f;
 }
 
