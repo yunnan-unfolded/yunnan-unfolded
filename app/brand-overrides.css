@@ -211,6 +211,20 @@
   max-width: 610px;
 }
 
+/* Footer brand consistency */
+.footer__logo {
+  width: clamp(11.5rem, 15vw, 14rem);
+  height: auto;
+  margin-bottom: 1.45rem;
+  opacity: .96;
+}
+.footer__brand>p:last-child {
+  max-width: 300px;
+  color: rgba(255,255,255,.58);
+  line-height: 1.65;
+}
+.footer__wordmark { display: none; }
+
 @media (max-width: 1100px) {
   .brand { width: 11.25rem; }
   .desktop-nav { margin-right: 1.25rem; }
@@ -271,4 +285,5 @@
     height: 2.5rem;
   }
   .image-note { right: -1rem; }
+  .footer__logo { width: 11.25rem; }
 }
