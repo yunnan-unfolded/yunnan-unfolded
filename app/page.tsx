@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <section className="hero" aria-labelledby="hero-title">
         <Header />
-        <Image className="hero__image" src="https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400" alt="Snow-covered mountain peaks in Yunnan" width={2400} height={1600} priority />
+        <Image className="hero__image" src="https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400" alt="Temporary mountain landscape placeholder for the Yunnan Unfolded homepage" width={2400} height={1600} priority />
         <div className="hero__veil" />
         <div className="hero__content shell reveal">
           <p className="eyebrow eyebrow--light">Travel · Hiking · Culture · Photography</p>
@@ -18,7 +18,7 @@ export default function Home() {
           <p className="hero__lede">Thoughtful journeys into the mountains, cultures and quieter corners of southwest China.</p>
           <div className="hero__actions"><Link className="button button--ivory" href="/journeys">Explore journeys</Link><ArrowLink href="/plan-my-trip" light>Plan my trip</ArrowLink></div>
         </div>
-        <span className="hero__place">Diqing, northwest Yunnan</span>
+        <span className="hero__place">Image placeholder · final Diqing photograph pending</span>
         <a className="hero__scroll" href="#introduction" aria-label="Scroll to introduction"><span /></a>
       </section>
 
@@ -45,12 +45,12 @@ export default function Home() {
       </section>
 
       <section className="walk section" aria-labelledby="walk-title">
-        <div className="walk__image-panel"><Image src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="A narrow trail leading through misty mountains" width={1600} height={1800}/><span className="walk__caption">Paths into the high country</span></div>
+        <div className="walk__image-panel"><Image src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="Temporary mountain trail placeholder for the Walk Yunnan section" width={1600} height={1800}/><span className="walk__caption">Image placeholder · Yunnan trail photography pending</span></div>
         <div className="walk__content"><p className="eyebrow eyebrow--gold">Walk Yunnan</p><h2 id="walk-title">Some places are best understood <em>on foot.</em></h2><p>Walk beyond the road into high valleys, alpine forests and villages reached at a human pace. From Yubeng and Haba to lesser-known trails, these journeys leave space for the land to lead.</p><ul aria-label="Featured walking regions"><li>Yubeng</li><li>Haba & Black Lake</li><li>Tiger Leaping Gorge</li></ul><ArrowLink href="/walk-yunnan" light>Walk Yunnan</ArrowLink></div>
       </section>
 
       <section className="local section shell" aria-labelledby="local-title">
-        <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="A hiker standing in a mountain landscape" width={1000} height={1250}/><span className="image-note">Portrait placeholder · Chloe in the field</span></div>
+        <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Temporary founder portrait placeholder to be replaced with Chloe in Yunnan" width={1000} height={1250}/><span className="image-note">Portrait placeholder · Chloe in the field</span></div>
         <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A journey shaped from the inside.</h2><p className="local__lead">Yunnan Unfolded grows from Chloe’s firsthand knowledge of the province—and a lasting curiosity for the paths, people and stories found between the well-known places.</p><p>She is a local travel professional and passionate hiker who knows both classic Yunnan and its quieter routes. Her approach is simple: listen closely, travel thoughtfully and let each place set the pace.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
       </section>
 
