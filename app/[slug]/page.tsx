@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!page) return {};
 
   return {
-    title: `${page.title} | Yunnan Unfolded`,
+    title: page.title,
     description: page.description,
     alternates: { canonical: `/${slug}` },
     openGraph: {
