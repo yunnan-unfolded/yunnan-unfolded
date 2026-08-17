@@ -238,6 +238,14 @@
     max-width: calc(100% - 4.6rem);
   }
   .brand__logo { width: 100%; height: auto; }
+  .mobile-menu {
+    visibility: hidden;
+    transition: opacity .3s, transform .3s, visibility 0s linear .3s;
+  }
+  .mobile-menu--open {
+    visibility: visible;
+    transition-delay: 0s;
+  }
   .hero {
     min-height: 820px;
     align-items: flex-end;
