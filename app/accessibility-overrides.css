@@ -1,3 +1,22 @@
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.header a:focus-visible,
+.hero a:focus-visible,
+.walk a:focus-visible,
+.planning a:focus-visible,
+.footer a:focus-visible,
+.mobile-menu a:focus-visible {
+  outline-color: #f1dfb7;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
