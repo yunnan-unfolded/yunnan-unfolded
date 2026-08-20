@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules/
 /.pnpm-store/
 /.pnp
 .pnp.*
@@ -33,11 +34,13 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+**/.dev.vars*
 
 # vercel
 .vercel
 
 /dist/
 /.wrangler/
+**/.wrangler/
 /outputs/
 /work/

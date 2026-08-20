@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { submitEnquiry } from "../lib/enquiryClient";
 
 const interests = [
   "Mountains & scenery",
@@ -43,41 +44,29 @@ export function QuickInquiryForm() {
     setSubmitError(null);
 
     try {
-      const response = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          contact: "",
-          origin: "",
-          timing,
-          exactStart: "",
-          exactEnd: "",
-          length: "",
-          party: "",
-          travellerCount: "",
-          interests: selectedInterests,
-          pace: "",
-          walking: "",
-          accommodation: "",
-          places: "",
-          budget: "",
-          notes: "",
-          company: "",
-          startedAt,
-        }),
+      const result = await submitEnquiry({
+        source: "homepage",
+        name,
+        email,
+        contact: "",
+        origin: "",
+        timing,
+        exactStart: "",
+        exactEnd: "",
+        length: "",
+        party: "",
+        travellerCount: "",
+        interests: selectedInterests,
+        pace: "",
+        walking: "",
+        accommodation: "",
+        places: "",
+        budget: "",
+        notes: "",
+        company: String(data.get("company") ?? ""),
+        startedAt,
       });
-      const result = await response.json().catch(() => ({})) as { code?: string; message?: string };
-      if (!response.ok) {
-        const fallbackErrors: Record<string, string> = {
-          INVALID_FORM: "Please review the form and complete the required details.",
-          SERVICE_NOT_CONFIGURED: "Our online enquiry service isn’t configured yet. Please try again later.",
-          RESEND_REJECTED: "Our email service declined this request. Please review your details or try again shortly.",
-          RESEND_UNAVAILABLE: "The server can’t connect to our email service right now. Please try again shortly.",
-        };
-        throw new Error(result.message || fallbackErrors[result.code ?? ""] || "We couldn’t send your trip idea just now. Please try again.");
-      }
+      if (!result.ok) throw new Error(result.message);
       setSubmitted(true);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "We couldn’t send your trip idea just now. Please try again.");
@@ -110,6 +99,11 @@ export function QuickInquiryForm() {
         <legend>What would you love to experience?</legend>
         <div>{interests.map((interest) => <label key={interest}><input type="checkbox" name="interests" value={interest} /><span>{interest}</span></label>)}</div>
       </fieldset>
+
+      <label className="quick-form__honeypot" aria-hidden="true">
+        Company
+        <input name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </label>
 
       <button className="button button--gold quick-form__submit" type="submit" disabled={submitting || submitted} aria-busy={submitting}>
         {submitting ? "Sending your trip idea…" : submitted ? "Trip idea sent" : "Send my trip idea"} <span>↗</span>

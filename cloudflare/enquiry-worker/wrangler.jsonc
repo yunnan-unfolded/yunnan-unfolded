@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "yunnan-unfolded-enquiries",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-20",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "secrets": {
+    "required": ["RESEND_API_KEY"]
+  },
+  "vars": {
+    "RESEND_FROM_EMAIL": "Yunnan Unfolded <enquiries@yunnanunfolded.com>",
+    "INQUIRY_TO_EMAIL": "hello@yunnanunfolded.com",
+    "ALLOWED_ORIGINS": "https://yunnan-unfolded.github.io,https://yunnanunfolded.com,https://www.yunnanunfolded.com,http://localhost:3000,http://127.0.0.1:3000,http://192.168.3.10:3000"
+  }
+}

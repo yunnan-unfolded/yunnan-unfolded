@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChangeEvent, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import styles from "../plan-my-trip/plan-my-trip.module.css";
+import { submitEnquiry } from "../lib/enquiryClient";
 
 const timingOptions = [
   "I have exact dates",
@@ -78,18 +79,6 @@ type FormState = {
   notes: string;
   company: string;
   startedAt: number;
-};
-
-type EnquiryResult = {
-  code?: string;
-  message?: string;
-};
-
-const fallbackErrors: Record<string, string> = {
-  INVALID_FORM: "Please review the form and complete the required details.",
-  SERVICE_NOT_CONFIGURED: "Our online enquiry service isn’t configured yet. Please try again later.",
-  RESEND_REJECTED: "Our email service declined this request. Please review your details or try again shortly.",
-  RESEND_UNAVAILABLE: "The server can’t connect to our email service right now. Please try again shortly.",
 };
 
 const initialState: FormState = {
@@ -237,15 +226,8 @@ export function TripPlannerForm() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const response = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json().catch(() => ({})) as EnquiryResult;
-      if (!response.ok) {
-        throw new Error(result.message || fallbackErrors[result.code ?? ""] || "We couldn’t send your enquiry just now. Please try again.");
-      }
+      const result = await submitEnquiry({ source: "detailed", ...formData });
+      if (!result.ok) throw new Error(result.message);
       setSubmitted(true);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "We couldn’t send your enquiry just now. Please try again.");

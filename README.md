@@ -10,9 +10,9 @@ Phase 1 of the official website for Yunnan Unfolded: a boutique, locally rooted 
 - Structured local content ready for a future Sanity migration
 - Placeholder routes for Journeys, Walk Yunnan, Travel Guides and About
 - Responsive detailed trip planner and homepage quick enquiry
-- Server-side enquiry delivery through Resend
+- Enquiry delivery through a dedicated Cloudflare Worker and Resend
 - SEO metadata, `robots.txt` and sitemap foundations
-- Cloudflare Sites-ready build configuration
+- GitHub Pages static build configuration
 
 Booking, payments, Sanity and analytics are intentionally deferred.
 
@@ -27,7 +27,7 @@ npm run dev
 
 Open the local URL printed by the development server.
 
-Enquiry delivery requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL` and `INQUIRY_TO_EMAIL` in the local environment. Configure the same three variables separately in the production hosting platform; do not commit `.env.local`.
+The two enquiry forms send to the public Worker endpoint configured as `NEXT_PUBLIC_ENQUIRY_API_URL`. The Worker and its deployment instructions live in `cloudflare/enquiry-worker`; Resend credentials remain in Cloudflare and are never included in the static site.
 
 ## Production checks
 

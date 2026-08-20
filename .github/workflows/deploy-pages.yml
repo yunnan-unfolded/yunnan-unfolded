@@ -43,6 +43,7 @@ jobs:
         run: pnpm build
         env:
           PAGES_BUILD: "1"
+          NEXT_PUBLIC_ENQUIRY_API_URL: ${{ vars.NEXT_PUBLIC_ENQUIRY_API_URL }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

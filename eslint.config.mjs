@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     "dist/**",
     "out/**",
     "build/**",
+    "cloudflare/enquiry-worker/worker-configuration.d.ts",
     "next-env.d.ts",
   ]),
   eslint.configs.recommended,

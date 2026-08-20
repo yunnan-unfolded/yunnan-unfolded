@@ -39,5 +39,11 @@ jobs:
       - name: Type check
         run: pnpm exec tsc --noEmit
 
+      - name: Worker type check
+        run: pnpm exec tsc -p cloudflare/enquiry-worker/tsconfig.json
+
+      - name: Worker contract tests
+        run: node --experimental-strip-types cloudflare/enquiry-worker/test/contract.test.mjs
+
       - name: Production build
         run: pnpm build
