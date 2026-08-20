@@ -5,18 +5,19 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { PlanTripFaq, PlannerJumpLink } from "../components/PlanTripInteractions";
 import { TripPlannerForm } from "../components/TripPlannerForm";
+import { absolutePageUrl, assetPath } from "../lib/sitePaths";
 import styles from "./plan-my-trip.module.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Plan a Private Yunnan Journey | Yunnan Unfolded" },
   description:
     "Tell our Kunming-based team how you’d like to experience Yunnan. Receive thoughtful, locally informed journey ideas and a personal reply within 24 hours.",
-  alternates: { canonical: "/plan-my-trip" },
+  alternates: { canonical: absolutePageUrl("/plan-my-trip") },
   openGraph: {
     title: "Plan a Private Yunnan Journey | Yunnan Unfolded",
     description:
       "Tell our Kunming-based team how you’d like to experience Yunnan. Receive thoughtful, locally informed journey ideas and a personal reply within 24 hours.",
-    url: "/plan-my-trip",
+    url: absolutePageUrl("/plan-my-trip"),
   },
   twitter: {
     title: "Plan a Private Yunnan Journey | Yunnan Unfolded",
@@ -96,7 +97,7 @@ export default function PlanMyTripPage() {
         <div className={styles.story}>
           <Image
             className={styles.storyImage}
-            src="/images/hero/laoyao-mountain.jpg"
+            src={assetPath("/images/hero/laoyao-mountain.jpg")}
             alt="Clouds moving across mountain meadows at Laoyao Mountain in Yunnan"
             fill
             priority
@@ -183,7 +184,7 @@ export default function PlanMyTripPage() {
         <div className={`${styles.sectionShell} ${styles.localGrid}`}>
           <div className={styles.localVisual}>
             <Image
-              src="/images/hero/jiuzihai-aerial.jpg"
+              src={assetPath("/images/hero/jiuzihai-aerial.jpg")}
               alt="A high mountain lake surrounded by green slopes in Yunnan"
               width={1080}
               height={1731}
@@ -231,7 +232,7 @@ export default function PlanMyTripPage() {
       <section className={styles.finalCta} aria-labelledby="final-cta-title">
         <Image
           className={styles.finalCtaImage}
-          src="/images/hero/jiuzihai-panorama.jpg"
+          src={assetPath("/images/hero/jiuzihai-panorama.jpg")}
           alt=""
           fill
           sizes="100vw"

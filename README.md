@@ -32,10 +32,22 @@ The two enquiry forms send to the public Worker endpoint configured as `NEXT_PUB
 ## Production checks
 
 ```bash
-npm run build
-npm run lint
-npm test
+pnpm typecheck
+pnpm lint
+pnpm build:pages:project
+pnpm verify:pages:project
+pnpm build:pages:domain
+pnpm verify:pages:domain
 ```
+
+## Static deployment modes
+
+The static site has two explicit build targets:
+
+- `github-project` keeps the current `/yunnan-unfolded` base path for the existing GitHub Pages project URL.
+- `custom-domain` exports the same site at the root path for `https://yunnanunfolded.com`.
+
+`scripts/build-site.mjs` selects the target through `SITE_DEPLOYMENT_MODE`. `next.config.ts` then injects the matching public base path and origin for shared asset and SEO helpers. The production Pages workflow continues to build `github-project` until the custom-domain cutover is explicitly authorized.
 
 ## Content and assets
 

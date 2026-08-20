@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "../lib/sitePaths";
 
 function InstagramIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.4" cy="6.7" r="1" className="social-icon__dot" /></svg>;
@@ -14,7 +15,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer__top shell">
         <div className="footer__brand">
-          <Image className="footer__logo" src="/brand/logo-wordmark-light.svg" alt="Yunnan Unfolded" width={430} height={190} />
+          <Image className="footer__logo" src={assetPath("/brand/logo-wordmark-light.svg")} alt="Yunnan Unfolded" width={430} height={190} />
           <p>Thoughtful, locally rooted journeys through Yunnan, China.</p>
           <div className="footer__socials" aria-label="Social media">
             <span className="footer__social-link footer__social-link--pending" aria-label="Instagram link coming soon" title="Instagram link coming soon"><InstagramIcon /><span>Instagram</span></span>

@@ -1,11 +1,17 @@
+import { absolutePageUrl } from "../lib/sitePaths";
+
+const homeUrl = absolutePageUrl("/");
+const organizationId = `${homeUrl}#organization`;
+const websiteId = `${homeUrl}#website`;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://yunnanunfolded.com/#organization",
+      "@id": organizationId,
       name: "Yunnan Unfolded",
-      url: "https://yunnanunfolded.com",
+      url: homeUrl,
       description:
         "Boutique, locally rooted journeys through the mountains, cultures and hidden corners of Yunnan, China.",
       founder: {
@@ -19,11 +25,11 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://yunnanunfolded.com/#website",
-      url: "https://yunnanunfolded.com",
+      "@id": websiteId,
+      url: homeUrl,
       name: "Yunnan Unfolded",
       publisher: {
-        "@id": "https://yunnanunfolded.com/#organization",
+        "@id": organizationId,
       },
       inLanguage: "en",
     },

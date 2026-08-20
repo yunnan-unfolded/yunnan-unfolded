@@ -40,10 +40,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static site
-        run: pnpm build
+        run: pnpm build:pages:project
         env:
-          PAGES_BUILD: "1"
           NEXT_PUBLIC_ENQUIRY_API_URL: ${{ vars.NEXT_PUBLIC_ENQUIRY_API_URL }}
+
+      - name: Verify project-path export
+        run: pnpm verify:pages:project
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
