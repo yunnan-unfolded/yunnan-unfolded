@@ -24,11 +24,6 @@ const pages: Record<string, { title: string; copy: string; description: string }
     copy: "The story of Yunnan Unfolded, our local perspective and Chloe’s approach to thoughtful travel will be shared here.",
     description: "Meet Yunnan Unfolded and discover the local perspective behind our thoughtful, tailor-made journeys through Yunnan.",
   },
-  "plan-my-trip": {
-    title: "Plan My Trip",
-    copy: "A considered two-step inquiry experience will be created in Phase 2. For now, begin the conversation by email.",
-    description: "Start planning a tailor-made Yunnan journey shaped around your time, interests, travel style and sense of discovery.",
-  },
 };
 
 export function generateStaticParams() {
@@ -68,11 +63,7 @@ export default async function PlaceholderPage({ params }: { params: Promise<{ sl
         <p className="eyebrow">Yunnan Unfolded</p>
         <h1>{page.title}</h1>
         <p>{page.copy}</p>
-        {slug === "plan-my-trip" ? (
-          <ArrowLink href="mailto:hello@yunnanunfolded.com">Email Chloe</ArrowLink>
-        ) : (
-          <ArrowLink href="/">Return home</ArrowLink>
-        )}
+        <ArrowLink href="/">Return home</ArrowLink>
       </div>
     </main>
   );

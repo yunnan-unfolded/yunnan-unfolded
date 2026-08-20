@@ -1,0 +1,88 @@
+import Image from "next/image";
+
+const slides = [
+  {
+    desktopSrc: "/images/hero/jiuzihai-panorama.jpg",
+    mobileSrc: "/images/hero/jiuzihai-aerial.jpg",
+    alt: "Alpine lakes and a lone hiker at Jiuzihai in Yunnan",
+    place: "Jiuzihai · Yunnan",
+  },
+  {
+    desktopSrc: "/images/hero/laoyao-mountain.jpg",
+    alt: "Clouds drifting over the mountain meadows of Laoyao Mountain in Yunnan",
+    place: "Laoyao Mountain · Yunnan",
+  },
+  {
+    desktopSrc:
+      "https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400",
+    alt: "Snow-covered mountain peaks in Diqing, northwest Yunnan",
+    place: "Diqing · Northwest Yunnan",
+  },
+];
+
+export function HeroSlideshow() {
+  return (
+    <>
+      <div className="hero__slideshow" aria-hidden="true">
+        {slides.map((slide, index) => (
+          <div
+            className={`hero__slide hero__slide--${index + 1}`}
+            key={slide.desktopSrc}
+          >
+            <Image
+              className={`hero__image${slide.mobileSrc ? " hero__image--desktop" : ""}`}
+              src={slide.desktopSrc}
+              alt=""
+              fill
+              sizes="100vw"
+              priority={index === 0}
+            />
+            {slide.mobileSrc ? (
+              <Image
+                className="hero__image hero__image--mobile"
+                src={slide.mobileSrc}
+                alt=""
+                fill
+                sizes="100vw"
+                priority={index === 0}
+              />
+            ) : null}
+          </div>
+        ))}
+      </div>
+
+      <div
+        className="hero__carousel-controls"
+        aria-hidden="true"
+      >
+        <span className="hero__counter" aria-hidden="true">
+          01
+          <span />
+          {String(slides.length).padStart(2, "0")}
+        </span>
+        <div className="hero__dots">
+          {slides.map((slide, index) => (
+            <span
+              className={`hero__dot hero__dot--${index + 1}`}
+              key={slide.place}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="hero__places" aria-hidden="true">
+        {slides.map((slide, index) => (
+          <span
+            className={`hero__place hero__place--${index + 1}`}
+            key={slide.place}
+          >
+            {slide.place}
+          </span>
+        ))}
+      </div>
+      <span className="sr-only">
+        Rotating Yunnan photography: {slides.map((slide) => slide.alt).join("; ")}
+      </span>
+    </>
+  );
+}

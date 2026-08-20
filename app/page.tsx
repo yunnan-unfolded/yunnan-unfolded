@@ -1,7 +1,9 @@
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { ArrowLink } from "./components/ArrowLink";
-import { guides, journeys } from "./data/siteContent";
+import { QuickInquiryForm } from "./components/QuickInquiryForm";
+import { HeroSlideshow } from "./components/HeroSlideshow";
+import { guides, journeys, walkingRoutes } from "./data/siteContent";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,28 +12,50 @@ export default function Home() {
     <main>
       <section className="hero" aria-labelledby="hero-title">
         <Header />
-        <Image className="hero__image" src="https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400" alt="Temporary mountain landscape placeholder for the Yunnan Unfolded homepage" width={2400} height={1600} priority />
+        <HeroSlideshow />
         <div className="hero__veil" />
         <div className="hero__content shell reveal">
-          <p className="eyebrow eyebrow--light">Travel · Hiking · Culture · Photography</p>
-          <h1 id="hero-title"><span>Yunnan,</span><br /><span className="hero__title-second">Unfolded.</span></h1>
-          <p className="hero__lede">Thoughtful journeys into the mountains, cultures and quieter corners of southwest China.</p>
-          <div className="hero__actions"><Link className="button button--ivory" href="/journeys">Explore journeys</Link><ArrowLink href="/plan-my-trip" light>Plan my trip</ArrowLink></div>
+          <p className="eyebrow eyebrow--light">Southwest China, seen slowly</p>
+          <h1 id="hero-title">Yunnan is our home.<br />Let us show you a side of it most travelers never see.</h1>
+          <div className="hero__actions">
+            <Link className="button button--ivory" href="/journeys">Explore journeys</Link>
+            <ArrowLink href="/plan-my-trip" light>Plan my trip</ArrowLink>
+          </div>
         </div>
-        <span className="hero__place">Image placeholder · final Diqing photograph pending</span>
         <a className="hero__scroll" href="#introduction" aria-label="Scroll to introduction"><span /></a>
       </section>
 
-      <section className="intro section shell" id="introduction">
-        <div className="intro__marker"><span>01</span><span>Born in Yunnan</span></div>
+      <section className="intro section" id="introduction">
+        <div className="intro__visual">
+          <div className="intro__image-wrap">
+            <Image className="intro__image" src="https://images.pexels.com/photos/2832039/pexels-photo-2832039.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Green rice terraces unfolding across the hills of Yunnan" width={1120} height={1400} />
+            <span className="intro__caption">Southern Yunnan · China</span>
+          </div>
+        </div>
         <div className="intro__copy">
           <p className="eyebrow">Look beyond the familiar</p>
-          <h2>There is another side<br />of Yunnan.</h2>
+          <h2 aria-label="There is another side of Yunnan.">
+            <span className="intro__title-desktop" aria-hidden="true"><span>There is another side</span><span>of Yunnan.</span></span>
+            <span className="intro__title-mobile" aria-hidden="true"><span>There is another</span><span>side of Yunnan.</span></span>
+          </h2>
           <div className="intro__body">
             <p>Beyond the familiar routes are mountain trails, old villages, family kitchens, tea forests and landscapes that reveal themselves slowly.</p>
             <p>We create thoughtful journeys for travelers who want to experience Yunnan more deeply—with local knowledge, unhurried pacing and room for discovery.</p>
           </div>
         </div>
+      </section>
+
+      <section className="quick-inquiry" aria-labelledby="quick-inquiry-title">
+        <div className="quick-inquiry__story">
+          <Image src="https://images.pexels.com/photos/6513729/pexels-photo-6513729.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Mountain country and open fields in Yunnan" width={1800} height={1500} />
+          <div className="quick-inquiry__veil" />
+          <div className="quick-inquiry__story-copy">
+            <small>Personal journeys · locally shaped</small>
+            <p>Tell us what draws you to Yunnan.</p>
+            <span>Share a few details. We’ll respond personally with ideas shaped around your time and interests.</span>
+          </div>
+        </div>
+        <div className="quick-inquiry__panel"><QuickInquiryForm /></div>
       </section>
 
       <section className="journeys section" aria-labelledby="journeys-title">
@@ -44,9 +68,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="walk section" aria-labelledby="walk-title">
-        <div className="walk__image-panel"><Image src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="Temporary mountain trail placeholder for the Walk Yunnan section" width={1600} height={1800}/><span className="walk__caption">Image placeholder · Yunnan trail photography pending</span></div>
-        <div className="walk__content"><p className="eyebrow eyebrow--gold">Walk Yunnan</p><h2 id="walk-title">Some places are best understood <em>on foot.</em></h2><p>Walk beyond the road into high valleys, alpine forests and villages reached at a human pace. From Yubeng and Haba to lesser-known trails, these journeys leave space for the land to lead.</p><ul aria-label="Featured walking regions"><li>Yubeng</li><li>Haba & Black Lake</li><li>Tiger Leaping Gorge</li></ul><ArrowLink href="/walk-yunnan" light>Walk Yunnan</ArrowLink></div>
+      <section className="walk" aria-labelledby="walk-title">
+        <div className="walk__hero">
+          <Image className="walk__hero-image" src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=2200" alt="A narrow trail leading through misty mountains" width={2200} height={1500} />
+          <div className="walk__hero-veil" />
+          <div className="walk__hero-content shell">
+            <p className="eyebrow eyebrow--gold">Walk Yunnan</p>
+            <h2 id="walk-title">Explore Yunnan<br />on foot</h2>
+            <p>Walk beyond the road into high valleys, alpine forests and villages reached at a human pace.</p>
+          </div>
+        </div>
+        <div className="walk__directory">
+          <div className="shell">
+            <div className="walk__directory-heading">
+              <div><p className="eyebrow">Selected walking journeys</p><h3>Routes shaped by the land</h3></div>
+              <p>These are just a few ways to experience Yunnan on foot. Every journey can be adapted to your pace, interests and time.</p>
+            </div>
+            <div className="walk__route-list">
+              {walkingRoutes.map((route, index) => (
+                <article className="walk-route" key={route.title}>
+                  <span className="walk-route__number">0{index + 1}</span>
+                  <div className="walk-route__copy">
+                    <p className="walk-route__region">{route.region}</p>
+                    <h4><Link href="/walk-yunnan">{route.title}</Link></h4>
+                    <p>{route.description}</p>
+                  </div>
+                  <dl className="walk-route__meta">
+                    <div><dt>Duration</dt><dd>{route.duration}</dd></div>
+                    <div><dt>Difficulty</dt><dd>{route.difficulty}</dd></div>
+                  </dl>
+                  <Link className="walk-route__image-wrap" href="/walk-yunnan" aria-label={`Explore ${route.title}`}>
+                    <Image src={route.image} alt={route.alt} width={720} height={480} />
+                  </Link>
+                </article>
+              ))}
+            </div>
+            <div className="walk__actions">
+              <ArrowLink href="/walk-yunnan">Explore all walking journeys</ArrowLink>
+              <Link className="button button--gold" href="/plan-my-trip">Plan a walking trip</Link>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="local section shell" aria-labelledby="local-title">

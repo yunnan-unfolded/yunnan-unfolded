@@ -8,11 +8,13 @@ Phase 1 of the official website for Yunnan Unfolded: a boutique, locally rooted 
 - Accessible desktop and mobile navigation
 - Reusable footer, links, buttons and content cards
 - Structured local content ready for a future Sanity migration
-- Placeholder routes for Journeys, Walk Yunnan, Travel Guides, About and Plan My Trip
+- Placeholder routes for Journeys, Walk Yunnan, Travel Guides and About
+- Responsive detailed trip planner and homepage quick enquiry
+- Server-side enquiry delivery through Resend
 - SEO metadata, `robots.txt` and sitemap foundations
 - Cloudflare Sites-ready build configuration
 
-Booking, payments, inquiry form processing, Sanity, tawk.to, analytics and email integrations are intentionally deferred.
+Booking, payments, Sanity and analytics are intentionally deferred.
 
 ## Local development
 
@@ -24,6 +26,8 @@ npm run dev
 ```
 
 Open the local URL printed by the development server.
+
+Enquiry delivery requires `RESEND_API_KEY`, `RESEND_FROM_EMAIL` and `INQUIRY_TO_EMAIL` in the local environment. Configure the same three variables separately in the production hosting platform; do not commit `.env.local`.
 
 ## Production checks
 

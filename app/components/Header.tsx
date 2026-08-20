@@ -32,14 +32,7 @@ export function Header() {
   return (
     <header className="header shell">
       <Link className="brand" href="/" aria-label="Yunnan Unfolded home">
-        <Image
-          src="/brand/logo-horizontal-light.svg"
-          alt="Yunnan Unfolded"
-          width={700}
-          height={190}
-          priority
-          className="brand__logo"
-        />
+        <Image className="brand__logo" src="/brand/logo-horizontal-light.svg" alt="" width={700} height={190} priority />
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}

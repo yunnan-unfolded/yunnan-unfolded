@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: { type: "website", locale: "en_US", siteName: "Yunnan Unfolded", title: "Yunnan, unfolded.", description: "Travel deeper into the mountains, cultures and hidden corners of southwest China.", url: "/" },
   twitter: { card: "summary_large_image", title: "Yunnan, unfolded.", description: "Thoughtful, locally rooted journeys through Yunnan, China." },
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: { icon: "/brand/logo-mark.svg", shortcut: "/brand/logo-mark.svg" },
 };
 
 const tawkPropertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
