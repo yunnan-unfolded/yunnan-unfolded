@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "../lib/sitePaths";
 
 const nav = [
   ["Journeys", "/journeys"],
@@ -32,7 +33,7 @@ export function Header() {
   return (
     <header className="header shell">
       <Link className="brand" href="/" aria-label="Yunnan Unfolded home">
-        <Image className="brand__logo" src="/brand/logo-horizontal-light.svg" alt="" width={700} height={190} priority />
+        <Image className="brand__logo" src={assetPath("/brand/logo-horizontal-light.svg")} alt="" width={700} height={190} priority />
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}

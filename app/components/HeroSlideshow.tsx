@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "../lib/sitePaths";
 
 const slides = [
   {
@@ -31,7 +32,7 @@ export function HeroSlideshow() {
           >
             <Image
               className={`hero__image${slide.mobileSrc ? " hero__image--desktop" : ""}`}
-              src={slide.desktopSrc}
+              src={assetPath(slide.desktopSrc)}
               alt=""
               fill
               sizes="100vw"
@@ -40,7 +41,7 @@ export function HeroSlideshow() {
             {slide.mobileSrc ? (
               <Image
                 className="hero__image hero__image--mobile"
-                src={slide.mobileSrc}
+                src={assetPath(slide.mobileSrc)}
                 alt=""
                 fill
                 sizes="100vw"

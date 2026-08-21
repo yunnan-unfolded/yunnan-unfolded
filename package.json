@@ -8,9 +8,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages:project": "node scripts/build-site.mjs github-project",
+    "build:pages:domain": "node scripts/build-site.mjs custom-domain",
     "start": "next start",
     "test": "next build",
-    "lint": "eslint . --ignore-pattern .next"
+    "typecheck": "tsc --noEmit",
+    "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
+    "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
+    "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern artifacts"
   },
   "dependencies": {
     "next": "16.2.6",

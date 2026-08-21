@@ -5,6 +5,7 @@ import "./globals.css";
 import "./brand-overrides.css";
 import "./accessibility-overrides.css";
 import { StructuredData } from "./components/StructuredData";
+import { absoluteAssetUrl, absolutePageUrl, assetPath, publicSiteOrigin } from "./lib/sitePaths";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -13,14 +14,35 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yunnanunfolded.com"),
+  metadataBase: new URL(publicSiteOrigin),
   title: { default: "Yunnan Unfolded | Thoughtful Journeys Through Yunnan", template: "%s | Yunnan Unfolded" },
   description: "Boutique, locally rooted journeys through the mountains, cultures and hidden corners of Yunnan, China.",
   applicationName: "Yunnan Unfolded",
-  alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "en_US", siteName: "Yunnan Unfolded", title: "Yunnan, unfolded.", description: "Travel deeper into the mountains, cultures and hidden corners of southwest China.", url: "/" },
-  twitter: { card: "summary_large_image", title: "Yunnan, unfolded.", description: "Thoughtful, locally rooted journeys through Yunnan, China." },
-  icons: { icon: "/brand/logo-mark.svg", shortcut: "/brand/logo-mark.svg" },
+  alternates: { canonical: absolutePageUrl("/") },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Yunnan Unfolded",
+    title: "Yunnan, unfolded.",
+    description: "Travel deeper into the mountains, cultures and hidden corners of southwest China.",
+    url: absolutePageUrl("/"),
+    images: [{
+      url: absoluteAssetUrl("/images/hero/jiuzihai-panorama.jpg"),
+      width: 1922,
+      height: 1080,
+      alt: "Alpine lakes and a lone hiker at Jiuzihai in Yunnan",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Yunnan, unfolded.",
+    description: "Thoughtful, locally rooted journeys through Yunnan, China.",
+    images: [absoluteAssetUrl("/images/hero/jiuzihai-panorama.jpg")],
+  },
+  icons: {
+    icon: assetPath("/brand/logo-mark.svg"),
+    shortcut: assetPath("/brand/logo-mark.svg"),
+  },
 };
 
 const tawkPropertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;

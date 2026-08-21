@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { absoluteAssetUrl } from "./lib/sitePaths";
 
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://yunnanunfolded.com/sitemap.xml",
+    sitemap: absoluteAssetUrl("/sitemap.xml"),
   };
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLink } from "../components/ArrowLink";
 import { Header } from "../components/Header";
+import { absolutePageUrl } from "../lib/sitePaths";
 
 const pages: Record<string, { title: string; copy: string; description: string }> = {
   journeys: {
@@ -39,11 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.title,
     description: page.description,
-    alternates: { canonical: `/${slug}` },
+    alternates: { canonical: absolutePageUrl(`/${slug}`) },
     openGraph: {
       title: `${page.title} | Yunnan Unfolded`,
       description: page.description,
-      url: `/${slug}`,
+      url: absolutePageUrl(`/${slug}`),
       siteName: "Yunnan Unfolded",
       type: "website",
     },
