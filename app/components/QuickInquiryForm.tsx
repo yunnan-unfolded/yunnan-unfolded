@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { submitEnquiry } from "../lib/enquiryClient";
+import { EnquirySuccess } from "./EnquirySuccess";
 
 const interests = [
   "Mountains & scenery",
@@ -23,11 +24,22 @@ export function QuickInquiryForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [startedAt] = useState(() => Date.now());
+  const [startedAt, setStartedAt] = useState(() => Date.now());
+  const [formVersion, setFormVersion] = useState(0);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const submittingRef = useRef(false);
+  const focusAfterResetRef = useRef(false);
+
+  useEffect(() => {
+    if (!submitted && focusAfterResetRef.current) {
+      focusAfterResetRef.current = false;
+      nameInputRef.current?.focus({ preventScroll: true });
+    }
+  }, [formVersion, submitted]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (submitting) return;
+    if (submittingRef.current || submitted) return;
 
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
@@ -40,6 +52,7 @@ export function QuickInquiryForm() {
       return;
     }
 
+    submittingRef.current = true;
     setSubmitting(true);
     setSubmitError(null);
 
@@ -71,12 +84,27 @@ export function QuickInquiryForm() {
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "We couldn’t send your trip idea just now. Please try again.");
     } finally {
+      submittingRef.current = false;
       setSubmitting(false);
     }
   }
 
+  function resetForm() {
+    submittingRef.current = false;
+    focusAfterResetRef.current = true;
+    setSubmitError(null);
+    setSubmitted(false);
+    setSubmitting(false);
+    setStartedAt(Date.now());
+    setFormVersion((current) => current + 1);
+  }
+
+  if (submitted) {
+    return <EnquirySuccess resetLabel="Send another enquiry" onReset={resetForm} />;
+  }
+
   return (
-    <form className="quick-form" onSubmit={handleSubmit}>
+    <form className="quick-form" key={formVersion} onSubmit={handleSubmit}>
       <div className="quick-form__heading">
         <p className="eyebrow">A 30-second start</p>
         <h2 id="quick-inquiry-title">Start with a few details</h2>
@@ -84,14 +112,18 @@ export function QuickInquiryForm() {
       </div>
 
       <div className="quick-form__row">
-        <label><span>Your name</span><input name="name" type="text" autoComplete="name" required /></label>
+        <label><span>Your name</span><input ref={nameInputRef} name="name" type="text" autoComplete="name" required /></label>
         <label><span>Email</span><input name="email" type="email" autoComplete="email" required /></label>
       </div>
 
       <label className="quick-form__field">
         <span>When are you thinking of travelling?</span>
         <select name="timing" defaultValue="Not sure yet">
-          <option>Not sure yet</option><option>January–March</option><option>April–June</option><option>July–September</option><option>October–December</option>
+          <option value="Not sure yet">Not sure yet</option>
+          <option value="January–March">January–March</option>
+          <option value="April–June">April–June</option>
+          <option value="July–September">July–September</option>
+          <option value="October–December">October–December</option>
         </select>
       </label>
 
@@ -105,11 +137,10 @@ export function QuickInquiryForm() {
         <input name="company" type="text" tabIndex={-1} autoComplete="off" />
       </label>
 
-      <button className="button button--gold quick-form__submit" type="submit" disabled={submitting || submitted} aria-busy={submitting}>
-        {submitting ? "Sending your trip idea…" : submitted ? "Trip idea sent" : "Send my trip idea"} <span>↗</span>
+      <button className="button button--gold quick-form__submit" type="submit" disabled={submitting} aria-busy={submitting}>
+        {submitting ? "Sending your trip idea…" : "Send my trip idea"} <span>↗</span>
       </button>
-      {submitted && <p className="quick-form__status" role="status">Thank you. We’ve received your trip idea and will be in touch within 24 hours.</p>}
-      {submitError && <p className="quick-form__status" role="alert">{submitError} Your details are still here, so you can try again.</p>}
+      {submitError && <p className="quick-form__error" role="alert">{submitError} Your details are still here, so you can try again.</p>}
       <p className="quick-form__detail">Already have a detailed plan? <Link href="/plan-my-trip">Complete our full trip planner →</Link></p>
     </form>
   );

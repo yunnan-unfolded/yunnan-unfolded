@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { ChangeEvent, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import styles from "../plan-my-trip/plan-my-trip.module.css";
 import { submitEnquiry } from "../lib/enquiryClient";
+import { EnquirySuccess } from "./EnquirySuccess";
 
 const timingOptions = [
   "I have exact dates",
@@ -145,6 +145,8 @@ export function TripPlannerForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const stepTitleRef = useRef<HTMLLegendElement>(null);
   const previousStep = useRef(1);
+  const submittingRef = useRef(false);
+  const focusAfterResetRef = useRef(false);
 
   useEffect(() => {
     if (previousStep.current !== step) {
@@ -165,6 +167,13 @@ export function TripPlannerForm() {
     window.addEventListener("trip-planner:focus", focusPlanner);
     return () => window.removeEventListener("trip-planner:focus", focusPlanner);
   }, [formData.email, formData.name]);
+
+  useEffect(() => {
+    if (!submitted && step === 1 && focusAfterResetRef.current) {
+      focusAfterResetRef.current = false;
+      formRef.current?.querySelector<HTMLInputElement>('[name="name"]')?.focus({ preventScroll: true });
+    }
+  }, [step, submitted]);
 
   function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
@@ -222,7 +231,8 @@ export function TripPlannerForm() {
       continueForm();
       return;
     }
-    if (submitting) return;
+    if (submittingRef.current || submitted) return;
+    submittingRef.current = true;
     setSubmitting(true);
     setSubmitError(null);
     try {
@@ -232,19 +242,25 @@ export function TripPlannerForm() {
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "We couldn’t send your enquiry just now. Please try again.");
     } finally {
+      submittingRef.current = false;
       setSubmitting(false);
     }
   }
 
+  function resetForm() {
+    submittingRef.current = false;
+    focusAfterResetRef.current = true;
+    previousStep.current = 1;
+    setFormData({ ...initialState, startedAt: Date.now() });
+    setErrors({});
+    setSubmitError(null);
+    setSubmitting(false);
+    setStep(1);
+    setSubmitted(false);
+  }
+
   if (submitted) {
-    return (
-      <div className={styles.success} role="status">
-        <p className={styles.formEyebrow}>Enquiry received</p>
-        <h2>Thank you. Your Yunnan journey has begun.</h2>
-        <p>We’ve received your travel ideas and will be in touch within 24 hours. In the meantime, there’s nothing else you need to prepare—we’ll take it from here.</p>
-        <Link className={styles.continueButton} href="/">Return to the homepage</Link>
-      </div>
-    );
+    return <EnquirySuccess className={styles.success} resetLabel="Plan another journey" onReset={resetForm} />;
   }
 
   return (
@@ -365,9 +381,9 @@ export function TripPlannerForm() {
       <div className={styles.formActions}>
         {step > 1 ? <button className={styles.backButton} type="button" onClick={goBack} disabled={submitting}>Back</button> : <span />}
         {step < 5 ? (
-          <button className={styles.continueButton} type="button" onClick={continueForm}>Continue</button>
+          <button key="continue" className={styles.continueButton} type="button" onClick={continueForm}>Continue</button>
         ) : (
-          <button className={styles.continueButton} type="submit" disabled={submitting} aria-busy={submitting}>
+          <button key="submit" className={styles.continueButton} type="submit" disabled={submitting} aria-busy={submitting}>
             {submitting ? "Sending your ideas…" : "Send my travel ideas"}
           </button>
         )}
