@@ -62,7 +62,6 @@
 
 .story h1,
 .formHeading h2,
-.success h2,
 .section h2,
 .finalCta h2 {
   font-family: var(--font-playfair);
@@ -153,8 +152,8 @@
 
 .formHeading { margin-bottom: 1.8rem; }
 .formEyebrow { margin-bottom: 1.15rem; color: var(--gold); }
-.formHeading h2, .success h2 { margin-bottom: 1rem; color: var(--forest); font-size: clamp(2.45rem, 3.35vw, 3.5rem); line-height: 1.04; letter-spacing: -.032em; text-wrap: balance; }
-.formHeading > p:last-child, .success > p { max-width: 545px; margin-bottom: 0; color: var(--muted); font-size: .86rem; line-height: 1.68; }
+.formHeading h2 { margin-bottom: 1rem; color: var(--forest); font-size: clamp(2.45rem, 3.35vw, 3.5rem); line-height: 1.04; letter-spacing: -.032em; text-wrap: balance; }
+.formHeading > p:last-child { max-width: 545px; margin-bottom: 0; color: var(--muted); font-size: .86rem; line-height: 1.68; }
 
 .progressRow {
   margin-bottom: 1.65rem;
@@ -281,9 +280,7 @@
 .continueButton:disabled, .backButton:disabled { cursor: wait; opacity: .62; }
 .privacy { max-width: 500px; margin: .8rem 0 0; color: var(--muted); font-size: .65rem; line-height: 1.5; }
 
-.success { width: min(100%, 560px); margin: auto; padding-block: 2rem; }
-.success > p { margin-bottom: 2rem; }
-.success .continueButton { width: max-content; }
+.success { width: min(100%, 560px); margin: auto; }
 
 .trustStrip { border-top: 1px solid rgba(179, 151, 91, .28); border-bottom: 1px solid rgba(179, 151, 91, .28); background: var(--forest-dark); color: #fff; }
 .trustStripInner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(92vw, 1360px); margin-inline: auto; }
@@ -441,7 +438,7 @@
   .textLink { max-width: 100%; }
   .mobileHeroTrust span { font-size: .56rem; }
   .formPanel { padding: 3.8rem 6vw 5rem; }
-  .formHeading h2, .success h2 { font-size: clamp(2.25rem, 10vw, 2.8rem); }
+  .formHeading h2 { font-size: clamp(2.25rem, 10vw, 2.8rem); }
   .stepViewport { min-height: 0; }
   .field input { min-height: 3.25rem; }
   .twoColumns, .choiceGroup > div, .chips, .preferenceGroup > div { grid-template-columns: 1fr; }
@@ -449,7 +446,6 @@
   .formActions { align-items: stretch; }
   .continueButton { min-width: 0; flex: 1; }
   .backButton { min-width: 5.5rem; }
-  .success .continueButton { width: 100%; }
   .section { padding-block: 5.25rem; }
   .sectionShell, .finalCtaInner { width: 88vw; }
   .section h2, .finalCta h2 { font-size: clamp(2.55rem, 11.5vw, 3.45rem); }
