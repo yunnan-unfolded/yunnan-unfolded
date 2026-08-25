@@ -112,7 +112,7 @@ export default function Home() {
       </section>
 
       <section className="local section shell" aria-labelledby="local-title">
-        <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Temporary founder portrait placeholder to be replaced with Chloe in Yunnan" width={1000} height={1250}/><span className="image-note">Portrait placeholder · Chloe in the field</span></div>
+        <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Temporary founder portrait placeholder to be replaced with Chloe in Yunnan" width={1000} height={1250}/></div>
         <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A journey shaped from the inside.</h2><p className="local__lead">Yunnan Unfolded grows from Chloe’s firsthand knowledge of the province—and a lasting curiosity for the paths, people and stories found between the well-known places.</p><p>She is a local travel professional and passionate hiker who knows both classic Yunnan and its quieter routes. Her approach is simple: listen closely, travel thoughtfully and let each place set the pace.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
       </section>
 
