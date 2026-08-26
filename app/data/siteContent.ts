@@ -4,16 +4,18 @@ export type Journey = {
   description: string;
   image: string;
   alt: string;
+  href?: string;
   startingPrice?: string;
 };
 
 export const journeys: Journey[] = [
   {
-    title: "Beyond the Snow Mountains",
-    route: "Northwest Yunnan · High country",
-    description: "A journey through high valleys and remote mountain worlds, from Lijiang and Haba to the trails of Yubeng.",
-    image: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Temporary alpine lake and mountain landscape placeholder",
+    title: "Yunnan, Slowly",
+    route: "Kunming to Lijiang · 9 days",
+    description: "Ancient towns, living traditions and one memorable day in the high country, shaped at an unhurried pace.",
+    image: "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp",
+    alt: "Laoyao Mountain meadows beneath cloud-covered peaks in Yunnan",
+    href: "/journeys/yunnan-slowly",
   },
   {
     title: "The Old Roads of Yunnan",
