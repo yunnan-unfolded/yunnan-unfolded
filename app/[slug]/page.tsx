@@ -5,11 +5,6 @@ import { Header } from "../components/Header";
 import { absolutePageUrl } from "../lib/sitePaths";
 
 const pages: Record<string, { title: string; copy: string; description: string }> = {
-  journeys: {
-    title: "Journeys",
-    copy: "Our full collection of thoughtful journeys through Yunnan is taking shape. This route is ready for the next phase.",
-    description: "Explore thoughtful, locally rooted journeys through the mountains, cultures and quieter corners of Yunnan.",
-  },
   "walk-yunnan": {
     title: "Walk Yunnan",
     copy: "A collection of mountain trails, quiet paths and journeys designed to be experienced on foot is coming next.",

@@ -1,0 +1,289 @@
+.page {
+  --forest: #153a30;
+  --forest-deep: #0b2b24;
+  --paper: #f5f0e7;
+  --ivory: #fbf8f1;
+  --gold: #c8a162;
+  --ink: #24332e;
+  --muted: #66716c;
+  overflow: clip;
+  background: var(--ivory);
+  color: var(--ink);
+}
+
+.page :is(h1, h2, h3, h4, p, ul, ol, dl, figure) {
+  margin-top: 0;
+}
+
+.page figure {
+  margin: 0;
+}
+
+.page img {
+  display: block;
+  height: auto;
+  object-fit: cover;
+}
+
+.eyebrow,
+.eyebrowLight {
+  margin-bottom: .75rem;
+  color: #9a733e;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.eyebrowLight {
+  color: #e3bd7b;
+}
+
+.goldButton {
+  display: inline-flex;
+  min-height: 3.35rem;
+  align-items: center;
+  justify-content: center;
+  padding: .9rem 1.55rem;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: #122e27;
+  font-size: .68rem;
+  font-weight: 750;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.goldButton:hover {
+  background: #d6b678;
+  color: #0b2b24;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroImage {
+  object-position: var(--journey-hero-position, center);
+}
+
+.heroVeil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 25, 20, .9) 0%, rgba(5, 25, 20, .67) 46%, rgba(5, 25, 20, .14) 78%),
+    linear-gradient(0deg, rgba(5, 25, 20, .42), transparent 55%);
+}
+
+/* Journeys directory */
+.directoryHero {
+  position: relative;
+  min-height: 650px;
+  overflow: hidden;
+  background: var(--forest-deep);
+  color: #fff;
+}
+
+.directoryHero .heroVeil {
+  background: linear-gradient(90deg, rgba(5, 25, 20, .88), rgba(5, 25, 20, .25));
+}
+
+.directoryHeroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 554px;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 4rem;
+}
+
+.directoryHeroInner h1 {
+  max-width: 900px;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: .98;
+}
+
+.directoryHeroInner > p:last-child {
+  max-width: 650px;
+  color: rgba(255, 255, 255, .74);
+  line-height: 1.75;
+}
+
+.directoryIntroduction {
+  padding: clamp(5rem, 8vw, 8rem) 0;
+}
+
+.directoryIntroduction > div {
+  display: grid;
+  grid-template-columns: .45fr 1fr;
+  gap: 4rem;
+}
+
+.directoryIntroduction h2 {
+  color: var(--forest);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1.05;
+}
+
+.directoryIntroduction div > div > p {
+  max-width: 650px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.directoryList {
+  padding: 0 0 7rem;
+}
+
+.directoryCard {
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: center;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(21, 58, 48, .18);
+}
+
+.directoryCardImage {
+  position: relative;
+  overflow: hidden;
+}
+
+.directoryCardImage img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+.directoryCardImage > span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: .8rem 1rem;
+  background: var(--ivory);
+  color: var(--forest);
+}
+
+.cardMeta {
+  color: #9b7844;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.directoryCardCopy h2 {
+  margin: .75rem 0 1rem;
+  color: var(--forest);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.03;
+}
+
+.directoryCardCopy > p:not(.cardMeta) {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.editorialLink {
+  display: inline-flex;
+  margin-top: 1.5rem;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid currentColor;
+  color: var(--forest);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.directoryCta {
+  padding: 6rem 0;
+  background: var(--forest-deep);
+  color: #fff;
+}
+
+.directoryCta > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.directoryCta h2 {
+  max-width: 850px;
+  margin-bottom: 1.25rem;
+  color: #fff;
+  font-size: clamp(3rem, 5vw, 5rem);
+}
+
+.directoryCta > div > p:not(.eyebrowLight) {
+  max-width: 680px;
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.8;
+}
+
+.directoryCta .goldButton {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+
+  .directoryIntroduction > div,
+  .directoryCard {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .directoryCardCopy {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 760px) {
+
+  .heroImage {
+    object-position: var(--journey-hero-position-mobile, center);
+  }
+
+  .heroVeil {
+    background: linear-gradient(0deg, rgba(5, 25, 20, .9), rgba(5, 25, 20, .2) 88%);
+  }
+
+  .goldButton {
+    min-height: 3rem;
+    padding: .75rem 1.1rem;
+    font-size: .61rem;
+  }
+
+  .directoryHero {
+    min-height: 620px;
+  }
+
+  .directoryHeroInner h1 {
+    font-size: 3.4rem;
+  }
+
+  .directoryIntroduction,
+  .directoryCta {
+    padding: 5rem 0;
+  }
+
+  .directoryIntroduction h2,
+  .directoryCta h2 {
+    font-size: 3rem;
+  }
+
+  .directoryCardImage img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goldButton {
+    transition: none;
+  }
+}
