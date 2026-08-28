@@ -65,10 +65,7 @@ export default function Home() {
           <ArrowLink href="/journeys">View all journeys</ArrowLink>
         </div>
         <div className="journey-grid shell">
-          {journeys.map((journey,index)=>{
-            const href = journey.href ?? "/journeys";
-            return <article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href={href} className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href={href}>{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href={href}>Discover the journey</ArrowLink></div></article>;
-          })}
+          {journeys.map((journey,index)=><article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href="/journeys" className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href="/journeys">{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href="/journeys">Discover the journey</ArrowLink></div></article>)}
         </div>
       </section>
 
