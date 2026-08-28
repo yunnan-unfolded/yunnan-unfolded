@@ -82,8 +82,45 @@ export function HeroSlideshow() {
         ))}
       </div>
       <span className="sr-only">
-        Rotating Yunnan photography: {slides.map((slide) => slide.alt).join("; ")}
+        Yunnan photography: {slides.map((slide) => slide.alt).join("; ")}
       </span>
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          .hero__slide,
+          .hero__image,
+          .hero__dot,
+          .hero__place,
+          .hero__scroll span {
+            animation: none !important;
+          }
+
+          .hero__slide {
+            opacity: 0 !important;
+          }
+
+          .hero__slide--1 {
+            opacity: 1 !important;
+          }
+
+          .hero__place {
+            opacity: 0 !important;
+          }
+
+          .hero__place--1 {
+            opacity: .72 !important;
+          }
+
+          .hero__dot {
+            background: rgba(255, 255, 255, .35) !important;
+            box-shadow: none !important;
+          }
+
+          .hero__dot--1 {
+            background: white !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, .14) !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
