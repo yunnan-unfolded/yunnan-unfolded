@@ -52,7 +52,7 @@ export default function Home() {
           <div className="quick-inquiry__veil" />
           <div className="quick-inquiry__story-copy">
             <small>Personal journeys · locally shaped</small>
-            <p>Tell us what draws you to Yunnan.</p>
+            <p id="quick-inquiry-title">Tell us what draws you to Yunnan.</p>
             <span>Share a few details. We’ll respond personally with ideas shaped around your time and interests.</span>
           </div>
         </div>
