@@ -43,6 +43,11 @@ jobs:
         run: pnpm build:pages:domain
         env:
           NEXT_PUBLIC_ENQUIRY_API_URL: ${{ vars.NEXT_PUBLIC_ENQUIRY_API_URL }}
+          NEXT_PUBLIC_TINA_CLIENT_ID: ${{ vars.NEXT_PUBLIC_TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+          TINA_SEARCH_TOKEN: ${{ secrets.TINA_SEARCH_TOKEN }}
+          TINA_PUBLIC_SEARCH_ENABLED: ${{ vars.TINA_PUBLIC_SEARCH_ENABLED }}
+          TINA_BUILD_CLOUD: 'true'
 
       - name: Verify custom-domain export
         run: pnpm verify:pages:domain

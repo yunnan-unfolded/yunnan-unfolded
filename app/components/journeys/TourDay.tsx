@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import type { JourneyDay, JourneyImage } from "../../data/journeys";
+import type { JourneyDay, JourneyImage } from "../../types/journey";
 import { assetPath } from "../../lib/sitePaths";
 import styles from "./tour-product.module.css";
 
@@ -15,7 +15,7 @@ export function ProductImage({
 }) {
   const style = image.position ? ({ "--image-position": image.position } as CSSProperties) : undefined;
   return (
-    <figure className={className} style={style}>
+    <figure className={className} data-focal-point={image.focalPoint ?? "center"} data-legacy-aspect={image.legacyAspect} data-ratio={image.displayRatio ?? "landscape"} style={style}>
       <Image src={assetPath(image.src)} alt={image.alt} width={image.width} height={image.height} sizes={sizes} />
     </figure>
   );
@@ -25,10 +25,10 @@ export function BulletList({ items }: { items: string[] }) {
   return <ul className={styles.bulletList}>{items.map((item) => <li key={item}>{item}</li>)}</ul>;
 }
 
-export function TourDay({ day, imageOnLeft }: { day: JourneyDay; imageOnLeft: boolean }) {
-  const images = day.images ?? [];
+export function TourDay({ day }: { day: JourneyDay }) {
+  const images = day.mediaLayout === "text-only" ? [] : day.images ?? [];
   return (
-    <article className={styles.day} data-image-side={imageOnLeft ? "left" : "right"} id={`journey-day-${day.day}`}>
+    <article className={styles.day} data-image-size={day.imageSize} data-media-layout={day.mediaLayout} id={`journey-day-${day.day}`}>
       <header className={styles.dayHeader}>
         <div className={styles.dayNumber}>Day {day.day}</div>
         <div className={styles.dayHeading}>

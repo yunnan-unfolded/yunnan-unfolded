@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "cloudflare/enquiry-worker/worker-configuration.d.ts",
     "next-env.d.ts",
+    "public/admin/**",
+    "tina/__generated__/**",
   ]),
   eslint.configs.recommended,
   ...tseslint.configs.recommended,

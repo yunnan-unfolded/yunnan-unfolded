@@ -3,12 +3,25 @@ import { Header } from "./components/Header";
 import { ArrowLink } from "./components/ArrowLink";
 import { QuickInquiryForm } from "./components/QuickInquiryForm";
 import { HeroSlideshow } from "./components/HeroSlideshow";
-import { guides, journeys, walkingRoutes } from "./data/siteContent";
+import { guides, upcomingJourneys, walkingRoutes } from "./data/siteContent";
+import { publishedJourneys } from "./lib/journeyContent";
 import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "./lib/sitePaths";
 
 export default function Home() {
+  const journeyCards = [
+    ...publishedJourneys.map((journey) => ({
+      title: journey.collection,
+      route: `${journey.startLocation} to ${journey.endLocation} · ${journey.duration.days} days`,
+      description: journey.homepageDescription,
+      image: journey.hero.src,
+      alt: journey.homepageImageAlt,
+      href: `/journeys/${journey.slug}`,
+      startingPrice: undefined,
+    })),
+    ...upcomingJourneys,
+  ];
   return (
     <main>
       <section className="hero" aria-labelledby="hero-title">
@@ -65,7 +78,7 @@ export default function Home() {
           <ArrowLink href="/journeys">View all journeys</ArrowLink>
         </div>
         <div className="journey-grid shell">
-          {journeys.map((journey,index)=>{
+          {journeyCards.map((journey,index)=>{
             const href = journey.href ?? "/journeys";
             return <article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href={href} className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href={href}>{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href={href}>Discover the journey</ArrowLink></div></article>;
           })}

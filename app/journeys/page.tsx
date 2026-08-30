@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { publishedJourneys } from "../data/journeys";
+import { publishedJourneys } from "../lib/journeyContent";
 import { absoluteAssetUrl, absolutePageUrl, assetPath } from "../lib/sitePaths";
 import styles from "./journeys.module.css";
 
