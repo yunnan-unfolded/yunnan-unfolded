@@ -14,6 +14,26 @@ const focalPointPositions: Record<FocalPoint, string> = {
   right: "right center",
 };
 
+const tinaFileMarker = "/__file/";
+
+export function normalizeJourneyImageSrc(src: string) {
+  if (!src.startsWith("https://assets.tina.io/")) return src;
+
+  try {
+    const pathname = new URL(src).pathname;
+    const markerIndex = pathname.indexOf(tinaFileMarker);
+    if (markerIndex < 0) return src;
+
+    const relativePath = pathname.slice(markerIndex + tinaFileMarker.length);
+    const segments = relativePath.split("/").filter(Boolean);
+    if (segments.length === 0 || segments.some((segment) => segment === "." || segment === "..")) return src;
+
+    return `/images/journeys/${segments.join("/")}`;
+  } catch {
+    return src;
+  }
+}
+
 function imageDimensions(image: JourneyContentImage) {
   if (image.width && image.height) return { width: image.width, height: image.height };
   if (image.displayRatio === "portrait") return { width: 900, height: 1200 };
@@ -24,7 +44,7 @@ function imageDimensions(image: JourneyContentImage) {
 export function toJourneyImage(image: JourneyContentImage): JourneyImage {
   const dimensions = imageDimensions(image);
   return {
-    src: image.src,
+    src: normalizeJourneyImageSrc(image.src),
     alt: image.alt,
     ...dimensions,
     position: image.position ?? (image.focalPoint && image.focalPoint !== "center" ? focalPointPositions[image.focalPoint] : undefined),
