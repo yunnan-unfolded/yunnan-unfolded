@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { journeyContentToViewModel } from "../app/lib/journeyAdapter.ts";
+import { journeyContentToViewModel, normalizeJourneyImageSrc } from "../app/lib/journeyAdapter.ts";
 import { validateJourneyContent } from "../app/lib/journeyValidation.ts";
 
 const contentPath = new URL("../content/journeys/yunnan-slowly.json", import.meta.url);
@@ -42,6 +42,18 @@ test("daily media presets are safe, responsive values and never exceed two image
     content.itinerary.days.map((day) => day.mediaLayout),
     ["image-right", "image-left", "image-right", "image-left", "image-right", "image-left", "image-right", "image-left", "text-only"],
   );
+});
+
+test("Tina staging media URLs resolve back to the exported local Journey assets", () => {
+  assert.equal(
+    normalizeJourneyImageSrc("https://assets.tina.io/project/__staging/main/__file/yunnan-slowly/laoyao-mountain-yunnan-2560.webp"),
+    "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp",
+  );
+  assert.equal(
+    normalizeJourneyImageSrc("/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp"),
+    "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp",
+  );
+  assert.equal(normalizeJourneyImageSrc("https://example.com/photo.webp"), "https://example.com/photo.webp");
 });
 
 test("an incomplete draft is allowed but the same content cannot be published", () => {
