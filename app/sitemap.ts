@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { publishedJourneys } from "./data/journeys";
+import { publishedJourneys } from "./lib/journeyContent";
 import { absolutePageUrl } from "./lib/sitePaths";
 
 export const dynamic = "force-static";

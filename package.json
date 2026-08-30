@@ -6,8 +6,12 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/run-tina.mjs dev",
+    "dev:site": "next dev",
+    "dev:cms": "node scripts/run-tina.mjs dev",
+    "build": "node scripts/run-tina.mjs site-build-local",
+    "build:cms": "node scripts/run-tina.mjs build",
+    "build:cms:local": "node scripts/run-tina.mjs build-local",
     "build:pages:project": "node scripts/build-site.mjs github-project",
     "build:pages:domain": "node scripts/build-site.mjs custom-domain",
     "start": "next start",
@@ -15,17 +19,21 @@
     "typecheck": "tsc --noEmit",
     "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
     "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
+    "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern artifacts"
   },
   "dependencies": {
     "next": "16.2.6",
     "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react-dom": "19.2.6",
+    "react-final-form": "7.0.1",
+    "tinacms": "3.12.1"
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "16.2.6",
     "@tailwindcss/postcss": "4.2.1",
+    "@tinacms/cli": "2.6.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import type { Journey } from "../../data/journeys";
+import type { Journey } from "../../types/journey";
 import { assetPath } from "../../lib/sitePaths";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 import { BulletList, ProductImage, TourDay } from "./TourDay";
 import styles from "./tour-product.module.css";
 
-export function TourProductPage({ journey }: { journey: Journey }) {
+export function TourProductPage({ journey, editFields }: { journey: Journey; editFields?: { title?: string } }) {
   const heroStyle = { "--hero-position": journey.hero.position ?? "center" } as CSSProperties;
   const firstDay = journey.days[0]?.day;
   const lastDay = journey.days.at(-1)?.day;
@@ -26,7 +26,7 @@ export function TourProductPage({ journey }: { journey: Journey }) {
               <span>{journey.heroEyebrow}</span>
               <span>{journey.collection}</span>
             </div>
-            <h1 id="journey-title">{journey.title}</h1>
+            <h1 data-tina-field={editFields?.title} id="journey-title">{journey.title}</h1>
             <p className={styles.heroSubtitle}>{journey.subtitle}</p>
             <ul className={styles.heroFacts}>
               {journey.heroFacts.map((fact) => <li key={fact}>{fact}</li>)}
@@ -105,7 +105,7 @@ export function TourProductPage({ journey }: { journey: Journey }) {
               <p>Every day follows the same practical structure. Exact visits and timings are adjusted around your interests, travel dates and local conditions.</p>
             </div>
             <div className={styles.dayList}>
-              {journey.days.map((day, index) => <TourDay day={day} imageOnLeft={index % 2 === 1} key={day.day} />)}
+              {journey.days.map((day) => <TourDay day={day} key={day.day} />)}
             </div>
             <p className={styles.proposalNotice}>Accommodation, meals and final inclusions will be clearly confirmed in your personal proposal before booking.</p>
           </section>
@@ -116,6 +116,12 @@ export function TourProductPage({ journey }: { journey: Journey }) {
               <h2 id="journey-suitable-title">Is This Journey for You?</h2>
             </div>
             <BulletList items={journey.suitable} />
+            {journey.considerations.length > 0 ? (
+              <div className={styles.considerations}>
+                <h3>Practical Considerations</h3>
+                <BulletList items={journey.considerations} />
+              </div>
+            ) : null}
           </section>
 
           <section className={styles.inclusions} aria-label="Tour inclusions and exclusions">

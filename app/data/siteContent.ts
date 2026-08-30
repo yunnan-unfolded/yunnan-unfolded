@@ -8,15 +8,7 @@ export type Journey = {
   startingPrice?: string;
 };
 
-export const journeys: Journey[] = [
-  {
-    title: "Yunnan, Slowly",
-    route: "Kunming to Lijiang · 9 days",
-    description: "Ancient towns, living traditions and one memorable day in the high country, shaped at an unhurried pace.",
-    image: "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp",
-    alt: "Laoyao Mountain meadows beneath cloud-covered peaks in Yunnan",
-    href: "/journeys/yunnan-slowly",
-  },
+export const upcomingJourneys: Journey[] = [
   {
     title: "The Old Roads of Yunnan",
     route: "Dali to Nuodeng · Culture & food",

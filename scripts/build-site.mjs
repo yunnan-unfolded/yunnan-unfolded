@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 const supportedModes = new Set(["github-project", "custom-domain"]);
 const mode = process.argv[2];
@@ -9,11 +9,10 @@ if (!supportedModes.has(mode)) {
   process.exit(1);
 }
 
-const require = createRequire(import.meta.url);
-const nextCli = require.resolve("next/dist/bin/next");
-const result = spawnSync(process.execPath, [nextCli, "build"], {
+const tinaRunner = fileURLToPath(new URL("./run-tina.mjs", import.meta.url));
+const tinaCommand = process.env.TINA_BUILD_CLOUD === "true" ? "site-build-cloud" : "site-build-local";
+const tinaResult = spawnSync(process.execPath, [tinaRunner, tinaCommand], {
   env: { ...process.env, SITE_DEPLOYMENT_MODE: mode },
   stdio: "inherit",
 });
-
-process.exit(result.status ?? 1);
+process.exit(tinaResult.status ?? 1);

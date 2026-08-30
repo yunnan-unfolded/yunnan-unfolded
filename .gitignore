@@ -21,6 +21,8 @@
 /.vinext/
 /out/
 *.tsbuildinfo
+/public/admin/
+/tina/__generated__/
 
 # misc
 .DS_Store

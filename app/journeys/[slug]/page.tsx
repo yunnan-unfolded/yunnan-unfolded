@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TourProductPage } from "../../components/journeys/TourProductPage";
-import { getJourneyBySlug, publishedJourneys } from "../../data/journeys";
+import { EditableTourProductPage } from "../../components/journeys/EditableTourProductPage";
+import { getJourneyBySlug, getJourneyContentBySlug, publishedJourneys } from "../../lib/journeyContent";
 import { absoluteAssetUrl, absolutePageUrl } from "../../lib/sitePaths";
+import client from "../../../tina/__generated__/client";
 
 type JourneyPageProps = { params: Promise<{ slug: string }> };
-
-export const dynamicParams = false;
 
 export function generateStaticParams() {
   return publishedJourneys.map((journey) => ({ slug: journey.slug }));
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: JourneyPageProps): Promise<Me
 
 export default async function JourneyDetailPage({ params }: JourneyPageProps) {
   const { slug } = await params;
-  const journey = getJourneyBySlug(slug);
+  const journey = getJourneyBySlug(slug, true);
   if (!journey) notFound();
 
   const pageUrl = absolutePageUrl(`/journeys/${journey.slug}`);
@@ -81,11 +81,24 @@ export default async function JourneyDetailPage({ params }: JourneyPageProps) {
     },
   };
 
+  const contentEntry = getJourneyContentBySlug(slug);
+  const tinaPayload = contentEntry ? await client.queries.journey({ relativePath: contentEntry.filename }) : null;
+  const publicTinaPayload = tinaPayload
+    ? {
+        ...tinaPayload,
+        data: structuredClone(tinaPayload.data),
+        query: tinaPayload.query.replace(/^\s*searchKeywords\s*$/gm, ""),
+      }
+    : null;
+  if (publicTinaPayload) {
+    delete (publicTinaPayload.data.journey.basic as { searchKeywords?: string[] }).searchKeywords;
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(touristTripData) }} />
-      <TourProductPage journey={journey} />
+      {publicTinaPayload ? <EditableTourProductPage payload={publicTinaPayload} /> : <TourProductPage journey={journey} />}
     </>
   );
 }
