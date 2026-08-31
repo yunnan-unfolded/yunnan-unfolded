@@ -1,0 +1,63 @@
+{
+  "basic": {
+    "collection": "When the Mountains Bloom",
+    "listingDescription": "Five days on the rhododendron trails of Northwest Yunnan",
+    "homepageDescription": "When the Mountains Bloom",
+    "homepageImageAlt": "Wild rhododendrons blooming across a mountain landscape in Northwest Yunnan",
+    "title": "When the Mountains Bloom",
+    "subtitle": "Five days on the rhododendron trails of Northwest Yunnan",
+    "durationDays": 0,
+    "durationNights": 4,
+    "startLocation": "Lijiang ",
+    "endLocation": "Lijiang ",
+    "searchKeywords": [
+      "Lijiang → Maxiang Road → Luoguqing → Shaxi → Lijiang or Dali"
+    ],
+    "travelStyle": "Private and tailor-made",
+    "activityLevel": "Easy to moderate",
+    "bestSeasons": "May to July",
+    "priceNote": "Tailor-made, on request",
+    "heroEyebrow": "SEASONAL HIKING · NORTHWEST YUNNAN",
+    "heroFacts": [
+      "5 DAYS · 4 NIGHTS\nMAY TO JULY\nEASY TO MODERATE\nPRIVATE JOURNEY"
+    ],
+    "promises": [
+      " "
+    ],
+    "inquiryEyebrow": " ",
+    "inquiryPromise": " ",
+    "slug": "journeys-yunnan-rhododendron-hiking"
+  },
+  "hero": {},
+  "overview": {
+    "paragraphs": [],
+    "facts": [],
+    "finalCta": {}
+  },
+  "highlights": {
+    "items": [],
+    "images": []
+  },
+  "route": {
+    "display": "",
+    "stops": []
+  },
+  "itinerary": {
+    "days": []
+  },
+  "audience": {
+    "suitable": [],
+    "considerations": []
+  },
+  "inclusions": {
+    "included": [],
+    "excluded": []
+  },
+  "booking": {
+    "conditions": []
+  },
+  "seo": {},
+  "publication": {
+    "status": "draft"
+  }
+}
