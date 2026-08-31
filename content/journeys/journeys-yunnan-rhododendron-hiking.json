@@ -6,7 +6,7 @@
     "homepageImageAlt": "Wild rhododendrons blooming across a mountain landscape in Northwest Yunnan",
     "title": "When the Mountains Bloom",
     "subtitle": "Five days on the rhododendron trails of Northwest Yunnan",
-    "durationDays": 0,
+    "durationDays": 1,
     "durationNights": 4,
     "startLocation": "Lijiang ",
     "endLocation": "Lijiang ",
@@ -82,7 +82,25 @@
     "stops": []
   },
   "itinerary": {
-    "days": []
+    "days": [
+      {
+        "day": 1,
+        "title": "",
+        "route": "",
+        "overnight": "",
+        "subtitle": "",
+        "paragraphs": [
+          ""
+        ],
+        "experiences": [
+          ""
+        ],
+        "mediaLayout": "image-right",
+        "imageSize": "standard",
+        "images": [],
+        "options": []
+      }
+    ]
   },
   "audience": {
     "suitable": [],
