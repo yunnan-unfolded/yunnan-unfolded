@@ -42,7 +42,12 @@
     "finalCta": {}
   },
   "highlights": {
-    "items": [],
+    "items": [
+      {
+        "title": "Walk through Yunnan’s wild rhododendron season ",
+        "description": "Follow a mountain road where rhododendrons bloom across entire hillsides, their colours changing with altitude, weather and light."
+      }
+    ],
     "images": []
   },
   "route": {
