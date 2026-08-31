@@ -1,0 +1,46 @@
+{
+  "basic": {
+    "collection": "",
+    "durationDays": 0,
+    "durationNights": 0,
+    "searchKeywords": [],
+    "slug": "journey"
+  },
+  "hero": {
+    "src": "/images/journeys/yunnan-slowly/高山杜鹃.jpg",
+    "alt": "高山杜鹃",
+    "width": 1440,
+    "height": 1080
+  },
+  "overview": {
+    "paragraphs": [],
+    "facts": [],
+    "finalCta": {}
+  },
+  "highlights": {
+    "items": [],
+    "images": []
+  },
+  "route": {
+    "display": "",
+    "stops": []
+  },
+  "itinerary": {
+    "days": []
+  },
+  "audience": {
+    "suitable": [],
+    "considerations": []
+  },
+  "inclusions": {
+    "included": [],
+    "excluded": []
+  },
+  "booking": {
+    "conditions": []
+  },
+  "seo": {},
+  "publication": {
+    "status": "draft"
+  }
+}
