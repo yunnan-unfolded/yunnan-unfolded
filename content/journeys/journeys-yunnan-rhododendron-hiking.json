@@ -50,6 +50,10 @@
       {
         "title": "Choose a trail that feels right for you  ",
         "description": " Luoguqing offers more than one way into the landscape. Your local guide will shape the walking day around your experience, energy and current trail conditions."
+      },
+      {
+        "title": "Enter the landscapes of the Pumi people ",
+        "description": " The forests and grasslands around Luoguqing are also lived-in landscapes, shaped by generations of Pumi families, grazing animals and seasonal mountain life."
       }
     ],
     "images": [
@@ -58,6 +62,10 @@
         "alt": "高山杜鹃",
         "width": 1440,
         "height": 1080
+      },
+      {
+        "src": "",
+        "alt": ""
       }
     ]
   },
