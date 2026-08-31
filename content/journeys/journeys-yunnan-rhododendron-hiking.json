@@ -48,7 +48,14 @@
         "description": "Follow a mountain road where rhododendrons bloom across entire hillsides, their colours changing with altitude, weather and light."
       }
     ],
-    "images": []
+    "images": [
+      {
+        "src": "/images/journeys/yunnan-slowly/%E9%AB%98%E5%B1%B1%E6%9D%9C%E9%B9%83.jpg",
+        "alt": "高山杜鹃",
+        "width": 1440,
+        "height": 1080
+      }
+    ]
   },
   "route": {
     "display": "",
