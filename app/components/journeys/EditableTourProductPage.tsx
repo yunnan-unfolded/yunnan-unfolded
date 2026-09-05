@@ -17,7 +17,7 @@ export function EditableTourProductPage({ payload }: { payload: TinaJourneyPaylo
   const content = data.journey as unknown as JourneyContent;
   return (
     <TourProductPage
-      editFields={{ title: tinaField(data.journey.basic, "title") }}
+      editFields={{ title: tinaField(data.journey, "title") }}
       journey={journeyContentToViewModel(content)}
     />
   );

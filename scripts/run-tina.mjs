@@ -19,7 +19,7 @@ const hasSearchToken = Boolean(process.env.TINA_SEARCH_TOKEN?.trim());
 
 const tinaCli = require.resolve("@tinacms/cli/bin/tinacms");
 const commands = {
-  dev: ["dev", "-c", "next dev", "--noTelemetry"],
+  dev: ["dev", "-c", "node scripts/run-next-dev.mjs", "--noTelemetry"],
   build: ["build", "--noTelemetry"],
   "build-local": ["dev", "-c", "node -e \"process.exit(0)\"", "--noTelemetry"],
   "site-build-local": ["dev", "-c", "node scripts/run-next-build.mjs", "--noTelemetry"],
@@ -45,6 +45,7 @@ if (isCloudBuild && (!process.env.NEXT_PUBLIC_TINA_CLIENT_ID || !process.env.TIN
 const result = spawnSync(process.execPath, [tinaCli, ...args], {
   env: {
     ...process.env,
+    TINA_LOCAL_DRAFT_PREVIEW: command === "dev" ? "true" : "false",
     PATH: `${join(process.cwd(), "node_modules", ".bin")}${delimiter}${dirname(process.execPath)}${delimiter}${process.env.PATH || ""}`,
   },
   stdio: "inherit",

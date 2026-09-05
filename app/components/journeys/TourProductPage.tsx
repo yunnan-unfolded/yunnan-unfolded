@@ -8,6 +8,13 @@ import { Header } from "../Header";
 import { BulletList, ProductImage, TourDay } from "./TourDay";
 import styles from "./tour-product.module.css";
 
+const whyTravelPoints = [
+  "Yunnan-based local team",
+  "Trusted local hiking guide",
+  "Private and flexible pacing",
+  "No compulsory shopping stops",
+];
+
 export function TourProductPage({ journey, editFields }: { journey: Journey; editFields?: { title?: string } }) {
   const heroStyle = { "--hero-position": journey.hero.position ?? "center" } as CSSProperties;
   const firstDay = journey.days[0]?.day;
@@ -110,6 +117,14 @@ export function TourProductPage({ journey, editFields }: { journey: Journey; edi
             <p className={styles.proposalNotice}>Accommodation, meals and final inclusions will be clearly confirmed in your personal proposal before booking.</p>
           </section>
 
+          {journey.seasonNote ? (
+            <section className={styles.seasonNote} aria-labelledby="journey-season-note-title">
+              <span>Seasonal note</span>
+              <h2 id="journey-season-note-title">{journey.seasonNote.title}</h2>
+              <p>{journey.seasonNote.body}</p>
+            </section>
+          ) : null}
+
           <section className={styles.suitable} aria-labelledby="journey-suitable-title">
             <div className={styles.sectionTitle}>
               <span>Good to know</span>
@@ -124,22 +139,36 @@ export function TourProductPage({ journey, editFields }: { journey: Journey; edi
             ) : null}
           </section>
 
+          <section className={styles.whyTravel} aria-labelledby="journey-why-travel-title">
+            <div className={styles.sectionTitle}>
+              <span>Why us</span>
+              <h2 id="journey-why-travel-title">Why Travel with Yunnan Unfolded</h2>
+            </div>
+            <ol>
+              {whyTravelPoints.map((point, index) => (
+                <li key={point}><span>{String(index + 1).padStart(2, "0")}</span><strong>{point}</strong></li>
+              ))}
+            </ol>
+          </section>
+
           <section className={styles.inclusions} aria-label="Tour inclusions and exclusions">
             <div><h2>Included</h2><BulletList items={journey.included} /></div>
             <div><h2>Not Included</h2><BulletList items={journey.excluded} /></div>
           </section>
 
-          <section className={styles.conditions} aria-labelledby="journey-conditions-title">
-            <div className={styles.sectionTitle}>
-              <span>Before booking</span>
-              <h2 id="journey-conditions-title">Booking Conditions</h2>
-            </div>
-            <ol>
-              {journey.conditions.map((condition, index) => (
-                <li key={condition}><span>{String(index + 1).padStart(2, "0")}</span><p>{condition}</p></li>
-              ))}
-            </ol>
-          </section>
+          {journey.conditions.length > 0 ? (
+            <section className={styles.conditions} aria-labelledby="journey-conditions-title">
+              <div className={styles.sectionTitle}>
+                <span>Before booking</span>
+                <h2 id="journey-conditions-title">Booking Conditions</h2>
+              </div>
+              <ol>
+                {journey.conditions.map((condition, index) => (
+                  <li key={condition}><span>{String(index + 1).padStart(2, "0")}</span><p>{condition}</p></li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
         </div>
 
         <aside className={styles.sidebar} aria-label="Journey enquiry">
