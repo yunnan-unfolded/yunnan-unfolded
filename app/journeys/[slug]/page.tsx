@@ -2,20 +2,31 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TourProductPage } from "../../components/journeys/TourProductPage";
 import { EditableTourProductPage } from "../../components/journeys/EditableTourProductPage";
-import { getJourneyBySlug, getJourneyContentBySlug, publishedJourneys } from "../../lib/journeyContent";
+import { getJourneyBySlug, getJourneyContentBySlug, journeyContents, publishedJourneys } from "../../lib/journeyContent";
 import { absoluteAssetUrl, absolutePageUrl } from "../../lib/sitePaths";
 import client from "../../../tina/__generated__/client";
 
 type JourneyPageProps = { params: Promise<{ slug: string }> };
+const localDraftPreviewEnabled = process.env.TINA_LOCAL_DRAFT_PREVIEW === "true";
 
 export function generateStaticParams() {
-  return publishedJourneys.map((journey) => ({ slug: journey.slug }));
+  return localDraftPreviewEnabled
+    ? journeyContents.map(({ content }) => ({ slug: content.basic.slug }))
+    : publishedJourneys.map((journey) => ({ slug: journey.slug }));
 }
 
 export async function generateMetadata({ params }: JourneyPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const journey = getJourneyBySlug(slug);
+  const journey = getJourneyBySlug(slug, localDraftPreviewEnabled);
   if (!journey) return {};
+  const contentEntry = getJourneyContentBySlug(slug);
+  if (contentEntry?.content.publication.status !== "published") {
+    return {
+      title: { absolute: `${journey.title} — Local Draft Preview` },
+      alternates: { canonical: null },
+      robots: { index: false, follow: false },
+    };
+  }
 
   const pageUrl = absolutePageUrl(`/journeys/${journey.slug}`);
   const socialImage = journey.seo.ogImage ?? journey.hero;
@@ -47,8 +58,11 @@ export async function generateMetadata({ params }: JourneyPageProps): Promise<Me
 
 export default async function JourneyDetailPage({ params }: JourneyPageProps) {
   const { slug } = await params;
-  const journey = getJourneyBySlug(slug, true);
+  const contentEntry = getJourneyContentBySlug(slug);
+  const isPublished = contentEntry?.content.publication.status === "published";
+  const journey = getJourneyBySlug(slug, localDraftPreviewEnabled);
   if (!journey) notFound();
+  if (!isPublished && !localDraftPreviewEnabled) notFound();
 
   const pageUrl = absolutePageUrl(`/journeys/${journey.slug}`);
   const breadcrumbData = {
@@ -81,7 +95,6 @@ export default async function JourneyDetailPage({ params }: JourneyPageProps) {
     },
   };
 
-  const contentEntry = getJourneyContentBySlug(slug);
   const tinaPayload = contentEntry ? await client.queries.journey({ relativePath: contentEntry.filename }) : null;
   const publicTinaPayload = tinaPayload
     ? {
@@ -96,8 +109,12 @@ export default async function JourneyDetailPage({ params }: JourneyPageProps) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(touristTripData) }} />
+      {isPublished ? (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(touristTripData) }} />
+        </>
+      ) : null}
       {publicTinaPayload ? <EditableTourProductPage payload={publicTinaPayload} /> : <TourProductPage journey={journey} />}
     </>
   );
