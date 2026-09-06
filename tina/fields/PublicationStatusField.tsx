@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FocusEvent } from "react";
 import { useForm, useFormState } from "react-final-form";
 import type { TinaField } from "tinacms";
+import { normalizeJourneySlug } from "../../shared/journeyDefaults";
 
 type FieldProps = {
   input: {
@@ -15,7 +16,8 @@ type FieldProps = {
 };
 
 type JourneyValues = {
-  basic?: { collection?: string; slug?: string };
+  title?: string;
+  basic?: { slug?: string };
   hero?: { src?: string };
   itinerary?: { days?: unknown[] };
 };
@@ -32,13 +34,33 @@ const buttonBase = {
 
 export function PublicationStatusField({ input, field, meta }: FieldProps) {
   const form = useForm();
-  const { values, submitting } = useFormState<JourneyValues>({ subscription: { values: true, submitting: true } });
+  const { dirty, values, submitting } = useFormState<JourneyValues>({ subscription: { dirty: true, values: true, submitting: true } });
   const [message, setMessage] = useState("");
   const isPublished = input.value === "published";
-  const title = values.basic?.collection?.trim() || "尚未填写路线名称";
+  const title = values.title?.trim() || "尚未填写路线名称";
   const days = values.itinerary?.days?.length ?? 0;
   const hasHero = Boolean(values.hero?.src);
   const slug = values.basic?.slug?.trim() || "保存时自动生成";
+  const previewSlug = normalizeJourneySlug(values.basic?.slug || values.title || "");
+  const localPreviewAvailable = typeof window !== "undefined"
+    && ["127.0.0.1", "localhost"].includes(window.location.hostname);
+
+  function openDraftPreview() {
+    if (!localPreviewAvailable) {
+      setMessage("草稿预览仅在本地编辑环境中开放，正式网站不会生成草稿页面。");
+      return;
+    }
+    if (dirty) {
+      setMessage("请先保存草稿，再打开预览，确保预览显示刚刚保存的内容。");
+      return;
+    }
+    if (!previewSlug) {
+      setMessage("请先填写路线名称并保存草稿，系统才能生成预览地址。");
+      return;
+    }
+    window.open(`/journeys/${previewSlug}/`, "_blank", "noopener,noreferrer");
+    setMessage("草稿预览已在新标签页打开。该页面只在本地开发环境可用。");
+  }
 
   async function submitAs(status: "draft" | "published") {
     if (submitting) return;
@@ -60,7 +82,7 @@ export function PublicationStatusField({ input, field, meta }: FieldProps) {
       const result = await form.submit();
       setMessage(result
         ? "保存失败：内容尚未保存。请查看页面上的中文提示，修正后再次保存。"
-        : status === "published" ? "发布信息已保存。" : "草稿已保存。网站访客看不到草稿。" );
+        : status === "published" ? "已发布内容已更新" : "草稿已保存" );
     } catch {
       setMessage("保存失败：内容尚未保存。请查看页面上的中文提示，修正后再次保存。");
     }
@@ -91,6 +113,9 @@ export function PublicationStatusField({ input, field, meta }: FieldProps) {
             <button disabled={submitting} onClick={() => void submitAs("published")} style={{ ...buttonBase, background: "#355542", border: "1px solid #355542", color: "#fff" }} type="button">
               发布行程
             </button>
+            <button disabled={submitting} onClick={openDraftPreview} style={{ ...buttonBase, background: "#f5efe3", border: "1px solid #b69a62", color: "#5d4b2d" }} type="button">
+              预览草稿
+            </button>
           </>
         ) : (
           <>
@@ -103,6 +128,9 @@ export function PublicationStatusField({ input, field, meta }: FieldProps) {
           </>
         )}
       </div>
+      {!localPreviewAvailable && !isPublished ? (
+        <p style={{ color: "#718077", fontSize: "0.72rem", lineHeight: 1.5, margin: "0.7rem 0 0" }}>草稿预览按钮仅在本地编辑环境显示；正式部署不会公开草稿。</p>
+      ) : null}
       <p aria-live="polite" style={{ color: "#4e6557", fontSize: "0.76rem", margin: message ? "0.75rem 0 0" : 0 }}>
         {message}
       </p>

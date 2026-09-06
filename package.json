@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/run-tina.mjs dev",
-    "dev:site": "next dev",
+    "dev:site": "node scripts/run-next-dev.mjs",
     "dev:cms": "node scripts/run-tina.mjs dev",
     "build": "node scripts/run-tina.mjs site-build-local",
     "build:cms": "node scripts/run-tina.mjs build",
@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit",
     "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
     "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
-    "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs",
+    "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs tests/phase-2-2b-migration.test.mjs",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern artifacts"
   },
   "dependencies": {

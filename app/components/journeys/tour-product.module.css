@@ -484,6 +484,12 @@
   border-right: 0;
 }
 
+.daySummary > .daySummaryCombined {
+  grid-column: 1 / -1;
+  padding-right: 0;
+  border-right: 0;
+}
+
 .daySummary dt,
 .dayMeta dt {
   color: #927044;
@@ -614,6 +620,22 @@
   object-fit: contain;
 }
 
+.dayImages figure[data-ratio="landscape-16-9"] img {
+  aspect-ratio: 16 / 9;
+}
+
+.dayImages figure[data-ratio="landscape-4-3"] img {
+  aspect-ratio: 4 / 3;
+}
+
+.dayImages figure[data-ratio="portrait-3-4"] img {
+  aspect-ratio: 3 / 4;
+}
+
+.dayImages figure[data-ratio="portrait-9-16"] img {
+  aspect-ratio: 9 / 16;
+}
+
 .dayImages[data-count="2"] {
   grid-template-columns: 1fr 1fr;
 }
@@ -624,6 +646,11 @@
 
 .day[data-media-layout="two-images"] .dayImages {
   grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.dayImages[data-gallery="true"] {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   width: 100%;
 }
 
@@ -738,6 +765,37 @@
   line-height: 1.6;
 }
 
+.seasonNote {
+  padding: 2rem 2.25rem;
+  border-left: 3px solid #b58a4c;
+  background: #eee5d7;
+}
+
+.seasonNote > span {
+  display: block;
+  margin-bottom: .55rem;
+  color: #98703a;
+  font-size: .61rem;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.seasonNote h2 {
+  margin-bottom: .75rem;
+  color: var(--v2-forest);
+  font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.seasonNote p {
+  max-width: 690px;
+  margin-bottom: 0;
+  color: #59635e;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
 .suitable {
   padding: 2.25rem;
   border: 1px solid var(--v2-border);
@@ -761,6 +819,49 @@
   font-size: clamp(1.2rem, 2vw, 1.55rem);
   font-weight: 500;
   margin: 0 0 .75rem;
+}
+
+.whyTravel {
+  padding: 2.25rem;
+  border-top: 1px solid var(--v2-border);
+  border-bottom: 1px solid var(--v2-border);
+  background: #fffdf8;
+}
+
+.whyTravel ol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--v2-border);
+  list-style: none;
+}
+
+.whyTravel li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: .8rem;
+  align-items: baseline;
+  padding: 1rem 1.1rem 1rem 0;
+  border-bottom: 1px solid var(--v2-border);
+}
+
+.whyTravel li:nth-child(even) {
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--v2-border);
+}
+
+.whyTravel li > span {
+  color: #a17b45;
+  font-family: var(--font-playfair), "Times New Roman", serif;
+  font-size: .78rem;
+}
+
+.whyTravel li strong {
+  color: var(--v2-forest);
+  font-size: .84rem;
+  font-weight: 650;
+  line-height: 1.45;
 }
 
 .inclusions {
@@ -1175,7 +1276,8 @@
   }
 
   .day[data-media-layout="two-images"] .dayImages,
-  .dayImages[data-count="2"] {
+  .dayImages[data-count="2"],
+  .dayImages[data-gallery="true"] {
     grid-template-columns: 1fr;
   }
 
@@ -1188,6 +1290,15 @@
     max-height: calc(100svh - 2rem);
   }
 
+  .dayImages figure[data-ratio="portrait-9-16"] {
+    width: min(78%, 310px);
+    margin-inline: auto;
+  }
+
+  .dayImages figure[data-ratio="portrait-9-16"] img {
+    max-height: min(82svh, 620px);
+  }
+
   .dayDescription p {
     font-size: .94rem;
     line-height: 1.68;
@@ -1198,13 +1309,22 @@
   }
 
   .suitable,
-  .inclusions {
+  .inclusions,
+  .seasonNote,
+  .whyTravel {
     padding: 1.5rem;
   }
 
   .suitable .bulletList,
-  .inclusions {
+  .inclusions,
+  .whyTravel ol {
     grid-template-columns: 1fr;
+  }
+
+  .whyTravel li,
+  .whyTravel li:nth-child(even) {
+    padding: .95rem 0;
+    border-left: 0;
   }
 
   .finalCta {

@@ -1,7 +1,7 @@
 {
+  "title": "Yunnan, Slowly",
+  "summary": "A private nine-day route from Kunming to Lijiang, with overnight stays in Weishan and Shaxi, selected experiences around Dali and an adaptable high-country walk.",
   "basic": {
-    "collection": "Yunnan, Slowly",
-    "listingDescription": "A private nine-day route from Kunming to Lijiang, with overnight stays in Weishan and Shaxi, selected experiences around Dali and an adaptable high-country walk.",
     "searchKeywords": [
       "云南深度游",
       "云南私人定制",
@@ -30,10 +30,6 @@
       "hiking",
       "9 day Yunnan tour"
     ],
-    "homepageDescription": "Ancient towns, living traditions and one memorable day in the high country, shaped at an unhurried pace.",
-    "homepageImageAlt": "Laoyao Mountain meadows beneath cloud-covered peaks in Yunnan",
-    "title": "9-Day Private Yunnan Tour: Weishan, Dali, Shaxi & Lijiang",
-    "subtitle": "Ancient towns, Bai and Naxi traditions, Erhai landscapes and a guided day in Laoyao Mountain.",
     "durationDays": 9,
     "durationNights": 8,
     "startLocation": "Kunming",
@@ -42,44 +38,10 @@
     "activityLevel": "Easy to Moderate",
     "bestSeasons": "March–June / September–November",
     "priceNote": "Tailored quotation",
-    "heroEyebrow": "Private · Tailor-Made",
-    "heroFacts": [
-      "9 Days / 8 Nights",
-      "Kunming → Lijiang",
-      "Private Journey",
-      "Easy to Moderate"
-    ],
-    "promises": [
-      "Yunnan-Based Team",
-      "Private Vehicle & English-Speaking Guide",
-      "Reply Within 24 Hours",
-      "No Compulsory Shopping"
-    ],
-    "inquiryEyebrow": "Private & Tailor-Made",
-    "inquiryFacts": [
-      {
-        "label": "Duration",
-        "value": "9 Days / 8 Nights"
-      },
-      {
-        "label": "Route",
-        "value": "Kunming to Lijiang"
-      },
-      {
-        "label": "Travel Style",
-        "value": "Private & Tailor-Made"
-      },
-      {
-        "label": "Price",
-        "value": "Tailored quotation"
-      }
-    ],
-    "inquiryPromise": "Personal reply within 24 hours",
     "slug": "yunnan-slowly"
   },
   "hero": {
     "src": "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp",
-    "alt": "High-country meadow and mountain ridges at Laoyao Mountain in Yunnan",
     "width": 2560,
     "height": 1440,
     "position": "58% center",
@@ -116,14 +78,7 @@
         "label": "Best Seasons",
         "value": "March–June / September–November"
       }
-    ],
-    "finalCta": {
-      "eyebrow": "Private journey · shaped in Yunnan",
-      "title": "Make This Journey Your Own",
-      "body": "Tell us what interests you most, how you like to travel and when you are thinking of visiting. We’ll shape the route around your time, pace and interests.",
-      "primaryLabel": "Plan This Journey",
-      "secondaryLabel": "Ask a Question"
-    }
+    ]
   },
   "highlights": {
     "items": [
@@ -150,20 +105,6 @@
       {
         "title": "Walk in Laoyao Mountain’s high country",
         "description": "Follow a locally guided route through forest, pasture and seasonal rhododendrons, adjusted to weather and ability."
-      }
-    ],
-    "images": [
-      {
-        "src": "/images/journeys/yunnan-slowly/dali-tile-cat-artisan-2160.webp",
-        "alt": "An artisan shaping a traditional tile cat sculpture in Dali",
-        "width": 2160,
-        "height": 1440
-      },
-      {
-        "src": "/images/journeys/yunnan-slowly/erhai-fishing-boats.webp",
-        "alt": "Small fishing boats resting on calm water at Erhai Lake",
-        "width": 1080,
-        "height": 810
       }
     ]
   },
@@ -557,5 +498,77 @@
   },
   "publication": {
     "status": "published"
+  },
+  "gallery": {
+    "images": [
+      {
+        "src": "/images/journeys/yunnan-slowly/dali-tile-cat-artisan-2160.webp",
+        "alt": "An artisan shaping a traditional tile cat sculpture in Dali",
+        "width": 2160,
+        "height": 1440
+      },
+      {
+        "src": "/images/journeys/yunnan-slowly/erhai-fishing-boats.webp",
+        "alt": "Small fishing boats resting on calm water at Erhai Lake",
+        "width": 1080,
+        "height": 810
+      }
+    ]
+  },
+  "advanced": {
+    "copy": {
+      "pageTitle": "9-Day Private Yunnan Tour: Weishan, Dali, Shaxi & Lijiang",
+      "pageSubtitle": "Ancient towns, Bai and Naxi traditions, Erhai landscapes and a guided day in Laoyao Mountain.",
+      "homepageDescription": "Ancient towns, living traditions and one memorable day in the high country, shaped at an unhurried pace.",
+      "homepageImageAlt": "Laoyao Mountain meadows beneath cloud-covered peaks in Yunnan",
+      "enabled": true
+    },
+    "hero": {
+      "eyebrow": "Private · Tailor-Made",
+      "facts": [
+        "9 Days / 8 Nights",
+        "Kunming → Lijiang",
+        "Private Journey",
+        "Easy to Moderate"
+      ],
+      "imageAlt": "High-country meadow and mountain ridges at Laoyao Mountain in Yunnan",
+      "enabled": true
+    },
+    "inquiry": {
+      "promises": [
+        "Yunnan-Based Team",
+        "Private Vehicle & English-Speaking Guide",
+        "Reply Within 24 Hours",
+        "No Compulsory Shopping"
+      ],
+      "eyebrow": "Private & Tailor-Made",
+      "facts": [
+        {
+          "label": "Duration",
+          "value": "9 Days / 8 Nights"
+        },
+        {
+          "label": "Route",
+          "value": "Kunming to Lijiang"
+        },
+        {
+          "label": "Travel Style",
+          "value": "Private & Tailor-Made"
+        },
+        {
+          "label": "Price",
+          "value": "Tailored quotation"
+        }
+      ],
+      "promise": "Personal reply within 24 hours",
+      "finalCta": {
+        "eyebrow": "Private journey · shaped in Yunnan",
+        "title": "Make This Journey Your Own",
+        "body": "Tell us what interests you most, how you like to travel and when you are thinking of visiting. We’ll shape the route around your time, pace and interests.",
+        "primaryLabel": "Plan This Journey",
+        "secondaryLabel": "Ask a Question"
+      },
+      "enabled": true
+    }
   }
 }

@@ -9,12 +9,20 @@ export type MediaLayout =
   | "two-images";
 
 export type ImageSize = "compact" | "standard" | "wide";
-export type DisplayRatio = "landscape" | "portrait" | "square" | "original";
+export type DisplayRatio =
+  | "original"
+  | "landscape-16-9"
+  | "landscape-4-3"
+  | "portrait-3-4"
+  | "portrait-9-16"
+  | "landscape"
+  | "portrait"
+  | "square";
 export type FocalPoint = "top" | "center" | "bottom" | "left" | "right";
 
 export type JourneyContentImage = {
   src: string;
-  alt: string;
+  alt?: string;
   displayRatio?: DisplayRatio;
   focalPoint?: FocalPoint;
   width?: number;
@@ -26,15 +34,17 @@ export type JourneyContentImage = {
 };
 
 export type JourneyContent = {
+  title?: string;
+  summary?: string;
   basic: {
     slug: string;
-    collection: string;
-    listingDescription: string;
+    collection?: string;
+    listingDescription?: string;
     searchKeywords?: string[];
     homepageDescription?: string;
     homepageImageAlt?: string;
-    title: string;
-    subtitle: string;
+    title?: string;
+    subtitle?: string;
     durationDays: number;
     durationNights: number;
     startLocation: string;
@@ -43,18 +53,19 @@ export type JourneyContent = {
     activityLevel: string;
     bestSeasons: string;
     priceNote: string;
-    heroEyebrow: string;
-    heroFacts: string[];
-    promises: string[];
-    inquiryEyebrow: string;
-    inquiryFacts: Array<{ label: string; value: string }>;
-    inquiryPromise: string;
+    heroEyebrow?: string;
+    heroFacts?: string[];
+    promises?: string[];
+    inquiryEyebrow?: string;
+    inquiryFacts?: Array<{ label: string; value: string }>;
+    inquiryPromise?: string;
   };
   hero: JourneyContentImage;
   overview: {
     paragraphs: string[];
     facts: Array<{ label: string; value: string }>;
-    finalCta: {
+    seasonNote?: { title?: string; body?: string };
+    finalCta?: {
       eyebrow: string;
       title: string;
       body: string;
@@ -64,8 +75,9 @@ export type JourneyContent = {
   };
   highlights: {
     items: Array<{ title: string; description: string }>;
-    images: JourneyContentImage[];
+    images?: JourneyContentImage[];
   };
+  gallery?: { images?: JourneyContentImage[] };
   route: {
     display: string;
     stops: Array<{ place: string; days: string }>;
@@ -74,6 +86,7 @@ export type JourneyContent = {
     days: Array<{
       day: number;
       title: string;
+      logistics?: string;
       subtitle: string;
       route: string;
       drive?: string;
@@ -98,9 +111,34 @@ export type JourneyContent = {
   seo: {
     title?: string;
     description?: string;
+    keywords?: string[];
     ogImage?: JourneyContentImage;
   };
   publication: { status: JourneyStatus };
+  advanced?: {
+    copy?: {
+      enabled?: boolean;
+      pageTitle?: string;
+      pageSubtitle?: string;
+      homepageDescription?: string;
+      homepageImageAlt?: string;
+    };
+    hero?: { enabled?: boolean; eyebrow?: string; facts?: string[]; imageAlt?: string };
+    inquiry?: {
+      enabled?: boolean;
+      promises?: string[];
+      eyebrow?: string;
+      facts?: Array<{ label: string; value: string }>;
+      promise?: string;
+      finalCta?: {
+        eyebrow?: string;
+        title?: string;
+        body?: string;
+        primaryLabel?: string;
+        secondaryLabel?: string;
+      };
+    };
+  };
 };
 
 export type JourneyImage = {
@@ -125,6 +163,7 @@ export type JourneyDayOption = {
 export type JourneyDay = {
   day: number;
   title: string;
+  logistics?: string;
   subtitle: string;
   route: string;
   drive?: string;
@@ -161,6 +200,7 @@ export type Journey = {
   heroFacts: string[];
   promises: string[];
   overview: string[];
+  seasonNote?: { title: string; body: string };
   facts: [label: string, value: string][];
   highlights: [title: string, description: string][];
   highlightImages: JourneyImage[];

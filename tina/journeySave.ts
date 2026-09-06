@@ -1,3 +1,5 @@
+import { normalizeJourneySlug, normalizeLinesList } from "../shared/journeyDefaults.ts";
+
 type JourneyNode = {
   basic?: { slug?: string };
   _sys?: { filename?: string; path?: string; relativePath?: string };
@@ -8,12 +10,13 @@ type JourneySlugResponse = {
 };
 
 type JourneyInitialValues = {
+  title?: string;
   basic?: { slug?: string };
   itinerary?: { days?: unknown[] };
   _sys?: { filename?: string; path?: string; relativePath?: string };
 };
 
-type SaveForm = {
+export type SaveForm = {
   crudType?: "create" | "update";
   id?: unknown;
   path?: string;
@@ -22,7 +25,7 @@ type SaveForm = {
   getState?: () => { initialValues?: JourneyInitialValues };
 };
 
-type SaveCms = {
+export type SaveCms = {
   alerts?: { error: (message: string) => unknown };
   api: {
     tina: {
@@ -36,10 +39,6 @@ export type JourneySaveContext = {
   cms: SaveCms;
   form: SaveForm;
 };
-
-function slugify(value: string) {
-  return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-}
 
 function normalizeDocumentPath(value: unknown) {
   if (typeof value !== "string") return "";
@@ -55,6 +54,10 @@ function getInitialValues(form: SaveForm) {
 }
 
 function isSameDocument(node: JourneyNode, form: SaveForm) {
+  // Tina updates a create-form path as the generated filename changes. That
+  // path is only a proposed destination, never an existing current document.
+  if (form.crudType === "create") return false;
+
   const initialValues = getInitialValues(form);
   const currentPaths = [
     form.id,
@@ -88,18 +91,93 @@ function findDuplicateJourney(nodes: JourneyNode[], slug: string, form: SaveForm
   return sameSlug[0];
 }
 
+export async function getJourneySlugValidationError({
+  cms,
+  form,
+  rawSlug,
+  title,
+}: {
+  cms: SaveCms;
+  form: SaveForm;
+  rawSlug?: unknown;
+  title?: unknown;
+}) {
+  const normalizedTitle = String(title ?? "").trim();
+  if (!normalizedTitle) return "请先填写路线名称。";
+
+  const slug = normalizeJourneySlug(String(rawSlug || normalizedTitle));
+  if (!slug) return "无法根据路线名称生成页面网址，请使用英文路线名称。";
+
+  let response: JourneySlugResponse;
+  try {
+    response = await cms.api.tina.request(
+      `query JourneySlugs { journeyConnection { edges { node { basic { slug } _sys { filename path relativePath } } } } }`,
+      { variables: {} },
+    ) as JourneySlugResponse;
+  } catch {
+    return "暂时无法检查页面网址是否重复，请稍后重试。";
+  }
+
+  const nodes = response.journeyConnection?.edges
+    ?.map((edge) => edge?.node)
+    .filter((node): node is JourneyNode => Boolean(node)) ?? [];
+  return findDuplicateJourney(nodes, slug, form)
+    ? `页面网址“${slug}”已被其他路线使用，请更换路线名称后再保存。`
+    : undefined;
+}
+
 function failSave(cms: SaveCms, message: string): never {
   cms.alerts?.error(message);
   throw new Error(message);
 }
 
+function cleanStringArray(value: unknown) {
+  return normalizeLinesList(value);
+}
+
+function cleanImages(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is Record<string, unknown> => Boolean(item && typeof item === "object"))
+    .map((item) => ({ ...item, src: String(item.src ?? "").trim(), alt: String(item.alt ?? "").trim() }))
+    .filter((item) => Boolean(item.src));
+}
+
+function cleanHighlightItems(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is Record<string, unknown> => Boolean(item && typeof item === "object"))
+    .map((item) => ({ ...item, title: String(item.title ?? "").trim(), description: String(item.description ?? "").trim() }))
+    .filter((item) => Boolean(item.title));
+}
+
 export async function prepareJourneyForSave({ values, cms, form }: JourneySaveContext) {
   const basic = { ...((values.basic as Record<string, unknown> | undefined) ?? {}) };
+  const overview = { ...((values.overview as Record<string, unknown> | undefined) ?? {}) };
   const itinerary = { ...((values.itinerary as Record<string, unknown> | undefined) ?? {}) };
+  const highlights = { ...((values.highlights as Record<string, unknown> | undefined) ?? {}) };
+  const gallery = { ...((values.gallery as Record<string, unknown> | undefined) ?? {}) };
+  const inclusions = { ...((values.inclusions as Record<string, unknown> | undefined) ?? {}) };
+  const audience = { ...((values.audience as Record<string, unknown> | undefined) ?? {}) };
+  const booking = { ...((values.booking as Record<string, unknown> | undefined) ?? {}) };
+  const seo = { ...((values.seo as Record<string, unknown> | undefined) ?? {}) };
+  const advanced = { ...((values.advanced as Record<string, unknown> | undefined) ?? {}) };
   const publicationValues = (values.publication as Record<string, unknown> | undefined) ?? {};
   const publication = { ...publicationValues, status: publicationValues.status || "draft" };
   const rawDays = Array.isArray(itinerary.days) ? itinerary.days as Array<Record<string, unknown>> : [];
-  const days: Array<Record<string, unknown>> = rawDays.map((day, index) => ({ ...day, day: index + 1 }));
+  const days: Array<Record<string, unknown>> = rawDays.map((day, index) => ({
+    ...day,
+    day: index + 1,
+    title: String(day.title ?? "").trim(),
+    logistics: typeof day.logistics === "string" ? day.logistics.trim() : day.logistics,
+    paragraphs: cleanStringArray(day.paragraphs),
+    experiences: cleanStringArray(day.experiences),
+    images: cleanImages(day.images),
+    options: Array.isArray(day.options) ? day.options.map((option) => {
+      const entry = option as Record<string, unknown>;
+      return { ...entry, points: cleanStringArray(entry.points) };
+    }) : [],
+  }));
   const initialDays = getInitialValues(form)?.itinerary?.days ?? [];
 
   if (days.length < initialDays.length && typeof globalThis.confirm === "function") {
@@ -107,54 +185,60 @@ export async function prepareJourneyForSave({ values, cms, form }: JourneySaveCo
     if (!confirmed) failSave(cms, "已取消删除，内容尚未保存。");
   }
 
-  const slug = slugify(String(basic.slug || basic.collection || basic.title || "journey"));
+  const title = String(values.title || basic.collection || basic.title || "").trim();
+  const summary = String(values.summary || basic.listingDescription || basic.subtitle || "").trim();
+  const slug = normalizeJourneySlug(String(basic.slug || title));
+  if (!title) failSave(cms, "保存失败：请先填写路线名称。内容尚未保存。");
+  if (!slug) failSave(cms, "保存失败：无法根据路线名称生成页面网址，请使用英文路线名称。内容尚未保存。");
   basic.slug = slug;
   basic.durationDays = days.length;
   if (typeof basic.durationNights !== "number") basic.durationNights = Math.max(0, days.length - 1);
+  if ("searchKeywords" in basic) basic.searchKeywords = cleanStringArray(basic.searchKeywords);
+  if ("heroFacts" in basic) basic.heroFacts = cleanStringArray(basic.heroFacts);
+  if ("promises" in basic) basic.promises = cleanStringArray(basic.promises);
+  overview.paragraphs = cleanStringArray(overview.paragraphs);
   itinerary.days = days;
+  highlights.items = cleanHighlightItems(highlights.items);
+  highlights.images = cleanImages(highlights.images);
+  gallery.images = cleanImages(gallery.images);
+  inclusions.included = cleanStringArray(inclusions.included);
+  inclusions.excluded = cleanStringArray(inclusions.excluded);
+  audience.suitable = cleanStringArray(audience.suitable);
+  audience.considerations = cleanStringArray(audience.considerations);
+  booking.conditions = cleanStringArray(booking.conditions);
+  seo.keywords = cleanStringArray(seo.keywords);
+
+  const advancedHero = { ...((advanced.hero as Record<string, unknown> | undefined) ?? {}) };
+  const advancedInquiry = { ...((advanced.inquiry as Record<string, unknown> | undefined) ?? {}) };
+  advancedHero.facts = cleanStringArray(advancedHero.facts);
+  advancedInquiry.promises = cleanStringArray(advancedInquiry.promises);
+  advanced.hero = advancedHero;
+  advanced.inquiry = advancedInquiry;
 
   if (publication.status === "published") {
     const missing: string[] = [];
-    if (!basic.collection) missing.push("路线名称");
-    if (!basic.title) missing.push("页面标题");
-    if (!basic.listingDescription) missing.push("路线列表简介");
+    if (!title) missing.push("路线名称");
+    if (!summary) missing.push("路线简介");
     const hero = values.hero as Record<string, unknown> | undefined;
     if (!hero?.src) missing.push("首图");
-    if (!hero?.alt) missing.push("首图英文说明");
     if (days.length === 0) missing.push("至少一天每日行程");
 
     days.forEach((day, index) => {
       if (!day.title) missing.push(`第${index + 1}天标题`);
-      if (!day.route) missing.push(`第${index + 1}天路线`);
-      if (!day.overnight) missing.push(`第${index + 1}天住宿地点`);
+      if (!day.logistics && !day.route) missing.push(`第${index + 1}天交通与住宿`);
+      if (!day.logistics && !day.overnight) missing.push(`第${index + 1}天住宿地点`);
       const images = Array.isArray(day.images) ? day.images as Array<Record<string, unknown>> : [];
-      if (images.length > 2) missing.push(`第${index + 1}天最多只能上传两张图片`);
-      if (day.mediaLayout === "two-images" && images.length !== 2) missing.push(`第${index + 1}天选择“两张图片并排”时必须上传两张图片`);
       images.forEach((image, imageIndex) => {
         if (!image.src) missing.push(`第${index + 1}天第${imageIndex + 1}张图片`);
-        if (!image.alt) missing.push(`第${index + 1}天第${imageIndex + 1}张图片英文说明`);
       });
     });
     if (missing.length > 0) failSave(cms, `保存失败：发布前请完成：${missing.join("、")}。内容尚未保存。`);
-
-    let response: JourneySlugResponse;
-    try {
-      response = await cms.api.tina.request(
-        `query JourneySlugs { journeyConnection { edges { node { basic { slug } _sys { filename path relativePath } } } } }`,
-        { variables: {} },
-      ) as JourneySlugResponse;
-    } catch {
-      failSave(cms, "保存失败：暂时无法检查页面网址是否重复。内容尚未保存，请稍后重试。");
-    }
-
-    const nodes = response.journeyConnection?.edges
-      ?.map((edge) => edge?.node)
-      .filter((node): node is JourneyNode => Boolean(node)) ?? [];
-    const duplicate = findDuplicateJourney(nodes, slug, form);
-    if (duplicate) failSave(cms, `保存失败：页面网址“${slug}”已被其他路线使用，请更换后再保存。内容尚未保存。`);
   }
 
-  return { ...values, basic, itinerary, publication };
+  const slugError = await getJourneySlugValidationError({ cms, form, rawSlug: slug, title });
+  if (slugError) failSave(cms, `保存失败：${slugError} 内容尚未保存。`);
+
+  return { ...values, title, summary, basic, overview, itinerary, highlights, gallery, inclusions, audience, booking, seo, advanced, publication };
 }
 
-export const journeySaveTestables = { findDuplicateJourney, isSameDocument, normalizeDocumentPath };
+export const journeySaveTestables = { cleanHighlightItems, cleanStringArray, findDuplicateJourney, isSameDocument, normalizeDocumentPath };

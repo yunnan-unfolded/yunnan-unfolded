@@ -30,10 +30,11 @@ const choices: Record<string, Choice[]> = {
     { value: "wide", label: "大图", diagram: "▰▰▰", help: "占满当天正文宽度" },
   ],
   displayRatio: [
-    { value: "original", label: "自动", diagram: "◇", help: "保留原图比例，不裁切" },
-    { value: "landscape", label: "横图", diagram: "▰", help: "适合风景和建筑" },
-    { value: "portrait", label: "竖图", diagram: "▮", help: "适合人物和纵向场景" },
-    { value: "square", label: "方图", diagram: "■", help: "适合细节和近景" },
+    { value: "original", label: "原始比例", diagram: "◇", help: "完整显示，不裁切" },
+    { value: "landscape-16-9", label: "16:9 横图", diagram: "▰", help: "适合宽阔风景" },
+    { value: "landscape-4-3", label: "4:3 横图", diagram: "▰", help: "适合一般旅行画面" },
+    { value: "portrait-3-4", label: "3:4 竖图", diagram: "▮", help: "适合人物和纵向场景" },
+    { value: "portrait-9-16", label: "9:16 竖图", diagram: "▮", help: "手机端自动限制高度" },
   ],
   focalPoint: [
     { value: "center", label: "居中（推荐）", diagram: "◎", help: "通常无需调整" },
@@ -73,7 +74,7 @@ export function PresetCardsField({ input, field, meta }: FieldProps) {
     : fieldChoices;
   const gridStyle = {
     display: "grid",
-    gridTemplateColumns: `repeat(${fieldKey === "mediaLayout" ? 2 : Math.min(visibleChoices.length, 4)}, minmax(0, 1fr))`,
+    gridTemplateColumns: `repeat(${fieldKey === "mediaLayout" ? 2 : Math.min(visibleChoices.length, 5)}, minmax(0, 1fr))`,
     gap: "0.55rem",
   } satisfies CSSProperties;
 

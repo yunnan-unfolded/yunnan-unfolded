@@ -3,7 +3,10 @@ import type { JourneyContent } from "../types/journey";
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const mediaLayouts = new Set(["text-only", "image-left", "image-right", "image-above", "image-below", "two-images"]);
 const imageSizes = new Set(["compact", "standard", "wide"]);
-const displayRatios = new Set(["landscape", "portrait", "square", "original"]);
+const displayRatios = new Set([
+  "original", "landscape-16-9", "landscape-4-3", "portrait-3-4", "portrait-9-16",
+  "landscape", "portrait", "square",
+]);
 const focalPoints = new Set(["top", "center", "bottom", "left", "right"]);
 
 function requiredText(value: unknown, label: string, errors: string[]) {
@@ -12,14 +15,14 @@ function requiredText(value: unknown, label: string, errors: string[]) {
 
 export function validateJourneyContent(content: JourneyContent, filename = "Journey") {
   const errors: string[] = [];
-  requiredText(content.basic?.slug, `${filename}：slug`, errors);
+  const title = content.title?.trim() || content.basic?.collection?.trim() || content.basic?.title?.trim();
+  const summary = content.summary?.trim() || content.basic?.listingDescription?.trim();
+  requiredText(content.basic?.slug, `${filename}：页面网址`, errors);
   const isPublished = content.publication?.status === "published";
   if (isPublished) {
-    requiredText(content.basic?.collection, `${filename}：路线名称`, errors);
-    requiredText(content.basic?.title, `${filename}：页面标题`, errors);
-    requiredText(content.basic?.listingDescription, `${filename}：列表简介`, errors);
+    requiredText(title, `${filename}：路线名称`, errors);
+    requiredText(summary, `${filename}：路线简介`, errors);
     requiredText(content.hero?.src, `${filename}：首图`, errors);
-    requiredText(content.hero?.alt, `${filename}：首图英文说明`, errors);
   }
 
   if (content.basic?.slug && !slugPattern.test(content.basic.slug)) {
@@ -35,19 +38,16 @@ export function validateJourneyContent(content: JourneyContent, filename = "Jour
     const label = `${filename}：第${index + 1}天`;
     if (isPublished) {
       requiredText(day.title, `${label}标题`, errors);
-      requiredText(day.route, `${label}路线`, errors);
-      requiredText(day.overnight, `${label}住宿地点`, errors);
+      if (!day.logistics) {
+        requiredText(day.route, `${label}路线`, errors);
+        requiredText(day.overnight, `${label}住宿地点`, errors);
+      }
     }
     if (day.mediaLayout && !mediaLayouts.has(day.mediaLayout)) errors.push(`${label}图文版式无效`);
     if (day.imageSize && !imageSizes.has(day.imageSize)) errors.push(`${label}图片大小无效`);
-    if ((day.images?.length ?? 0) > 2) errors.push(`${label}最多只能上传两张图片`);
-    if (isPublished && day.mediaLayout === "two-images" && day.images?.length !== 2) {
-      errors.push(`${label}选择“两张图片并排”时必须上传两张图片`);
-    }
     day.images?.forEach((image, imageIndex) => {
       if (isPublished) {
         requiredText(image.src, `${label}第${imageIndex + 1}张图片`, errors);
-        requiredText(image.alt, `${label}第${imageIndex + 1}张图片说明`, errors);
       }
       if (image.displayRatio && !displayRatios.has(image.displayRatio)) errors.push(`${label}图片比例无效`);
       if (image.focalPoint && !focalPoints.has(image.focalPoint)) errors.push(`${label}画面重点无效`);

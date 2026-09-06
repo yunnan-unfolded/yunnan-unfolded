@@ -1,0 +1,295 @@
+{
+  "title": "When the Mountains Bloom",
+  "summary": "Five days on the rhododendron trails of Northwest Yunnan",
+  "basic": {
+    "slug": "yunnan-rhododendron-hiking",
+    "durationDays": 5,
+    "durationNights": 4,
+    "startLocation": "Lijiang ",
+    "endLocation": "Lijiang or Dali",
+    "bestSeasons": "May to July",
+    "activityLevel": "Easy to moderate",
+    "travelStyle": "Private and tailor-made",
+    "priceNote": "Tailor-made, on request",
+    "searchKeywords": [
+      "Lijiang → Maxiang Road → Luoguqing → Shaxi → Lijiang or Dali"
+    ]
+  },
+  "hero": {
+    "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_03.png",
+    "width": 1086,
+    "height": 1448
+  },
+  "overview": {
+    "paragraphs": [
+      "This is not a summit trek or a race against the clock. It is a carefully paced journey for travellers who want to walk through Yunnan’s quieter mountain country while remaining connected to the people and places that shape it.\nThe main hike in Luoguqing can be adapted to the group, from a gentler woodland walk to a fuller day among grasslands, streams and rhododendron slopes. Before and after the trail, Lijiang and Shaxi bring the journey back to the old Tea Horse Road — through stone lanes, caravan history and evenings that invite you to slow down."
+    ],
+    "facts": [],
+    "seasonNote": {
+      "title": "A Note about the Flowering Season",
+      "body": "May to July is the broad flowering season, but the exact timing varies with elevation, weather and conditions in each particular year. We cannot guarantee that any specific date will coincide with peak bloom. Our Yunnan-based team will follow recent flowering reports and adjust the walking route where conditions allow."
+    }
+  },
+  "highlights": {
+    "items": [
+      {
+        "title": "Walk through Yunnan’s wild rhododendron season",
+        "description": "Follow a mountain road where rhododendrons bloom across entire hillsides, their colours changing with altitude, weather and light."
+      },
+      {
+        "title": "Choose a trail that feels right for you",
+        "description": "Luoguqing offers more than one way into the landscape. Your local guide will shape the walking day around your experience, energy and current trail conditions."
+      },
+      {
+        "title": "Enter the landscapes of the Pumi people",
+        "description": "The forests and grasslands around Luoguqing are also lived-in landscapes, shaped by generations of Pumi families, grazing animals and seasonal mountain life."
+      },
+      {
+        "title": "Let the journey slow down in Shaxi",
+        "description": "After the mountains, spend a night in Shaxi, where the old theatre, stone lanes and Yujin Bridge still carry the quieter rhythm of the Tea Horse Road."
+      },
+      {
+        "title": "Travel privately and leave room for the unexpected",
+        "description": "A private journey keeps the pace flexible, with room to respond to the day and no compulsory shopping stops."
+      }
+    ],
+    "images": []
+  },
+  "itinerary": {
+    "days": [
+      {
+        "day": 1,
+        "title": "A quiet beginning",
+        "logistics": "Arrive in Lijiang · Overnight in Lijiang",
+        "route": "",
+        "overnight": "",
+        "subtitle": "",
+        "paragraphs": [
+          "Arrive in Lijiang, where our local team will meet you at the airport or railway station and take you to your hotel.\nThe first day is intentionally light. Rest after your journey, or take an evening walk through Lijiang or quieter Shuhe, allowing your body to settle before heading into the mountains."
+        ],
+        "experiences": [],
+        "mediaLayout": "image-left",
+        "imageSize": "standard",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_14_49.png",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1037,
+            "height": 1517
+          },
+          {
+            "src": "/images/journeys/罗古箐/09d79d9bf8afd2ae23671132eaff66af.jpeg",
+            "alt": "",
+            "displayRatio": "portrait-3-4",
+            "focalPoint": "center",
+            "width": 2000,
+            "height": 2668
+          }
+        ],
+        "options": []
+      },
+      {
+        "day": 2,
+        "title": "Into the flowering highlands",
+        "logistics": "Lijiang → Maxiang Road → Luoguqing · Overnight in Luoguqing or Tongdian",
+        "paragraphs": [
+          "Leave Lijiang behind and travel into the lesser-visited mountains west of Jianchuan. As the road climbs, farmland gives way to open slopes, wind-shaped ridges and wild rhododendrons.\nWe pause where the flowers and conditions are at their best, with time for unhurried walks and photography rather than a hurried roadside stop. Later, continue towards Luoguqing and settle into a simple locally run guesthouse near the mountains."
+        ],
+        "experiences": [],
+        "mediaLayout": "image-above",
+        "imageSize": "wide",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_52.png",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1086,
+            "height": 1448
+          },
+          {
+            "src": "/images/journeys/罗古箐/5cef570c433f4fe384891d8483ab1870.webp",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1672,
+            "height": 941
+          }
+        ],
+        "options": []
+      },
+      {
+        "day": 3,
+        "title": "Forests, grasslands and rhododendron trails",
+        "logistics": "Hiking in Luoguqing · Overnight in Luoguqing or Tongdian",
+        "paragraphs": [
+          "Today is the heart of the journey. Walk with a local mountain guide through mossy forest, clear streams, open grasslands and slopes coloured by seasonal rhododendrons.\nThe route is adapted to the group and current trail conditions. It is designed as an easy-to-moderate mountain walk rather than a technical trek, with time to pause, photograph and experience the landscape without rushing."
+        ],
+        "experiences": [],
+        "mediaLayout": "image-above",
+        "imageSize": "wide",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_46.png",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1536,
+            "height": 1024
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_58.png",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1020,
+            "height": 1542
+          }
+        ],
+        "options": []
+      },
+      {
+        "day": 4,
+        "title": "From mountain country to the Tea Horse Road",
+        "logistics": "Luoguqing → Shaxi · Approx. 3 hours / 110 km · Overnight in Shaxi",
+        "paragraphs": [
+          "Leave the highlands and travel approximately three hours to Shaxi. Along the way, mountain country gradually gives way to cultivated valleys and village landscapes.\nArrive with time to settle into your guesthouse before exploring Sideng Square, the old theatre and the lanes surrounding the former caravan market. Towards evening, walk to Yujin Bridge as the last light settles over the valley. Staying overnight allows you to experience Shaxi after the day visitors have left."
+        ],
+        "experiences": [],
+        "mediaLayout": "image-right",
+        "imageSize": "standard",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/downloaded-image-(1).jpeg",
+            "alt": "",
+            "displayRatio": "portrait-3-4",
+            "focalPoint": "center",
+            "width": 3200,
+            "height": 4184
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_32_03.png",
+            "alt": "",
+            "displayRatio": "portrait-3-4",
+            "focalPoint": "center",
+            "width": 1087,
+            "height": 1447
+          }
+        ],
+        "options": []
+      },
+      {
+        "day": 5,
+        "title": "One last slow morning",
+        "logistics": "Shaxi → Lijiang or Dali",
+        "paragraphs": [
+          "Begin with a quiet morning in Shaxi: tea, breakfast and a final walk through the old town before the streets fully wake.\nLater, travel onwards to Lijiang or Dali for your next hotel, railway journey or flight. If you have more time, this journey can also be extended into a longer exploration of Dali, Lijiang or the walking routes of Northwest Yunnan."
+        ],
+        "experiences": [],
+        "mediaLayout": "image-above",
+        "imageSize": "wide",
+        "images": [
+          {
+            "src": "/images/journeys/yunnan-slowly/shaxi-old-houses-yunnan-1468.webp",
+            "alt": "",
+            "displayRatio": "portrait-3-4",
+            "focalPoint": "center",
+            "width": 1468,
+            "height": 2200
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_23_58.png",
+            "alt": "",
+            "displayRatio": "original",
+            "focalPoint": "center",
+            "width": 1709,
+            "height": 920
+          }
+        ],
+        "options": []
+      }
+    ]
+  },
+  "inclusions": {
+    "included": [
+      "Private vehicle and driver during the journey",
+      "Four nights’ accommodation based on twin or double sharing",
+      "English-speaking guide as specified in the confirmed itinerary",
+      "Trusted local hiking guide in Luoguqing",
+      "Entrance fees for the activities included in the confirmed itinerary"
+    ],
+    "excluded": [
+      "Flights or train tickets to and from the journey",
+      "Meals not specifically included in the confirmed itinerary",
+      "Personal travel and medical insurance",
+      "Personal expenses and optional activities",
+      "Gratuities, which are always at your discretion"
+    ]
+  },
+  "audience": {
+    "suitable": [
+      "01  You enjoy walking but are not looking for a technical expedition.",
+      "02  You value wild landscapes, photography and seasonal nature.",
+      "03  You prefer quiet villages to famous attractions.",
+      "04  You are comfortable with mountain roads and simpler accommodation.",
+      "05  You want a private journey that can adapt to your pace."
+    ],
+    "considerations": []
+  },
+  "gallery": {
+    "images": [
+      {
+        "src": "/images/journeys/yunnan-slowly/%E9%AB%98%E5%B1%B1%E6%9D%9C%E9%B9%83.jpg",
+        "alt": "",
+        "width": 1026,
+        "height": 1532
+      },
+      {
+        "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_14_49.png",
+        "alt": "",
+        "width": 1037,
+        "height": 1517
+      },
+      {
+        "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_24_03.png",
+        "alt": "",
+        "width": 1086,
+        "height": 1448
+      }
+    ]
+  },
+  "route": {
+    "display": "Lijiang → Maxiang Road → Luoguqing → Shaxi → Lijiang or Dali",
+    "stops": []
+  },
+  "booking": {
+    "conditions": []
+  },
+  "seo": {},
+  "publication": {
+    "status": "draft"
+  },
+  "advanced": {
+    "copy": {
+      "enabled": true,
+      "homepageDescription": "When the Mountains Bloom",
+      "homepageImageAlt": "Wild rhododendrons blooming across a mountain landscape in Northwest Yunnan"
+    },
+    "hero": {
+      "enabled": false,
+      "eyebrow": "SEASONAL HIKING · NORTHWEST YUNNAN",
+      "facts": [
+        "5 DAYS · 4 NIGHTS",
+        "MAY TO JULY",
+        "EASY TO MODERATE",
+        "PRIVATE JOURNEY"
+      ],
+      "imageAlt": "高山杜鹃"
+    },
+    "inquiry": {
+      "enabled": false
+    }
+  }
+}
