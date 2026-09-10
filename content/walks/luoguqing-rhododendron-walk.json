@@ -1,0 +1,186 @@
+{
+  "title": "Luoguqing Rhododendron Walk",
+  "basic": {
+    "slug": "luoguqing-rhododendron-walk",
+    "region": "Lanping · Nujiang",
+    "summary": "Choose from three guided routes through rhododendron woodland, highland meadow and the quieter landscapes of northwest Yunnan.",
+    "difficulty": "easy-moderate",
+    "approximateDuration": "Varies by route",
+    "recommendedSeasons": "May to July",
+    "searchKeywords": [
+      "Luoguqing",
+      "rhododendron walk",
+      "Northwest Yunnan",
+      "罗古箐",
+      "杜鹃徒步"
+    ]
+  },
+  "hero": {
+    "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_03.png",
+    "alt": "A walker beneath flowering rhododendrons in the Luoguqing mountains",
+    "width": 1086,
+    "height": 1448
+  },
+  "route": {
+    "introduction": "Luoguqing offers several ways into the same mountain landscape, from a short developed trail to a demanding point-to-point traverse. Mossy woodland, open grassland, streams, Danxia rock and slopes coloured by wild rhododendrons appear in different combinations depending on the route chosen.\n\nThe 5 km and 14 km walks suit most leisure hikers at different fitness levels. The 24 km Dayangchang traverse is a separate, higher-risk undertaking with greater altitude gain and exposed terrain. Yunnan Unfolded works with a trusted local guide to match the route and pace to current weather, trail conditions and the people walking.",
+    "options": [
+      {
+        "title": "5 km Introductory Walk",
+        "summary": "A shorter walk on the developed scenic trail, returning along the same route.",
+        "distanceKm": 5,
+        "duration": "2–3 hours",
+        "routeType": "out-and-back",
+        "startElevationM": 2400,
+        "highestElevationM": 2800,
+        "elevationGainM": 400,
+        "riskLevel": "lower",
+        "terrain": "Mostly maintained red-stone paving and established mountain path through fir forest and Huaxi Valley.",
+        "suitability": "A good choice for families, first-time hikers and travellers who prefer a shorter mountain experience.",
+        "riskNotes": [
+          "This is the lowest-risk of the three options, although rain can still make stone surfaces slippery."
+        ]
+      },
+      {
+        "title": "14 km Forest Walk",
+        "summary": "An extended out-and-back route that continues deeper into the forest to rock formations and viewpoints.",
+        "distanceKm": 14,
+        "duration": "Half day",
+        "routeType": "out-and-back",
+        "startElevationM": 2400,
+        "highestElevationM": 2800,
+        "elevationGainM": 400,
+        "riskLevel": "moderate",
+        "terrain": "Maintained trail, stone steps and mountain path, continuing beyond the shorter route towards Yixiantian, Jinchan Wangyue and Tingfeng Cliff.",
+        "suitability": "Suitable for active beginners and regular walkers with enough fitness for a longer distance and sustained stone steps.",
+        "riskNotes": [
+          "Long stone stair sections can feel strenuous even though the route remains non-technical.",
+          "A reasonable fitness base is recommended."
+        ]
+      },
+      {
+        "title": "24 km Dayangchang Traverse",
+        "summary": "A demanding point-to-point crossing through high meadow, Danxia rock formations, forest and gorge terrain.",
+        "distanceKm": 24,
+        "duration": "",
+        "routeType": "point-to-point",
+        "startElevationM": 2400,
+        "highestElevationM": 3600,
+        "elevationGainM": 1200,
+        "riskLevel": "high",
+        "terrain": "Red-stone trail, exposed ridge and cliff-side sections, steep steps, high meadow, original forest, streams and gorge terrain.",
+        "suitability": "For experienced, well-conditioned hikers who are comfortable with exposure. It is not suitable for travellers with a serious fear of heights.",
+        "riskNotes": [
+          "Several exposed ridge and cliff sections have no guardrails.",
+          "The steep Tongtianti section may require the use of hands as well as feet.",
+          "Mobile signal is absent on many sections; a professional local guide is strongly recommended even when carrying a recorded track.",
+          "Forest and stream sections may be wet and slippery. Grippy hiking footwear is essential, and gaiters can help in leech season."
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "title": "Into the Forest",
+        "body": "The walk begins beneath the trees, where moss, clear water and filtered light introduce the quieter character of the mountain. The local guide chooses the most suitable way forward according to conditions on the day.",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_24_03.png",
+            "alt": "A forest path in the mountains of northwest Yunnan",
+            "displayWidth": "half",
+            "displayRatio": "portrait-3-4",
+            "alignment": "right",
+            "focalPoint": "center",
+            "width": 1086,
+            "height": 1448
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_32_12.png",
+            "alt": "",
+            "displayWidth": "half",
+            "displayRatio": "portrait-3-4",
+            "alignment": "left",
+            "focalPoint": "center",
+            "width": 1026,
+            "height": 1532
+          }
+        ]
+      },
+      {
+        "title": "Across the Rhododendron Slopes",
+        "body": "Forest gives way to more open slopes and highland meadow. From May to July, rhododendrons may flower at different elevations, but timing varies with temperature, rainfall and the season’s progress.",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_58.png",
+            "alt": "A walker following a path through seasonal rhododendrons",
+            "displayWidth": "half",
+            "displayRatio": "portrait-3-4",
+            "alignment": "left",
+            "focalPoint": "top",
+            "width": 1020,
+            "height": 1542
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_52.png",
+            "alt": "Rhododendron-covered slopes beneath distant mountains",
+            "displayWidth": "half",
+            "displayRatio": "portrait-3-4",
+            "alignment": "right",
+            "focalPoint": "center",
+            "width": 1086,
+            "height": 1448
+          }
+        ]
+      },
+      {
+        "title": "A Quiet Return",
+        "body": "The return is kept unhurried, with room to shorten or adjust the final section if the weather or the group’s energy changes. The emphasis remains on seeing the landscape well, not completing a fixed distance.",
+        "images": [
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_57_46.png",
+            "alt": "A walker crossing an open highland meadow in northwest Yunnan",
+            "displayWidth": "standard",
+            "displayRatio": "landscape-4-3",
+            "alignment": "left",
+            "focalPoint": "center",
+            "width": 1536,
+            "height": 1024
+          },
+          {
+            "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_09.png",
+            "alt": "",
+            "displayWidth": "standard",
+            "displayRatio": "landscape-4-3",
+            "alignment": "right",
+            "focalPoint": "top",
+            "width": 1672,
+            "height": 941
+          }
+        ]
+      }
+    ]
+  },
+  "gallery": {
+    "images": []
+  },
+  "practical": {
+    "location": "Luoguqing Scenic Area, Tongdian Town, Lanping Bai and Pumi Autonomous County, Nujiang Prefecture, Yunnan",
+    "accessNote": "Luoguqing is reached by road and lies approximately 59 km from Lanping county town. The trailhead and vehicle plan depend on the route selected; the 24 km traverse has different start and finish points and requires advance transport coordination.",
+    "signalNote": "Mobile coverage may be available around the developed scenic area, but it is not reliable deeper in the mountains. Long sections of the 24 km traverse have no signal.",
+    "seasonNote": "May to July is the broad flowering season, but the exact timing varies with elevation, temperature, rainfall and conditions in each particular year. We cannot guarantee that any specific date will coincide with peak bloom. Our Yunnan-based team will follow recent flowering reports and adjust the walking route where conditions allow.",
+    "preparationNotes": [
+      "Mountain weather can change quickly, so bring layers and suitable rain protection.",
+      "Wear hiking shoes with reliable grip; stone, forest and stream sections can become slippery after rain.",
+      "Trekking poles are useful on the longer routes. In wet periods, gaiters can also help with mud and leeches.",
+      "Carry sufficient drinking water and food for the route agreed with your guide.",
+      "The 24 km traverse includes exposed, unprotected sections and should not be attempted alone. A professional local guide and advance transport plan are strongly recommended.",
+      "The final route and pace are confirmed according to current weather, trail conditions and the group."
+    ],
+    "relatedJourney": "content/journeys/yunnan-rhododendron-hiking.json"
+  },
+  "seo": {
+    "title": "",
+    "description": ""
+  },
+  "publication": {
+    "status": "draft"
+  }
+}

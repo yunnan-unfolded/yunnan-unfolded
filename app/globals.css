@@ -224,8 +224,8 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
 .side-cta { position:fixed; z-index:15; top:50%; right:0; transform:translateY(-50%); padding:1.4rem .65rem; background:var(--gold); color:var(--forest-dark); box-shadow:0 10px 35px rgba(0,0,0,.12); font-size:.58rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase; writing-mode:vertical-rl; }
 .mobile-cta { display:none; }
 
-.placeholder { min-height:100vh; padding-top:10rem; background:var(--ivory); }
-.placeholder .header { position:fixed; width:100%; padding-inline:4vw; background:var(--forest); }
+.placeholder { min-height:100vh; background:var(--ivory); }
+.placeholder .header { position:relative; width:100%; padding-inline:4vw; background:var(--forest); color:white; }
 .placeholder__inner { max-width:800px; padding:8rem 0; }
 .placeholder h1 { font-size:clamp(4rem,9vw,8rem); color:var(--forest); }
 .placeholder p { max-width:620px; color:var(--muted); font-size:1.05rem; }

@@ -36,6 +36,19 @@ function completeWalk(slug = "highland-meadow-walk") {
     hero: { src: "/images/walks/hero.webp", alt: "Highland meadow in Yunnan" },
     route: {
       introduction: "The route changes gradually from forest to open high country.",
+      options: [{
+        title: " Forest Route ",
+        distanceKm: 14,
+        duration: " Half day ",
+        routeType: "out-and-back",
+        startElevationM: 2400,
+        highestElevationM: 2800,
+        elevationGainM: 400,
+        riskLevel: "moderate",
+        terrain: " Stone steps ",
+        suitability: " Active beginners ",
+        riskNotes: [" Slippery after rain\nBring poles "],
+      }],
       stages: [{
         title: "Into the Forest",
         body: "Follow a quiet path beneath the trees.",
@@ -200,6 +213,22 @@ test("missing image presets receive safe defaults and multiline notes normalize"
   assert.equal(result.practical.relatedJourney, "content/journeys/yunnan-slowly.json");
 });
 
+test("route-guide statistics and risk notes are normalized without inventing missing values", async () => {
+  const harness = cmsWithNodes();
+  const result = await prepareWalkForSave({
+    values: completeWalk("route-guide-data"),
+    cms: harness.cms,
+    form: { crudType: "create" },
+  });
+
+  assert.equal(result.route.options[0].title, "Forest Route");
+  assert.equal(result.route.options[0].distanceKm, 14);
+  assert.equal(result.route.options[0].highestElevationM, 2800);
+  assert.equal(result.route.options[0].riskLevel, "moderate");
+  assert.deepEqual(result.route.options[0].riskNotes, ["Slippery after rain", "Bring poles"]);
+  assert.equal(result.route.options[0].duration, "Half day");
+});
+
 test("Tina schema contains an isolated six-group Walk collection and leaves Journey at nine groups", async () => {
   const source = await readFile(new URL("../tina/config.ts", import.meta.url), "utf8");
   assert.match(source, /name: "walk"[\s\S]*label: "徒步路线"[\s\S]*path: "content\/walks"/);
@@ -212,4 +241,6 @@ test("Tina schema contains an isolated six-group Walk collection and leaves Jour
     assert.match(source, new RegExp(`label: "${index}\\.`));
   }
   assert.doesNotMatch(source, /showOnWalkYunnan|显示在 Walk Yunnan/);
+  assert.match(walkSource, /name: "options"[\s\S]*label: "路线方案与攻略数据"/);
+  assert.match(walkSource, /name: "distanceKm"[\s\S]*name: "highestElevationM"[\s\S]*name: "elevationGainM"[\s\S]*name: "riskLevel"/);
 });

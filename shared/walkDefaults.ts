@@ -1,4 +1,6 @@
 export const WALK_DIFFICULTIES = ["gentle", "easy-moderate", "high-country"] as const;
+export const WALK_ROUTE_TYPES = ["out-and-back", "loop", "point-to-point"] as const;
+export const WALK_RISK_LEVELS = ["lower", "moderate", "high"] as const;
 export const WALK_IMAGE_WIDTHS = ["standard", "large", "full-bleed", "half"] as const;
 export const WALK_IMAGE_RATIOS = ["original", "landscape-16-9", "landscape-4-3", "portrait-3-4", "portrait-9-16"] as const;
 export const WALK_IMAGE_ALIGNMENTS = ["center", "left", "right"] as const;

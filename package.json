@@ -20,7 +20,7 @@
     "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
     "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
     "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs tests/phase-2-2b-migration.test.mjs",
-    "test:walks": "node --experimental-strip-types --test tests/tina-walk-save.test.mjs",
+    "test:walks": "node --experimental-strip-types --test tests/tina-walk-save.test.mjs tests/walk-content.test.mjs",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern artifacts"
   },
   "dependencies": {

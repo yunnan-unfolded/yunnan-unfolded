@@ -6,6 +6,8 @@ import {
   WALK_IMAGE_FOCAL_POINTS,
   WALK_IMAGE_RATIOS,
   WALK_IMAGE_WIDTHS,
+  WALK_RISK_LEVELS,
+  WALK_ROUTE_TYPES,
 } from "../shared/walkDefaults.ts";
 
 type WalkNode = {
@@ -179,6 +181,34 @@ function cleanStages(value: unknown) {
     }));
 }
 
+function cleanOptionalNumber(value: unknown) {
+  if (value === "" || value === null || value === undefined) return undefined;
+  const number = Number(value);
+  return Number.isFinite(number) && number >= 0 ? number : undefined;
+}
+
+function cleanRouteOptions(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((item): item is Record<string, unknown> => Boolean(item && typeof item === "object"))
+    .map((item) => ({
+      ...item,
+      title: cleanText(item.title),
+      summary: cleanText(item.summary),
+      distanceKm: cleanOptionalNumber(item.distanceKm),
+      duration: cleanText(item.duration),
+      routeType: validChoice(item.routeType, WALK_ROUTE_TYPES, "out-and-back"),
+      startElevationM: cleanOptionalNumber(item.startElevationM),
+      highestElevationM: cleanOptionalNumber(item.highestElevationM),
+      elevationGainM: cleanOptionalNumber(item.elevationGainM),
+      riskLevel: validChoice(item.riskLevel, WALK_RISK_LEVELS, "lower"),
+      terrain: cleanText(item.terrain),
+      suitability: cleanText(item.suitability),
+      riskNotes: normalizeWalkLines(item.riskNotes),
+    }))
+    .filter((item) => Boolean(item.title));
+}
+
 export async function prepareWalkForSave({ values, cms, form }: WalkSaveContext) {
   const title = cleanText(values.title);
   const basicValues = (values.basic as Record<string, unknown> | undefined) ?? {};
@@ -196,6 +226,7 @@ export async function prepareWalkForSave({ values, cms, form }: WalkSaveContext)
   const route = {
     ...routeValues,
     introduction: cleanText(routeValues.introduction),
+    options: cleanRouteOptions(routeValues.options),
     stages: cleanStages(routeValues.stages),
   };
   const galleryValues = (values.gallery as Record<string, unknown> | undefined) ?? {};
@@ -204,6 +235,9 @@ export async function prepareWalkForSave({ values, cms, form }: WalkSaveContext)
   const practical = {
     ...practicalValues,
     seasonNote: cleanText(practicalValues.seasonNote),
+    location: cleanText(practicalValues.location),
+    accessNote: cleanText(practicalValues.accessNote),
+    signalNote: cleanText(practicalValues.signalNote),
     preparationNotes: normalizeWalkLines(practicalValues.preparationNotes),
     relatedJourney: cleanText(practicalValues.relatedJourney),
   };
@@ -248,6 +282,7 @@ export async function prepareWalkForSave({ values, cms, form }: WalkSaveContext)
 }
 
 export const walkSaveTestables = {
+  cleanRouteOptions,
   cleanStages,
   cleanWalkImages,
   currentFilenameSlug,
