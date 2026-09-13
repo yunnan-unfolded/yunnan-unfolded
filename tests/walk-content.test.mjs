@@ -75,6 +75,28 @@ test("the Walk directory replaces the placeholder and keeps drafts local", () =>
   assert.doesNotMatch(placeholderSource, /"walk-yunnan":/);
 });
 
+test("the homepage reads Walk collection data without leaking drafts to production", () => {
+  const source = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
+  const brandCss = readFileSync(new URL("../app/brand-overrides.css", import.meta.url), "utf8");
+  assert.match(source, /getWalks\(localDraftPreviewEnabled\)\.slice\(0, 1\)/);
+  assert.match(source, /process\.env\.TINA_LOCAL_DRAFT_PREVIEW === "true"/);
+  assert.match(source, /walk\.status === "draft" \? <span>Local Draft<\/span>/);
+  assert.match(source, /`\/walk-yunnan\/\$\{walk\.slug\}\/`/);
+  assert.match(source, /walk\.routeOptions/);
+  assert.match(source, /walk\.difficulty/);
+  assert.match(source, /walk\.recommendedSeasons/);
+  assert.match(source, /assetPath\(walk\.hero\.src\)/);
+  assert.match(source, /--walk-card-aspect-ratio/);
+  assert.match(source, /Routes in preparation/);
+  assert.doesNotMatch(source, /walkingRoutes/);
+  assert.doesNotMatch(source, /from "\.\/data\/siteContent";[^\n]*walkingRoutes/);
+  assert.match(css, /aspect-ratio:var\(--walk-card-aspect-ratio,3\/2\)/);
+  assert.match(brandCss, /\.walk \{\s*background: var\(--paper\);\s*\}/);
+  assert.equal(getWalks(false).length, 0);
+  assert.equal(getWalks(true)[0]?.slug, "luoguqing-rhododendron-walk");
+});
+
 test("the draft uses only existing Luoguqing assets and valid independent image presets", () => {
   const images = [
     entry.content.hero,

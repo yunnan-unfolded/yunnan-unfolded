@@ -1,15 +1,41 @@
+import type { CSSProperties } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { ArrowLink } from "./components/ArrowLink";
 import { QuickInquiryForm } from "./components/QuickInquiryForm";
 import { HeroSlideshow } from "./components/HeroSlideshow";
-import { guides, upcomingJourneys, walkingRoutes } from "./data/siteContent";
+import { guides, upcomingJourneys } from "./data/siteContent";
 import { publishedJourneys } from "./lib/journeyContent";
+import type { WalkDetail } from "./lib/walkAdapter";
+import { getWalks } from "./lib/walkContent";
 import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "./lib/sitePaths";
 
+const localDraftPreviewEnabled = process.env.NODE_ENV === "development"
+  && process.env.TINA_LOCAL_DRAFT_PREVIEW === "true";
+
+function walkHref(walk: WalkDetail) {
+  return `/walk-yunnan/${walk.slug}/`;
+}
+
+function walkDistances(walk: WalkDetail) {
+  const distances = walk.routeOptions
+    .map((option) => option.distanceKm)
+    .filter((distance): distance is number => typeof distance === "number");
+  return distances.length > 0 ? `${distances.join(" / ")} km` : undefined;
+}
+
+function walkCoverStyle(walk: WalkDetail) {
+  const width = walk.hero.width;
+  const height = walk.hero.height;
+  return width && height
+    ? ({ "--walk-card-aspect-ratio": `${width} / ${height}` } as CSSProperties)
+    : undefined;
+}
+
 export default function Home() {
+  const homepageWalks = getWalks(localDraftPreviewEnabled).slice(0, 1);
   const journeyCards = [
     ...publishedJourneys.map((journey) => ({
       title: journey.collection,
@@ -101,25 +127,52 @@ export default function Home() {
               <div><p className="eyebrow">Selected walking journeys</p><h3>Routes shaped by the land</h3></div>
               <p>These are just a few ways to experience Yunnan on foot. Every journey can be adapted to your pace, interests and time.</p>
             </div>
-            <div className="walk__route-list">
-              {walkingRoutes.map((route, index) => (
-                <article className="walk-route" key={route.title}>
-                  <span className="walk-route__number">0{index + 1}</span>
-                  <div className="walk-route__copy">
-                    <p className="walk-route__region">{route.region}</p>
-                    <h4><Link href="/walk-yunnan">{route.title}</Link></h4>
-                    <p>{route.description}</p>
-                  </div>
-                  <dl className="walk-route__meta">
-                    <div><dt>Duration</dt><dd>{route.duration}</dd></div>
-                    <div><dt>Difficulty</dt><dd>{route.difficulty}</dd></div>
-                  </dl>
-                  <Link className="walk-route__image-wrap" href="/walk-yunnan" aria-label={`Explore ${route.title}`}>
-                    <Image src={route.image} alt={route.alt} width={720} height={480} />
-                  </Link>
-                </article>
-              ))}
-            </div>
+            {homepageWalks.length > 0 ? (
+              <div className="walk__route-list">
+                {homepageWalks.map((walk, index) => {
+                  const href = walkHref(walk);
+                  const distances = walkDistances(walk);
+                  return (
+                    <article className="walk-route" key={walk.slug}>
+                      <span className="walk-route__number">0{index + 1}</span>
+                      <div className="walk-route__copy">
+                        <div className="walk-route__region-line">
+                          <p className="walk-route__region">{walk.region}</p>
+                          {walk.status === "draft" ? <span>Local Draft</span> : null}
+                        </div>
+                        <h4><Link href={href}>{walk.title}</Link></h4>
+                        <p>{walk.summary}</p>
+                      </div>
+                      <dl className="walk-route__meta">
+                        {distances ? <div><dt>Distances</dt><dd>{distances}</dd></div> : null}
+                        <div><dt>Difficulty</dt><dd>{walk.difficulty}</dd></div>
+                        <div><dt>Best season</dt><dd>{walk.recommendedSeasons}</dd></div>
+                      </dl>
+                      <Link
+                        className="walk-route__image-wrap"
+                        href={href}
+                        aria-label={`Explore ${walk.title}`}
+                        style={walkCoverStyle(walk)}
+                      >
+                        <Image
+                          src={assetPath(walk.hero.src)}
+                          alt={walk.hero.alt}
+                          width={walk.hero.width ?? 720}
+                          height={walk.hero.height ?? 480}
+                          sizes="(max-width: 760px) 88vw, 290px"
+                        />
+                      </Link>
+                    </article>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="walk__empty-state">
+                <p className="eyebrow">Routes in preparation</p>
+                <h4>New ways to walk through Yunnan are taking shape.</h4>
+                <p>Explore the walking directory or tell us what kind of landscape and pace you have in mind.</p>
+              </div>
+            )}
             <div className="walk__actions">
               <ArrowLink href="/walk-yunnan">Explore all walking journeys</ArrowLink>
               <Link className="button button--gold" href="/plan-my-trip">Plan a walking trip</Link>

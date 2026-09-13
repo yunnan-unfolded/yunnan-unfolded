@@ -145,7 +145,7 @@
 .journey-card h3 { color: var(--forest-dark); }
 
 .walk {
-  background: #12362e;
+  background: var(--paper);
 }
 .walk__image-panel::after {
   background: linear-gradient(0deg, rgba(4,25,21,.5), transparent 57%);
