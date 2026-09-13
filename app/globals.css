@@ -322,7 +322,7 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
   .brand { flex-basis:162px; width:162px; }
   .brand__logo { width:162px; }
   .desktop-nav,.header__cta { display:none; }
-  .menu-button { z-index:2; display:flex; flex-direction:column; justify-content:center; gap:6px; width:46px; height:46px; border:0; background:transparent; }
+  .menu-button { z-index:2; display:flex; flex-direction:column; justify-content:center; gap:6px; width:46px; height:46px; margin-left:auto; border:0; background:transparent; }
   .menu-button span { width:25px; height:1px; margin-left:auto; background:white; transition:transform .25s; }
   .menu-button span:last-child { width:17px; }
   .menu-button[aria-expanded="true"] span:first-child { transform:translateY(3.5px) rotate(45deg); }

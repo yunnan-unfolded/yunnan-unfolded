@@ -34,6 +34,11 @@ export const publishedWalks = walkContents
   .filter(({ content }) => content.publication.status === "published")
   .map(({ content }) => walkContentToDetail(content));
 
+export function getWalks(includeDraft = false) {
+  if (!includeDraft) return publishedWalks;
+  return readWalkContents().map(({ content }) => walkContentToDetail(content));
+}
+
 export function getWalkContentBySlug(slug: string, refreshFromDisk = false) {
   const contents = refreshFromDisk ? readWalkContents() : walkContents;
   return contents.find(({ content }) => content.basic.slug === slug);
