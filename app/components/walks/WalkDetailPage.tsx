@@ -247,7 +247,9 @@ export function WalkDetailPage({
           </div>
           <div className={styles.heroCopy}>
             {isLocalDraft ? <p className={styles.draftLabel}>Local draft preview</p> : null}
-            <p className={styles.eyebrow}>Walk Yunnan · {walk.region}</p>
+            <p className={styles.eyebrow}>
+              <Link href={routePath("/walk-yunnan")}>Walk Yunnan</Link> · {walk.region}
+            </p>
             <h1>{walk.title}</h1>
             <p className={styles.summary}>{walk.summary}</p>
             <a className={styles.textLink} href="#the-walk">Discover the walk <span aria-hidden="true">↓</span></a>

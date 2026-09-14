@@ -8,24 +8,41 @@ import {
   getWalkContentBySlug,
   getWalks,
   publishedWalks,
+  walkEntriesToDetails,
   walkContents,
 } from "../app/lib/walkContent.ts";
+import { buildWalkMetadata, buildWalkStructuredData } from "../app/lib/walkSeo.ts";
 
 const slug = "luoguqing-rhododendron-walk";
 const entry = getWalkContentBySlug(slug);
 
-test("the first Walk is an isolated local draft with a matching filename", () => {
+test("the first Walk is a published release candidate with a matching filename", () => {
   assert.ok(entry);
   assert.equal(entry.filename, `${slug}.json`);
   assert.equal(entry.content.title, "Luoguqing Rhododendron Walk");
-  assert.equal(entry.content.publication.status, "draft");
+  assert.equal(entry.content.publication.status, "published");
   assert.equal(walkContents.length, 1);
-  assert.equal(publishedWalks.length, 0);
-  assert.equal(getWalks().length, 0);
+  assert.equal(publishedWalks.length, 1);
+  assert.equal(getWalks().length, 1);
   assert.equal(getWalks(true).length, 1);
-  assert.equal(getWalkBySlug(slug), undefined);
+  assert.equal(getWalkBySlug(slug)?.title, "Luoguqing Rhododendron Walk");
   assert.equal(getWalkBySlug(slug, true)?.title, "Luoguqing Rhododendron Walk");
   assert.notStrictEqual(getWalkContentBySlug(slug, true), entry);
+});
+
+test("draft fixtures remain excluded from public data and keep private metadata", () => {
+  const draftContent = structuredClone(entry.content);
+  draftContent.title = "Private Draft Walk";
+  draftContent.basic.slug = "private-draft-walk";
+  draftContent.publication.status = "draft";
+  const draftEntry = { filename: "private-draft-walk.json", content: draftContent };
+  const draftWalk = walkContentToDetail(draftContent);
+
+  assert.equal(walkEntriesToDetails([draftEntry]).length, 0);
+  assert.equal(walkEntriesToDetails([draftEntry], true).length, 1);
+  assert.deepEqual(buildWalkMetadata(draftWalk).alternates, { canonical: null });
+  assert.deepEqual(buildWalkMetadata(draftWalk).robots, { index: false, follow: false });
+  assert.deepEqual(buildWalkStructuredData(draftWalk), []);
 });
 
 test("the Walk adapter exposes route-guide data and generates stable enquiry parameters", () => {
@@ -93,11 +110,11 @@ test("the homepage reads Walk collection data without leaking drafts to producti
   assert.doesNotMatch(source, /from "\.\/data\/siteContent";[^\n]*walkingRoutes/);
   assert.match(css, /aspect-ratio:var\(--walk-card-aspect-ratio,3\/2\)/);
   assert.match(brandCss, /\.walk \{\s*background: var\(--paper\);\s*\}/);
-  assert.equal(getWalks(false).length, 0);
+  assert.equal(getWalks(false).length, 1);
   assert.equal(getWalks(true)[0]?.slug, "luoguqing-rhododendron-walk");
 });
 
-test("the draft uses only existing Luoguqing assets and valid independent image presets", () => {
+test("the published Walk uses existing Luoguqing assets with accessible descriptions", () => {
   const images = [
     entry.content.hero,
     ...entry.content.route.stages.flatMap((stage) => stage.images),
@@ -109,6 +126,7 @@ test("the draft uses only existing Luoguqing assets and valid independent image 
     assert.match(image.src, /^\/images\/journeys\/罗古箐\//);
     assert.equal(existsSync(join(process.cwd(), "public", image.src.replace(/^\//, ""))), true, image.src);
     assert.equal(typeof image.alt, "string");
+    assert.notEqual(image.alt.trim(), "", `${image.src} needs an English image description`);
   }
 
   const stageImages = entry.content.route.stages.flatMap((stage) => stage.images);
@@ -132,23 +150,52 @@ test("the related draft Journey resolves without changing Journey content", () =
   assert.equal(related.publication.status, "draft");
 });
 
-test("the public sitemap excludes the draft Walk", () => {
+test("the public sitemap includes the published Walk", () => {
   const source = readFileSync(new URL("../app/sitemap.ts", import.meta.url), "utf8");
   assert.match(source, /publishedWalks\.map/);
-  assert.equal(publishedWalks.some((walk) => walk.slug === slug), false);
+  assert.equal(publishedWalks.some((walk) => walk.slug === slug), true);
+  assert.match(source, /const walkRoutes = publishedWalks\.map\(\(walk\) => `\/walk-yunnan\/\$\{walk\.slug\}`\)/);
   assert.equal(source.includes("Luoguqing Rhododendron Walk"), false);
 });
 
-test("the Walk route keeps draft SEO private and published SEO standards ready", () => {
+test("published Walk metadata and structured data use stable public URLs", () => {
+  const walk = walkContentToDetail(entry.content);
+  const metadata = buildWalkMetadata(walk);
+  const structuredData = buildWalkStructuredData(walk);
+  const pageUrl = "https://yunnanunfolded.com/walk-yunnan/luoguqing-rhododendron-walk/";
+  const heroUrl = "https://yunnanunfolded.com/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_03.png";
+
+  assert.deepEqual(metadata.alternates, { canonical: pageUrl });
+  assert.deepEqual(metadata.robots, { index: true, follow: true });
+  assert.equal(metadata.openGraph?.url, pageUrl);
+  assert.deepEqual(metadata.openGraph?.images, [{
+    url: heroUrl,
+    width: 1086,
+    height: 1448,
+    alt: entry.content.hero.alt,
+  }]);
+  assert.equal(metadata.twitter?.card, "summary_large_image");
+  assert.deepEqual(metadata.twitter?.images, [{ url: heroUrl, alt: entry.content.hero.alt }]);
+  assert.deepEqual(structuredData.map((item) => item["@type"]), ["BreadcrumbList", "Article"]);
+  assert.deepEqual(
+    structuredData[0].itemListElement.map((item) => item.item),
+    ["https://yunnanunfolded.com/", "https://yunnanunfolded.com/walk-yunnan/", pageUrl],
+  );
+  assert.equal(structuredData[1].url, pageUrl);
+  assert.equal(structuredData[1].image, heroUrl);
+  assert.equal("author" in structuredData[1], false);
+});
+
+test("the Walk route uses isolated SEO helpers and hides related drafts in production", () => {
   const source = readFileSync(new URL("../app/walk-yunnan/[slug]/page.tsx", import.meta.url), "utf8");
+  const component = readFileSync(new URL("../app/components/walks/WalkDetailPage.tsx", import.meta.url), "utf8");
   assert.match(source, /process\.env\.NODE_ENV === "development"/);
   assert.match(source, /process\.env\.TINA_LOCAL_DRAFT_PREVIEW === "true"/);
   assert.match(source, /__no-published-walks__/);
-  assert.match(source, /alternates:\s*\{ canonical: null \}/);
-  assert.match(source, /robots:\s*\{ index: false, follow: false \}/);
-  assert.match(source, /const structuredData = isPublished \?/);
-  assert.match(source, /"@type": "BreadcrumbList"/);
-  assert.match(source, /"@type": "Article"/);
+  assert.match(source, /return buildWalkMetadata\(walk\)/);
+  assert.match(source, /buildWalkStructuredData\(walk\)/);
+  assert.match(source, /relatedEntry\.content\.publication\.status === "published" \|\| localDraftPreviewEnabled/);
+  assert.match(component, /routePath\("\/walk-yunnan"\)/);
   assert.doesNotMatch(source, /HikingTrail/);
 });
 

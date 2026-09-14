@@ -94,7 +94,7 @@
           },
           {
             "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-22_32_12.png",
-            "alt": "",
+            "alt": "A stream winding through green alpine meadow in Luoguqing",
             "displayWidth": "half",
             "displayRatio": "portrait-3-4",
             "alignment": "left",
@@ -146,7 +146,7 @@
           },
           {
             "src": "/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_09.png",
-            "alt": "",
+            "alt": "Rhododendron-covered mountain slopes and meadow in Luoguqing",
             "displayWidth": "standard",
             "displayRatio": "landscape-4-3",
             "alignment": "right",
@@ -181,6 +181,6 @@
     "description": ""
   },
   "publication": {
-    "status": "draft"
+    "status": "published"
   }
 }

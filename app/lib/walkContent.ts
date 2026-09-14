@@ -7,6 +7,12 @@ const walkDirectory = join(process.cwd(), "content", "walks");
 
 export type WalkContentEntry = { filename: string; content: WalkContent };
 
+export function walkEntriesToDetails(entries: WalkContentEntry[], includeDraft = false) {
+  return entries
+    .filter(({ content }) => includeDraft || content.publication.status === "published")
+    .map(({ content }) => walkContentToDetail(content));
+}
+
 function readWalkContents(): WalkContentEntry[] {
   const entries = readdirSync(walkDirectory, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
@@ -30,13 +36,11 @@ function readWalkContents(): WalkContentEntry[] {
 }
 
 export const walkContents = readWalkContents();
-export const publishedWalks = walkContents
-  .filter(({ content }) => content.publication.status === "published")
-  .map(({ content }) => walkContentToDetail(content));
+export const publishedWalks = walkEntriesToDetails(walkContents);
 
 export function getWalks(includeDraft = false) {
   if (!includeDraft) return publishedWalks;
-  return readWalkContents().map(({ content }) => walkContentToDetail(content));
+  return walkEntriesToDetails(readWalkContents(), true);
 }
 
 export function getWalkContentBySlug(slug: string, refreshFromDisk = false) {
