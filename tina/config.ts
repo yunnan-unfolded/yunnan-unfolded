@@ -9,7 +9,12 @@ import { JourneyImageField } from "./fields/JourneyImageField";
 import { LinesListField } from "./fields/LinesListField";
 import { PresetCardsField } from "./fields/PresetCardsField";
 import { PublicationStatusField } from "./fields/PublicationStatusField";
+import { WalkBasicsField } from "./fields/WalkBasicsField";
+import { WalkImagePresetCardsField } from "./fields/WalkImagePresetCardsField";
+import { WalkPublicationStatusField } from "./fields/WalkPublicationStatusField";
 import { prepareJourneyForSave } from "./journeySave";
+import { prepareWalkForSave } from "./walkSave";
+import { normalizeWalkSlug } from "../shared/walkDefaults.ts";
 
 const text = (name: string, label: string, description?: string, searchable = true): TinaField => ({
   type: "string",
@@ -67,6 +72,54 @@ function imageFields(includeDisplayControls = false): TinaField[] {
     hiddenText("directoryPosition"),
     hiddenText("directoryMobilePosition"),
     hiddenText("legacyAspect"),
+  ];
+}
+
+function walkImageFields(): TinaField[] {
+  return [
+    {
+      type: "image",
+      name: "src",
+      label: "图片文件",
+      description: "选择图片库中的文件，或上传使用唯一英文文件名的新图片。",
+      searchable: false,
+      ui: { component: JourneyImageField },
+    },
+    text("alt", "图片英文说明", "用于未来页面的 SEO 和无障碍，不会显示为图片标题。", false),
+    {
+      type: "string",
+      name: "displayWidth",
+      label: "显示宽度",
+      options: ["standard", "large", "full-bleed", "half"],
+      searchable: false,
+      ui: { component: WalkImagePresetCardsField as never },
+    },
+    {
+      type: "string",
+      name: "displayRatio",
+      label: "图片比例",
+      options: ["original", "landscape-16-9", "landscape-4-3", "portrait-3-4", "portrait-9-16"],
+      searchable: false,
+      ui: { component: WalkImagePresetCardsField as never },
+    },
+    {
+      type: "string",
+      name: "alignment",
+      label: "图片位置",
+      options: ["center", "left", "right"],
+      searchable: false,
+      ui: { component: WalkImagePresetCardsField as never },
+    },
+    {
+      type: "string",
+      name: "focalPoint",
+      label: "画面重点",
+      options: ["center", "top", "bottom", "left", "right"],
+      searchable: false,
+      ui: { component: WalkImagePresetCardsField as never },
+    },
+    hiddenNumber("width"),
+    hiddenNumber("height"),
   ];
 }
 
@@ -255,6 +308,194 @@ const config = defineConfig({
               { type: "object", name: "finalCta", label: "结尾询盘", searchable: false, fields: [text("eyebrow", "短标题", undefined, false), text("title", "主标题", undefined, false), text("body", "正文", undefined, false), text("primaryLabel", "主要按钮", undefined, false), text("secondaryLabel", "次要按钮", undefined, false)] },
             ] },
           ],
+        },
+      ],
+    }, {
+      name: "walk",
+      label: "徒步路线",
+      path: "content/walks",
+      format: "json",
+      ui: {
+        filename: {
+          readonly: true,
+          description: "文件名由页面网址自动生成，运营者无需填写。",
+          slugify: (values) => normalizeWalkSlug(String(values?.basic?.slug || values?.title || "new-walk")) || "new-walk",
+        },
+        beforeSubmit: prepareWalkForSave,
+        allowedActions: { create: true, delete: true, createFolder: false, createNestedFolder: false },
+      },
+      defaultItem: {
+        title: "",
+        basic: {
+          slug: "",
+          region: "",
+          summary: "",
+          difficulty: "gentle",
+          approximateDuration: "",
+          recommendedSeasons: "",
+          searchKeywords: [],
+        },
+        hero: { src: "", alt: "" },
+        route: { introduction: "", options: [], stages: [] },
+        gallery: { images: [] },
+        practical: { seasonNote: "", location: "", accessNote: "", signalNote: "", preparationNotes: [], relatedJourney: "" },
+        seo: { title: "", description: "" },
+        publication: { status: "draft" },
+      },
+      fields: [
+        {
+          type: "string",
+          name: "title",
+          label: "1. 基本信息",
+          description: "填写路线名称、地区、列表介绍、难度、时长和季节。",
+          required: true,
+          isTitle: true,
+          searchable: true,
+          ui: { component: WalkBasicsField as never },
+        },
+        {
+          type: "object",
+          name: "basic",
+          label: "基本信息数据",
+          searchable: true,
+          ui: { component: "hidden" },
+          fields: [
+            text("slug", "页面网址", undefined, false),
+            text("region", "所在地区"),
+            text("summary", "列表简短介绍"),
+            { type: "string", name: "difficulty", label: "徒步难度", options: ["gentle", "easy-moderate", "high-country"], searchable: true },
+            text("approximateDuration", "大约时长"),
+            text("recommendedSeasons", "推荐季节"),
+            textList("searchKeywords", "后台搜索关键词"),
+          ],
+        },
+        {
+          type: "object",
+          name: "hero",
+          label: "2. 首图",
+          description: "上传路线首图并填写英文说明。版式由未来页面模板统一控制。",
+          searchable: false,
+          fields: imageFields(false),
+        },
+        {
+          type: "object",
+          name: "route",
+          label: "3. 路线介绍",
+          description: "先填写整体介绍，再按实际行走过程增加、删除或拖动路线阶段。阶段不是固定的 Day 1、Day 2。",
+          searchable: true,
+          fields: [
+            { type: "string", name: "introduction", label: "路线整体介绍（英文，发布必填）", searchable: true, ui: { component: "textarea" } },
+            {
+              type: "object",
+              name: "options",
+              label: "路线方案与攻略数据",
+              description: "用于比较同一区域的不同走法。没有可靠数据的项目可以留空，前台会自动隐藏。",
+              list: true,
+              searchable: true,
+              ui: {
+                defaultItem: { title: "", summary: "", routeType: "out-and-back", riskLevel: "lower", riskNotes: [] },
+                itemProps: (item) => ({ label: String((item as { title?: string }).title || "新增路线方案") }),
+              },
+              fields: [
+                text("title", "方案名称（英文）"),
+                { type: "string", name: "summary", label: "简短说明（英文）", searchable: true, ui: { component: "textarea" } },
+                { type: "number", name: "distanceKm", label: "距离（公里）", searchable: false },
+                text("duration", "预计时长（英文）", "如 2–3 hours；没有可靠数据时留空。"),
+                { type: "string", name: "routeType", label: "路线类型", options: [{ label: "原路往返", value: "out-and-back" }, { label: "环线", value: "loop" }, { label: "穿越路线", value: "point-to-point" }], searchable: false },
+                { type: "number", name: "startElevationM", label: "起点海拔（米）", searchable: false },
+                { type: "number", name: "highestElevationM", label: "最高海拔（米）", searchable: false },
+                { type: "number", name: "elevationGainM", label: "累计爬升（米）", searchable: false },
+                { type: "string", name: "riskLevel", label: "风险等级", options: [{ label: "较低", value: "lower" }, { label: "中等", value: "moderate" }, { label: "较高", value: "high" }], searchable: false },
+                { type: "string", name: "terrain", label: "主要路面（英文）", searchable: true, ui: { component: "textarea" } },
+                { type: "string", name: "suitability", label: "适合人群（英文）", searchable: true, ui: { component: "textarea" } },
+                textList("riskNotes", "路况与风险提示（英文，每行一条）", "只写已确认的实际风险。"),
+              ],
+            },
+            {
+              type: "object",
+              name: "stages",
+              label: "路线阶段列表",
+              description: "可自由增加、删除和拖动排序；每个阶段的图片数量不限。",
+              list: true,
+              searchable: true,
+              ui: {
+                defaultItem: { title: "", body: "", images: [] },
+                itemProps: (item) => ({ label: String((item as { title?: string }).title || "新增路线阶段") }),
+              },
+              fields: [
+                text("title", "阶段标题（英文）"),
+                { type: "string", name: "body", label: "阶段正文（英文）", searchable: true, ui: { component: "textarea" } },
+                {
+                  type: "object",
+                  name: "images",
+                  label: "本阶段图片",
+                  description: "数量不限，可拖动排序；每张图片可独立设置版式。",
+                  list: true,
+                  searchable: false,
+                  ui: {
+                    defaultItem: { src: "", alt: "", displayWidth: "standard", displayRatio: "original", alignment: "center", focalPoint: "center" },
+                    itemProps: (item) => ({ label: String((item as { alt?: string }).alt || "新增图片") }),
+                  },
+                  fields: walkImageFields(),
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "object",
+          name: "gallery",
+          label: "4. 路线图片",
+          description: "管理不属于单个阶段、但可供未来详情页使用的路线图片。数量不限，可拖动排序。",
+          searchable: false,
+          fields: [{
+            type: "object",
+            name: "images",
+            label: "路线图片",
+            list: true,
+            searchable: false,
+            ui: {
+              defaultItem: { src: "", alt: "", displayWidth: "standard", displayRatio: "original", alignment: "center", focalPoint: "center" },
+              itemProps: (item) => ({ label: String((item as { alt?: string }).alt || "新增图片") }),
+            },
+            fields: walkImageFields(),
+          }],
+        },
+        {
+          type: "object",
+          name: "practical",
+          label: "5. 实用信息",
+          description: "补充季节变化、出发前须知，并可关联现有精品行程。",
+          fields: [
+            text("location", "地理位置（英文，可选）", "填写到县、乡镇或景区层级，不公开敏感路线入口。"),
+            { type: "string", name: "accessNote", label: "到达方式（英文，可选）", searchable: true, ui: { component: "textarea" } },
+            { type: "string", name: "signalNote", label: "通信与路线提醒（英文，可选）", searchable: true, ui: { component: "textarea" } },
+            { type: "string", name: "seasonNote", label: "季节说明（英文，可选）", searchable: true, ui: { component: "textarea" } },
+            textList("preparationNotes", "出发前须知（英文，每行一条）", "可以一次粘贴多行，保存时会自动拆分。"),
+            { type: "reference", name: "relatedJourney", label: "相关精品行程（可选）", collections: ["journey"], searchable: false },
+          ],
+        },
+        {
+          type: "object",
+          name: "seo",
+          label: "高级设置数据",
+          searchable: false,
+          ui: { component: "hidden" },
+          fields: [text("title", "SEO 标题", undefined, false), text("description", "SEO 描述", undefined, false)],
+        },
+        {
+          type: "object",
+          name: "publication",
+          label: "6. 保存与发布",
+          description: "新建路线默认保存为草稿；只有发布时才检查所有发布必填内容。",
+          fields: [{
+            type: "string",
+            name: "status",
+            label: "当前状态",
+            options: [{ label: "草稿", value: "draft" }, { label: "已发布", value: "published" }],
+            searchable: false,
+            ui: { component: WalkPublicationStatusField as never },
+          }],
         },
       ],
     }],

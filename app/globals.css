@@ -168,16 +168,23 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
 .walk__route-list { border-bottom:1px solid var(--line); }
 .walk-route { display:grid; grid-template-columns:3.5rem minmax(0,1fr) 12rem minmax(220px,290px); gap:clamp(1.5rem,3vw,3.5rem); align-items:center; padding:1.6rem 0; border-top:1px solid var(--line); }
 .walk-route__number { align-self:start; padding-top:.25rem; color:var(--gold); font-size:.62rem; font-weight:600; letter-spacing:.12em; }
+.walk-route__region-line { display:flex; flex-wrap:wrap; align-items:center; gap:.55rem 1rem; margin-bottom:.45rem; }
 .walk-route__region { margin-bottom:.45rem; color:var(--gold); font-size:.58rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+.walk-route__region-line .walk-route__region { margin-bottom:0; }
+.walk-route__region-line>span { padding:.28rem .5rem; border:1px solid rgba(179,151,91,.55); color:var(--forest); font-size:.5rem; font-weight:650; letter-spacing:.12em; line-height:1; text-transform:uppercase; }
 .walk-route h4 { margin:0 0 .75rem; color:var(--forest); font-family:var(--font-serif); font-size:clamp(1.7rem,2.5vw,2.65rem); font-weight:400; line-height:1.05; }
 .walk-route__copy>p:last-child { max-width:520px; margin-bottom:0; color:var(--muted); font-size:.82rem; }
 .walk-route__meta { display:grid; gap:1rem; margin:0; }
 .walk-route__meta div { display:grid; grid-template-columns:4.5rem 1fr; gap:.5rem; }
 .walk-route__meta dt { color:var(--muted); font-size:.55rem; letter-spacing:.12em; text-transform:uppercase; }
 .walk-route__meta dd { margin:0; color:var(--forest); font-family:var(--font-serif); font-size:.9rem; }
-.walk-route__image-wrap { display:block; overflow:hidden; aspect-ratio:3/2; background:#d7d5cb; }
+.walk-route__image-wrap { display:block; overflow:hidden; aspect-ratio:var(--walk-card-aspect-ratio,3/2); background:#d7d5cb; }
 .walk-route__image-wrap img { height:100%; filter:saturate(.78); transition:transform .5s; }
 .walk-route:hover .walk-route__image-wrap img { transform:scale(1.03); }
+.walk__empty-state { padding:clamp(2.5rem,5vw,4rem) 0; border-block:1px solid var(--line); }
+.walk__empty-state .eyebrow { margin-bottom:1.25rem; }
+.walk__empty-state h4 { max-width:680px; margin:0 0 1.25rem; color:var(--forest); font-family:var(--font-serif); font-size:clamp(2rem,3.5vw,3.4rem); font-weight:400; line-height:1.05; }
+.walk__empty-state>p:last-child { max-width:560px; margin-bottom:0; color:var(--muted); }
 .walk__actions { display:flex; justify-content:space-between; align-items:center; gap:2rem; margin-top:3.5rem; }
 
 .local { display:grid; grid-template-columns:1fr 1fr; gap:clamp(4rem,10vw,10rem); align-items:center; }
@@ -224,8 +231,8 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
 .side-cta { position:fixed; z-index:15; top:50%; right:0; transform:translateY(-50%); padding:1.4rem .65rem; background:var(--gold); color:var(--forest-dark); box-shadow:0 10px 35px rgba(0,0,0,.12); font-size:.58rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase; writing-mode:vertical-rl; }
 .mobile-cta { display:none; }
 
-.placeholder { min-height:100vh; padding-top:10rem; background:var(--ivory); }
-.placeholder .header { position:fixed; width:100%; padding-inline:4vw; background:var(--forest); }
+.placeholder { min-height:100vh; background:var(--ivory); }
+.placeholder .header { position:relative; width:100%; padding-inline:4vw; background:var(--forest); color:white; }
 .placeholder__inner { max-width:800px; padding:8rem 0; }
 .placeholder h1 { font-size:clamp(4rem,9vw,8rem); color:var(--forest); }
 .placeholder p { max-width:620px; color:var(--muted); font-size:1.05rem; }
@@ -322,7 +329,7 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
   .brand { flex-basis:162px; width:162px; }
   .brand__logo { width:162px; }
   .desktop-nav,.header__cta { display:none; }
-  .menu-button { z-index:2; display:flex; flex-direction:column; justify-content:center; gap:6px; width:46px; height:46px; border:0; background:transparent; }
+  .menu-button { z-index:2; display:flex; flex-direction:column; justify-content:center; gap:6px; width:46px; height:46px; margin-left:auto; border:0; background:transparent; }
   .menu-button span { width:25px; height:1px; margin-left:auto; background:white; transition:transform .25s; }
   .menu-button span:last-child { width:17px; }
   .menu-button[aria-expanded="true"] span:first-child { transform:translateY(3.5px) rotate(45deg); }
