@@ -12,8 +12,13 @@ import { PublicationStatusField } from "./fields/PublicationStatusField";
 import { WalkBasicsField } from "./fields/WalkBasicsField";
 import { WalkImagePresetCardsField } from "./fields/WalkImagePresetCardsField";
 import { WalkPublicationStatusField } from "./fields/WalkPublicationStatusField";
+import { TravelGuidePublicationStatusField } from "./fields/TravelGuidePublicationStatusField";
+import { TravelGuideTitleField } from "./fields/TravelGuideTitleField";
+import { withTravelGuideNavigation } from "./fields/TravelGuideGroupField";
 import { prepareJourneyForSave } from "./journeySave";
+import { prepareTravelGuideForSave } from "./travelGuideSave";
 import { prepareWalkForSave } from "./walkSave";
+import { normalizeTravelGuideSlug, TRAVEL_GUIDE_DEFAULT_ITEM } from "../shared/travelGuideDefaults.ts";
 import { normalizeWalkSlug } from "../shared/walkDefaults.ts";
 
 const text = (name: string, label: string, description?: string, searchable = true): TinaField => ({
@@ -498,6 +503,125 @@ const config = defineConfig({
           }],
         },
       ],
+    }, {
+      name: "travelGuide",
+      label: "旅行攻略",
+      path: "content/travel-guides",
+      format: "json",
+      ui: {
+        filename: {
+          readonly: true,
+          description: "文件名由页面网址自动生成，运营者无需填写。",
+          slugify: (values) => normalizeTravelGuideSlug(String(values?.basic?.slug || values?.title || "new-guide")) || "new-guide",
+        },
+        beforeSubmit: prepareTravelGuideForSave,
+        allowedActions: { create: true, delete: true, createFolder: false, createNestedFolder: false },
+      },
+      defaultItem: TRAVEL_GUIDE_DEFAULT_ITEM,
+      fields: withTravelGuideNavigation([
+        {
+          type: "string",
+          name: "editorLabel",
+          label: "内部编辑标题",
+          description: "仅供后台识别文档，公开页面不会使用。",
+          required: true,
+          isTitle: true,
+          searchable: false,
+          ui: { component: "hidden" },
+        },
+        {
+          type: "string",
+          name: "title",
+          label: "1. 标题（英文）",
+          description: "攻略标题用于后台列表、未来详情页和默认搜索标题；创建草稿时需要填写。",
+          searchable: true,
+          ui: { component: TravelGuideTitleField as never },
+        },
+        {
+          type: "object",
+          name: "basic",
+          label: "2. 分类与摘要",
+          description: "填写分类、可选地区和目录页使用的简短摘要。",
+          searchable: true,
+          fields: [
+            text("slug", "页面网址", "英文标题可自动生成网址；中文标题请填写英文网址，例如 yunnan-travel-guide。", false),
+            text("category", "分类（英文）"),
+            text("region", "地区（英文，可选）"),
+            { type: "string", name: "summary", label: "简短摘要（英文）", searchable: true, ui: { component: "textarea" } },
+          ],
+        },
+        {
+          type: "object",
+          name: "hero",
+          label: "3. 首图",
+          description: "选择封面图片并填写英文说明；图片设置沿用现有安全预设。",
+          searchable: false,
+          fields: walkImageFields(),
+        },
+        {
+          type: "object",
+          name: "content",
+          label: "4. 正文",
+          description: "填写开场介绍，并按内容需要添加可排序的正文区块。",
+          searchable: true,
+          fields: [
+            { type: "string", name: "introduction", label: "开场介绍（英文）", searchable: true, ui: { component: "textarea" } },
+            {
+              type: "object",
+              name: "sections",
+              label: "正文区块",
+              list: true,
+              searchable: true,
+              ui: {
+                defaultItem: { heading: "", body: "", images: [] },
+                itemProps: (item) => ({ label: String((item as { heading?: string }).heading || "新增正文区块") }),
+              },
+              fields: [
+                text("heading", "区块标题（英文）"),
+                { type: "string", name: "body", label: "区块正文（英文）", searchable: true, ui: { component: "textarea" } },
+                {
+                  type: "object",
+                  name: "images",
+                  label: "区块图片",
+                  description: "数量不限，可拖动排序；每张图片可以单独设置比例、位置和画面重点。",
+                  list: true,
+                  searchable: false,
+                  ui: {
+                    defaultItem: { src: "", alt: "", displayWidth: "standard", displayRatio: "original", alignment: "center", focalPoint: "center" },
+                    itemProps: (item) => ({ label: String((item as { alt?: string }).alt || "新增图片") }),
+                  },
+                  fields: walkImageFields(),
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "object",
+          name: "seo",
+          label: "5. 搜索展示设置",
+          description: "选填。留空时以后由攻略标题和简短摘要自动生成。",
+          searchable: false,
+          fields: [
+            text("title", "SEO 标题（英文，可选）", "建议不超过约 60 个英文字符。", false),
+            { type: "string", name: "description", label: "SEO 描述（英文，可选）", description: "建议约 140–160 个英文字符。", searchable: false, ui: { component: "textarea" } },
+          ],
+        },
+        {
+          type: "object",
+          name: "publication",
+          label: "6. 保存与发布",
+          description: "新建攻略默认为草稿；只有发布时才检查标题、摘要、首图和正文。",
+          fields: [{
+            type: "string",
+            name: "status",
+            label: "当前状态",
+            options: [{ label: "草稿", value: "draft" }, { label: "已发布", value: "published" }],
+            searchable: false,
+            ui: { component: TravelGuidePublicationStatusField as never },
+          }],
+        },
+      ]),
     }],
   },
 });
