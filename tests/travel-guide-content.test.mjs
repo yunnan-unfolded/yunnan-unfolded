@@ -105,6 +105,19 @@ test("the Travel Guide detail route generates drafts only for authorised local p
   assert.match(detailSource, /GuideImageFigure/);
 });
 
+test("Travel Guide body rendering safely supports limited Markdown without raw HTML", () => {
+  const detailSource = readFileSync("app/components/travel-guides/TravelGuideDetailPage.tsx", "utf8");
+  assert.match(detailSource, /function renderInlineMarkdown/);
+  assert.match(detailSource, /nodes\.push\(<strong key=\{key\}>\{match\[2\]\}<\/strong>\)/);
+  assert.match(detailSource, /<ol className=\{styles\.numberedList\}/);
+  assert.match(detailSource, /renderInlineMarkdown\(line\.slice\(2\)/);
+  assert.match(detailSource, /renderInlineMarkdown\(line\.replace\(\/\^\\d\+\\\.\\s\//);
+  assert.match(detailSource, /href\.startsWith\("https:\/\/"\)/);
+  assert.match(detailSource, /rel="noreferrer" target="_blank"/);
+  assert.match(detailSource, /href=\{internalMarkdownHref\(href\)\}/);
+  assert.doesNotMatch(detailSource, /dangerouslySetInnerHTML/);
+});
+
 test("saved draft guides keep matching filenames and stay out of public output", () => {
   const preservedDraft = travelGuideContents.find((entry) => entry.filename === "yunnanyoutube.json");
   assert.ok(preservedDraft);

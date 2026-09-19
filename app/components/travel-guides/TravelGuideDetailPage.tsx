@@ -16,6 +16,47 @@ function sectionId(heading: string | undefined, index: number) {
   return slug || `section-${index + 1}`;
 }
 
+function internalMarkdownHref(href: string) {
+  if (href.startsWith("#")) return href;
+  const suffixIndex = href.search(/[?#]/);
+  const pathname = suffixIndex === -1 ? href : href.slice(0, suffixIndex);
+  const suffix = suffixIndex === -1 ? "" : href.slice(suffixIndex);
+  return `${routePath(pathname)}${suffix}`;
+}
+
+function renderInlineMarkdown(value: string, keyPrefix: string): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  const pattern = /(\*\*([^*\n]+)\*\*|\[([^\]\n]+)\]\((https:\/\/[^\s)]+|\/(?!\/)[^\s)]*|#[^\s)]*)\))/g;
+  let cursor = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(value)) !== null) {
+    if (match.index > cursor) nodes.push(value.slice(cursor, match.index));
+    const key = `${keyPrefix}-${match.index}`;
+    if (match[2]) {
+      nodes.push(<strong key={key}>{match[2]}</strong>);
+    } else {
+      const label = match[3];
+      const href = match[4];
+      if (href.startsWith("https://")) {
+        nodes.push(
+          <a className={styles.inlineLink} href={href} key={key} rel="noreferrer" target="_blank">
+            {label}
+          </a>,
+        );
+      } else if (href.startsWith("#")) {
+        nodes.push(<a className={styles.inlineLink} href={href} key={key}>{label}</a>);
+      } else {
+        nodes.push(<Link className={styles.inlineLink} href={internalMarkdownHref(href)} key={key}>{label}</Link>);
+      }
+    }
+    cursor = pattern.lastIndex;
+  }
+
+  if (cursor < value.length) nodes.push(value.slice(cursor));
+  return nodes;
+}
+
 function renderBodyBlock(block: string, key: string): ReactNode {
   const lines = block.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   if (lines.length === 0) return null;
@@ -27,7 +68,9 @@ function renderBodyBlock(block: string, key: string): ReactNode {
   if (lines.every((line) => line.startsWith("- "))) {
     return (
       <ul className={styles.checklist} key={key}>
-        {lines.map((line) => <li key={line}>{line.slice(2)}</li>)}
+        {lines.map((line, index) => (
+          <li key={`${key}-${index}`}>{renderInlineMarkdown(line.slice(2), `${key}-${index}`)}</li>
+        ))}
       </ul>
     );
   }
@@ -35,7 +78,9 @@ function renderBodyBlock(block: string, key: string): ReactNode {
   if (lines.every((line) => /^\d+\.\s/.test(line))) {
     return (
       <ol className={styles.numberedList} key={key}>
-        {lines.map((line) => <li key={line}>{line.replace(/^\d+\.\s/, "")}</li>)}
+        {lines.map((line, index) => (
+          <li key={`${key}-${index}`}>{renderInlineMarkdown(line.replace(/^\d+\.\s/, ""), `${key}-${index}`)}</li>
+        ))}
       </ol>
     );
   }
@@ -50,7 +95,7 @@ function renderBodyBlock(block: string, key: string): ReactNode {
     );
   }
 
-  return <p key={key}>{lines.join(" ")}</p>;
+  return <p key={key}>{renderInlineMarkdown(lines.join(" "), key)}</p>;
 }
 
 const imageWidthClasses = {

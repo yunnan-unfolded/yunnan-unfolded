@@ -1,0 +1,80 @@
+{
+  "editorLabel": "Internet and SIM Cards for Travel in Yunnan",
+  "title": "Internet and SIM Cards for Travel in Yunnan",
+  "basic": {
+    "slug": "internet-sim-cards-yunnan",
+    "category": "Travel Essentials",
+    "region": "Yunnan",
+    "summary": "How to choose between roaming, a travel eSIM and a Chinese SIM, with practical advice for staying connected across Yunnan."
+  },
+  "hero": {
+    "src": "",
+    "alt": "",
+    "displayWidth": "standard",
+    "displayRatio": "original",
+    "alignment": "center",
+    "focalPoint": "center"
+  },
+  "content": {
+    "introduction": "A working phone makes independent travel in Yunnan much easier. It holds payment apps, hotel addresses, train tickets, translation tools and the message thread with a driver waiting at the wrong gate.\n\nThe cheapest package is not always the best. A short-stay visitor may value instant service, while a longer stay may benefit from a Chinese number. Mountain journeys also need offline backups.\n\nChoose the connection before choosing the plan.",
+    "sections": [
+      {
+        "heading": "Option one: keep international roaming",
+        "body": "Roaming is simplest when the price is reasonable. Your usual number remains active for bank messages and there is no new registration after arrival.\n\nCheck data, speed restrictions and call charges. “Unlimited” plans may slow after a threshold, and an Asia package may not cover mainland China on the same terms.\n\nKeep the home line active for security messages, but disable its data when a second connection takes over if accidental charges are a concern.",
+        "images": []
+      },
+      {
+        "heading": "Option two: use a travel eSIM",
+        "body": "A travel eSIM adds data without replacing the home SIM. Many are data-only and do not provide a mainland Chinese number.\n\nCheck activation timing, validity, hotspot support, network partner and speed policy. Install it on reliable internet and follow the provider’s activation instructions.\n\nNetwork routing and international-service access vary by provider. Ask what is supported and keep essential apps, maps and documents offline.",
+        "images": []
+      },
+      {
+        "heading": "Option three: buy a Chinese SIM",
+        "body": "A local SIM provides a Chinese number, calls and domestic data, useful for longer stays or services requiring a mainland number.\n\nForeign visitors can apply at official operator service offices with a passport or accepted identity document. Registration is real-name and may include facial verification. Avoid unverified resellers.\n\nAsk the staff to confirm:\n\n- the total price and data allowance;\n- whether the plan renews automatically;\n- how to check remaining data;\n- whether calls and text messages are included;\n- the expiry or cancellation process; and\n- whether the service works in the regions on your itinerary.\n\nTest data, calls and texts before leaving, and keep the account details.",
+        "images": []
+      },
+      {
+        "heading": "Do you need a Chinese number?",
+        "body": "For a short holiday, not always. Major payment, booking and ride-hailing services support overseas numbers, and hotels or guides can use WeChat.\n\nA Chinese number helps with longer stays, local calls, some Wi-Fi portals and smaller domestic services.\n\nWith two active lines, keep the home number for verification and use the second for data. Prevent the phone from switching back to expensive roaming.",
+        "images": []
+      },
+      {
+        "heading": "Internet access and everyday apps",
+        "body": "Some international websites and apps may be unavailable or behave differently on mainland connections. Local SIMs, hotel Wi-Fi, roaming and eSIM providers may also differ.\n\nInstall essential apps and sign in before departure. Download offline language packs and maps where available. Save hotel addresses, tickets, passport copies and emergency contacts as files or screenshots that do not depend on cloud access.\n\nThis guide does not recommend tools for bypassing network restrictions. If a service is essential for work or health, confirm a lawful, supported solution before travel.",
+        "images": []
+      },
+      {
+        "heading": "Coverage across Yunnan",
+        "body": "Main cities generally have reliable data, but coverage weakens on mountain roads, in deep valleys and near remote trailheads.\n\nAsk the accommodation which network works locally. Agree on pickup places and times while connected rather than relying on a call from the road.\n\nWeak coverage drains the battery. Carry a power bank and use airplane mode when no signal is expected.",
+        "images": []
+      },
+      {
+        "heading": "Hotel and public Wi-Fi",
+        "body": "Hotel Wi-Fi may require a mobile number, slow down at night or rely on the same network as your phone. Do not make it the only plan.\n\nConfirm public network names with staff and avoid sensitive financial activity on unknown Wi-Fi. Personal data is better for payment and account management.",
+        "images": []
+      },
+      {
+        "heading": "A setup that works for most trips",
+        "body": "Before departure:\n\n1. Check that the phone is unlocked and supports the SIM or eSIM you plan to use.\n2. Compare roaming with a reputable travel eSIM based on the full trip, not one cheap day.\n3. Keep the home number able to receive bank and account messages.\n4. Install and log in to essential travel apps.\n5. Download offline maps, translation data and travel documents.\n6. Pack a charging cable and power bank in the day bag.\n\nAfter arrival, test mobile data before leaving the airport or first hotel. Send a message, open the map and confirm that payment apps can connect. If the journey later moves into remote Yunnan, tell someone the day’s plan before the signal disappears.",
+        "images": []
+      },
+      {
+        "heading": "Frequently asked questions",
+        "body": "### Is an eSIM better than a Chinese SIM?\n\nAn eSIM is usually simpler for a short trip and keeps the physical SIM slot free. A Chinese SIM adds a local number and can make sense for longer stays. Device compatibility, itinerary and the services you need should decide.\n\n### Can I buy a Chinese SIM with a foreign passport?\n\nYes. Official guidance allows foreign visitors to apply at telecom service offices with a passport or another accepted identity document. Bring the original document and expect real-name verification.\n\n### Will I have mobile signal everywhere in Yunnan?\n\nNo. Cities and major transport corridors are generally well connected, but deep valleys, mountain roads and remote walking areas can have weak or absent coverage. Prepare offline information and agree on meeting points in advance.",
+        "images": []
+      },
+      {
+        "heading": "Official references",
+        "body": "- [China Government: SIM cards and daily services for foreign visitors](https://english.www.gov.cn/2025special/bizexpatsinchina2025)\n- [China Mobile: SIM Card Guide for foreign visitors](https://www.10086.cn/support/service/foreign/)\n- [China Unicom: Service halls and passport requirements](https://img.client.10010.com/yytwdcx/index.html)\n\nTelecom plans, device compatibility and service access change. Confirm current terms with the provider before purchasing.",
+        "images": []
+      }
+    ]
+  },
+  "seo": {
+    "title": "Internet and SIM Cards for Travel in Yunnan",
+    "description": "Compare roaming, travel eSIMs and Chinese SIM cards for Yunnan, and prepare for Wi-Fi, app access and weaker coverage in remote areas."
+  },
+  "publication": {
+    "status": "draft"
+  }
+}

@@ -216,6 +216,15 @@
 
 .sectionCopy { max-width: 720px; margin-left: 4rem; }
 .sectionCopy > p { margin-bottom: 1.45rem; color: #47544e; font-size: 1rem; line-height: 1.88; }
+.sectionCopy strong { color: var(--guide-forest); font-weight: 700; }
+.inlineLink {
+  color: var(--guide-forest);
+  text-decoration: underline;
+  text-decoration-color: rgba(167, 125, 68, .55);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+.inlineLink:hover { text-decoration-color: var(--guide-gold); }
 
 .checklist {
   display: grid;
