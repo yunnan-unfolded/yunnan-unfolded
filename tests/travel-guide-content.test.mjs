@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   buildTravelGuideDirectoryStructuredData,
+  getTravelGuideBySlug,
+  getTravelGuideContentBySlug,
   getTravelGuides,
   publishedTravelGuides,
   travelGuideContentToCard,
@@ -10,6 +12,7 @@ import {
   travelGuideEntriesToCards,
   travelGuideContents,
 } from "../app/lib/travelGuideContent.ts";
+import { buildTravelGuideMetadata, buildTravelGuideStructuredData } from "../app/lib/travelGuideSeo.ts";
 import { getTravelGuidePublishMissingFields, prepareTravelGuideForSave } from "../tina/travelGuideSave.ts";
 import {
   normalizeTravelGuideSlug,
@@ -59,6 +62,48 @@ const draftContent = {
 
 const publishedEntry = { filename: `${publishedContent.basic.slug}.json`, content: publishedContent };
 const draftEntry = { filename: `${draftContent.basic.slug}.json`, content: draftContent };
+
+test("the first practical guide remains a local-only draft with its approved content", () => {
+  const slug = "how-to-pay-in-yunnan";
+  assert.equal(getTravelGuideBySlug(slug), undefined);
+  assert.equal(getTravelGuideContentBySlug(slug), undefined);
+
+  const localGuide = getTravelGuideBySlug(slug, true);
+  const localEntry = getTravelGuideContentBySlug(slug, true);
+  assert.ok(localGuide);
+  assert.ok(localEntry);
+  assert.equal(localGuide.status, "draft");
+  assert.equal(localGuide.title, "How to Pay in Yunnan as a Foreign Visitor");
+  assert.equal(localGuide.hero?.src, "/images/travel-guides/how-to-pay-in-yunnan/hero-payment-yunnan.webp");
+  assert.equal(localGuide.sections.length, 9);
+  assert.ok(localGuide.sections.some((section) => section.heading === "Frequently asked questions"));
+  assert.ok(localGuide.sections.some((section) => section.heading === "Official references"));
+  assert.equal(localGuide.sections.flatMap((section) => section.images).length, 2);
+  assert.equal(localEntry.filename, `${slug}.json`);
+});
+
+test("draft Travel Guide metadata is noindex and omits canonical and public structured data", () => {
+  const guide = getTravelGuideBySlug("how-to-pay-in-yunnan", true);
+  assert.ok(guide);
+  const metadata = buildTravelGuideMetadata(guide);
+  assert.deepEqual(metadata.robots, { index: false, follow: false });
+  assert.equal(metadata.alternates, undefined);
+  assert.equal(metadata.openGraph?.url, undefined);
+  assert.deepEqual(buildTravelGuideStructuredData(guide), []);
+});
+
+test("the Travel Guide detail route generates drafts only for authorised local preview", () => {
+  const routeSource = readFileSync("app/travel-guides/[slug]/page.tsx", "utf8");
+  assert.match(routeSource, /NODE_ENV === "development"/);
+  assert.match(routeSource, /TINA_LOCAL_DRAFT_PREVIEW === "true"/);
+  assert.match(routeSource, /publishedTravelGuides\.map/);
+  assert.match(routeSource, /guide\.status !== "published" && !localDraftPreviewEnabled/);
+  assert.match(routeSource, /buildTravelGuideStructuredData\(guide\)/);
+  const detailSource = readFileSync("app/components/travel-guides/TravelGuideDetailPage.tsx", "utf8");
+  assert.match(detailSource, /section\.images\.map/);
+  assert.match(detailSource, /loading="lazy"/);
+  assert.match(detailSource, /GuideImageFigure/);
+});
 
 test("saved draft guides keep matching filenames and stay out of public output", () => {
   const preservedDraft = travelGuideContents.find((entry) => entry.filename === "yunnanyoutube.json");

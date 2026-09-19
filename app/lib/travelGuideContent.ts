@@ -109,6 +109,18 @@ export function getTravelGuides(includeDraft = false) {
   return travelGuideEntriesToCards(readTravelGuideContents(), true);
 }
 
+export function getTravelGuideContentBySlug(slug: string, includeDraft = false) {
+  const entry = readTravelGuideContents().find(({ content }) => content.basic.slug === slug);
+  if (!entry) return undefined;
+  if (!includeDraft && entry.content.publication.status !== "published") return undefined;
+  return entry;
+}
+
+export function getTravelGuideBySlug(slug: string, includeDraft = false) {
+  const entry = getTravelGuideContentBySlug(slug, includeDraft);
+  return entry ? travelGuideContentToDetail(entry.content) : undefined;
+}
+
 export function buildTravelGuideDirectoryStructuredData(guides: TravelGuideCard[], directoryUrl: string) {
   return {
     "@context": "https://schema.org",
