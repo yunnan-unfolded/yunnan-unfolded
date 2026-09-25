@@ -17,78 +17,8 @@
     "width": 1536,
     "height": 1024
   },
-  "content": {
-    "introduction": "The first payment in China is the one that makes most visitors nervous. By the second or third, it usually feels ordinary: scan a code, check the amount and confirm on your phone.\n\nIn Yunnan, mobile payment works almost everywhere, from Kunming airport to noodle shops and family-run guesthouses. What needs planning is the occasional failed card, weak signal or QR code that will not accept an overseas card.\n\nOur usual advice is simple: set up mobile payment before you fly, test it in the first city you reach and carry a little RMB cash as backup. You do not need a complicated financial toolkit.",
-    "sections": [
-      {
-        "heading": "The short version",
-        "body": "For most trips, this combination works well:\n\n- Set up Alipay before arrival and add Weixin Pay as a second option if you can.\n- Link an international bank card and keep the physical card with you.\n- Make one small test payment in Kunming, Dali or Lijiang before travelling farther.\n- Carry some RMB in small notes for rural stops, weak signal or a flat phone battery.\n- Keep a power bank in your day bag.\n\nBoth wallets allow overseas visitors to register with an international number and link eligible international cards. Support can change, so follow the current prompts in the app.",
-        "images": []
-      },
-      {
-        "heading": "Set it up before you leave home",
-        "body": "Download Alipay or WeChat from the official app store. Register with the name shown on your passport and bank card, then complete any identity checks. Make sure you can receive security messages from your bank while abroad.\n\nIf the card will not link, call the issuing bank before trying repeatedly. The bank may be blocking an unfamiliar overseas request.\n\nAlipay is often the easier first choice because its travel functions are easy to find in English. Weixin Pay sits inside WeChat and is useful if you already use it to speak with hotels or drivers. Having both is convenient, but not essential.",
-        "images": [
-          {
-            "src": "/images/travel-guides/how-to-pay-in-yunnan/qr-payment-shop.webp",
-            "alt": "A traveller holding a phone near a blurred merchant payment code at a café counter",
-            "displayWidth": "large",
-            "displayRatio": "original",
-            "alignment": "center",
-            "focalPoint": "center",
-            "width": 1536,
-            "height": 1024
-          }
-        ]
-      },
-      {
-        "heading": "What paying actually looks like in Yunnan",
-        "body": "At a shop or restaurant, scan the merchant’s QR code or show your payment code to the cashier. Check the merchant name and amount before confirming.\n\nLarger hotels, airports and department stores in Kunming are the places most likely to accept an international card directly. In Dali and Lijiang, QR payment is common even without a terminal for overseas cards. At a small guesthouse or roadside restaurant, the owner may simply point to a printed code.\n\nA payment funded by an overseas card may work with a merchant QR code but not with every personal transfer code. A failure often means the wallet cannot use your linked card for that transaction—not that the shop refuses foreign visitors.\n\nFor a private driver, local activity or guesthouse payment, agree on the price and method before the service begins. A quick question at the start is easier than trying to solve a payment problem at a trailhead or late at night.",
-        "images": []
-      },
-      {
-        "heading": "Where cards and cash still help",
-        "body": "Keep your physical bank card after mobile payment is working. It may be useful at a larger hotel, airport counter or retailer displaying your card network’s logo. Ask ahead before planning to settle a large hotel bill by card.\n\nCash remains a sensible backup. You can withdraw RMB from an ATM displaying your card network’s logo, although fees may apply. Carry smaller notes; a village shop or driver may not have change for a large one.\n\nA modest reserve for food, a short ride or an unexpected night away is more useful than carrying a large amount.",
-        "images": [
-          {
-            "src": "/images/travel-guides/how-to-pay-in-yunnan/travel-payment-backup.webp",
-            "alt": "A phone, power bank, unbranded bank card and travel wallet with a small cash reserve",
-            "displayWidth": "large",
-            "displayRatio": "original",
-            "alignment": "center",
-            "focalPoint": "center",
-            "width": 1536,
-            "height": 1024
-          }
-        ]
-      },
-      {
-        "heading": "Before heading into smaller towns or the mountains",
-        "body": "Before leaving a well-connected town, make a small purchase with your wallet and confirm that it appears correctly.\n\nFor journeys into Nujiang, northwest Yunnan, village areas or remote trailheads, charge your phone, pack a power bank and take some cash. Smaller communities use mobile payment too, but patchy signal can stop a transaction.\n\nYou do not need a special rural payment app—just a tested wallet, one fallback and enough battery.",
-        "images": []
-      },
-      {
-        "heading": "If a payment fails",
-        "body": "First, check whether the money was deducted. Do not immediately repeat the payment if the result is unclear.\n\nIf nothing was charged, try these steps in order:\n\n1. Check your mobile connection and reopen the payment screen.\n2. Try the second wallet or another bank card.\n3. Ask whether the shop has a merchant QR code or card terminal.\n4. Pay with RMB cash.\n5. Contact your issuing bank if the card continues to be declined.\n\nDo not hand an unlocked phone, passport or full card details to a stranger. Enter passwords and security codes yourself.",
-        "images": []
-      },
-      {
-        "heading": "A five-minute check before travelling on",
-        "body": "Before you leave the city or old town, check that:\n\n- you have completed a successful QR payment;\n- your bank can still send you security messages;\n- you have a second way to pay;\n- you have small-denomination RMB cash;\n- your phone and power bank are charged; and\n- any private driver or guide has confirmed the price and payment method.\n\nOnce those basics are covered, paying in Yunnan is normally uneventful—which is exactly what you want from it.",
-        "images": []
-      },
-      {
-        "heading": "Frequently asked questions",
-        "body": "### Can foreign visitors use Alipay and Weixin Pay in China?\n\nYes. Overseas visitors can register with an international number and link eligible international cards, subject to identity checks and bank approval. Check current card support, fees and limits inside the app.\n\n### Will Visa or Mastercard work everywhere in Yunnan?\n\nNo. Direct card acceptance is more common at airports, larger hotels and established retailers. Many smaller businesses are set up mainly for QR payment and cash.\n\n### Can I travel using only cash?\n\nYou can, but many everyday services are built around mobile payment. A tested wallet with a small cash reserve is more practical.",
-        "images": []
-      },
-      {
-        "heading": "Official references",
-        "body": "Payment services and card support change. Recheck the official guidance and the terms shown in each payment app before publishing a future update.\n\nPayment service guide for overseas visitors to China\nhttps://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html\n\nGuide to Working and Living in China\nhttps://english.www.gov.cn/2025special/bizexpatsinchina2025",
-        "images": []
-      }
-    ]
-  },
+  "content": {},
+  "body": "The first payment in China is the one that makes most visitors nervous. By the second or third, it usually feels ordinary: scan a code, check the amount and confirm on your phone.\n\nIn Yunnan, mobile payment works almost everywhere, from Kunming airport to noodle shops and family-run guesthouses. What needs planning is the occasional failed card, weak signal or QR code that will not accept an overseas card.\n\nOur usual advice is simple: set up mobile payment before you fly,\n\n&#x20;test it in the first city you reach and ca\n\nrry a little RMB cash as backup. You do not need a complicated financial toolkit.\n\n<GuideImage src=\"/images/journeys/攻略/9998c76243970e74c6895434ec7393a6.jpeg\" />\n\n## The short version\n\nFor most trips, this combination works well:\n\n* Set up Alipay before arrival and add Weixin Pay as a second option if you can.\n* Link an international bank card and keep the physical card with you.\n* Make one small test payment in Kunming, Dali or Lijiang before travelling farther.\n* Carry some RMB in small notes for rural stops, weak signal or a flat phone battery.\n* Keep a power bank in your day bag.\n\nBoth wallets allow overseas visitors to register with an international number and link eligible international cards. Support can change, so follow the current prompts in the app.\n\n## Set it up before you leave home\n\nDownload Alipay or WeChat from the official app store. Register with the name shown on your passport and bank card, then complete any identity checks. Make sure you can receive security messages from your bank while abroad.\n\nIf the card will not link, call the issuing bank before trying repeatedly. The bank may be blocking an unfamiliar overseas request.\n\nAlipay is often the easier first choice because its travel functions are easy to find in English. Weixin Pay sits inside WeChat and is useful if you already use it to speak with hotels or drivers. Having both is convenient, but not essential.\n\n<GuideImage src=\"/images/travel-guides/how-to-pay-in-yunnan/qr-payment-shop.webp\" alt=\"A traveller holding a phone near a blurred merchant payment code at a café counter\" displayWidth=\"wide\" displayRatio=\"original\" alignment=\"center\" focalPoint=\"center\" width={1536} height={1024} />\n\n## What paying actually looks like in Yunnan\n\nAt a shop or restaurant, scan the merchant’s QR code or show your payment code to the cashier. Check the merchant name and amount before confirming.\n\nLarger hotels, airports and department stores in Kunming are the places most likely to accept an international card directly. In Dali and Lijiang, QR payment is common even without a terminal for overseas cards. At a small guesthouse or roadside restaurant, the owner may simply point to a printed code.\n\nA payment funded by an overseas card may work with a merchant QR code but not with every personal transfer code. A failure often means the wallet cannot use your linked card for that transaction—not that the shop refuses foreign visitors.\n\nFor a private driver, local activity or guesthouse payment, agree on the price and method before the service begins. A quick question at the start is easier than trying to solve a payment problem at a trailhead or late at night.\n\n## Where cards and cash still help\n\nKeep your physical bank card after mobile payment is working. It may be useful at a larger hotel, airport counter or retailer displaying your card network’s logo. Ask ahead before planning to settle a large hotel bill by card.\n\nCash remains a sensible backup. You can withdraw RMB from an ATM displaying your card network’s logo, although fees may apply. Carry smaller notes; a village shop or driver may not have change for a large one.\n\nA modest reserve for food, a short ride or an unexpected night away is more useful than carrying a large amount.\n\n<GuideImage src=\"/images/travel-guides/how-to-pay-in-yunnan/travel-payment-backup.webp\" alt=\"A phone, power bank, unbranded bank card and travel wallet with a small cash reserve\" displayWidth=\"wide\" displayRatio=\"original\" alignment=\"center\" focalPoint=\"center\" width={1536} height={1024} />\n\n## Before heading into smaller towns or the mountains\n\nBefore leaving a well-connected town, make a small purchase with your wallet and confirm that it appears correctly.\n\nFor journeys into Nujiang, northwest Yunnan, village areas or remote trailheads, charge your phone, pack a power bank and take some cash. Smaller communities use mobile payment too, but patchy signal can stop a transaction.\n\nYou do not need a special rural payment app—just a tested wallet, one fallback and enough battery.\n\n## If a payment fails\n\nFirst, check whether the money was deducted. Do not immediately repeat the payment if the result is unclear.\n\nIf nothing was charged, try these steps in order:\n\n1. Check your mobile connection and reopen the payment screen.\n2. Try the second wallet or another bank card.\n3. Ask whether the shop has a merchant QR code or card terminal.\n4. Pay with RMB cash.\n5. Contact your issuing bank if the card continues to be declined.\n\nDo not hand an unlocked phone, passport or full card details to a stranger. Enter passwords and security codes yourself.\n\n## A five-minute check before travelling on\n\nBefore you leave the city or old town, check that:\n\n* you have completed a successful QR payment;\n* your bank can still send you security messages;\n* you have a second way to pay;\n* you have small-denomination RMB cash;\n* your phone and power bank are charged; and\n* any private driver or guide has confirmed the price and payment method.\n\nOnce those basics are covered, paying in Yunnan is normally uneventful—which is exactly what you want from it.\n\n## Frequently asked questions\n\n### Can foreign visitors use Alipay and Weixin Pay in China?\n\nYes. Overseas visitors can register with an international number and link eligible international cards, subject to identity checks and bank approval. Check current card support, fees and limits inside the app.\n\n### Will Visa or Mastercard work everywhere in Yunnan?\n\nNo. Direct card acceptance is more common at airports, larger hotels and established retailers. Many smaller businesses are set up mainly for QR payment and cash.\n\n### Can I travel using only cash?\n\nYou can, but many everyday services are built around mobile payment. A tested wallet with a small cash reserve is more practical.\n\n## Official references\n\nPayment services and card support change. Recheck the official guidance and the terms shown in each payment app before publishing a future update.\n\n[Payment service guide for overseas visitors to China](https://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html)\n\n[Guide to Working and Living in China](https://english.www.gov.cn/2025special/bizexpatsinchina2025)\n",
   "seo": {
     "title": "How to Pay in Yunnan: A Guide for Foreign Visitors",
     "description": "Learn how to use Alipay, Weixin Pay, international cards and cash in Yunnan, with practical advice for cities, small towns and rural journeys."

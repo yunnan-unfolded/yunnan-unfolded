@@ -182,7 +182,8 @@
   position: relative;
   display: block;
   overflow: hidden;
-  aspect-ratio: var(--guide-card-ratio, 4 / 3);
+  width: 100%;
+  aspect-ratio: 4 / 3;
   background: #d8d2c7;
 }
 
@@ -227,6 +228,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  min-height: 1.65rem;
 }
 
 .guideMeta p,
@@ -240,9 +242,17 @@
 }
 
 .guideMeta span {
+  flex: 0 0 auto;
   padding: .3rem .5rem;
   border: 1px solid rgba(152, 112, 58, .5);
   font-size: .57rem;
+}
+
+.guideMeta p {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .guideCopy h3 {

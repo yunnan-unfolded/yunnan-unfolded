@@ -1,3 +1,4 @@
+import { travelGuideBodyField } from "../shared/travelGuideRichTextSchema";
 import { defineConfig, type TinaField } from "tinacms";
 import { normalizeJourneySlug } from "../shared/journeyDefaults.ts";
 import { AdvancedSettingsField } from "./fields/AdvancedSettingsField";
@@ -14,6 +15,7 @@ import { WalkImagePresetCardsField } from "./fields/WalkImagePresetCardsField";
 import { WalkPublicationStatusField } from "./fields/WalkPublicationStatusField";
 import { TravelGuidePublicationStatusField } from "./fields/TravelGuidePublicationStatusField";
 import { TravelGuideTitleField } from "./fields/TravelGuideTitleField";
+import { TravelGuideBodyField } from "./fields/TravelGuideBodyField";
 import { withTravelGuideNavigation } from "./fields/TravelGuideGroupField";
 import { prepareJourneyForSave } from "./journeySave";
 import { prepareTravelGuideForSave } from "./travelGuideSave";
@@ -553,15 +555,16 @@ const config = defineConfig({
         {
           type: "object",
           name: "hero",
-          label: "3. 首图",
-          description: "选择封面图片并填写英文说明；图片设置沿用现有安全预设。",
+          label: "3. 封面图（用于攻略目录和文章顶部）",
+          description: "建议上传清晰横图。目录卡片会自动按 4:3 裁切，可通过焦点位置调整主体。",
           searchable: false,
           fields: walkImageFields(),
         },
         {
           type: "object",
           name: "content",
-          label: "4. 正文",
+          label: "旧正文（只读兼容）",
+          ui: { component: "hidden" },
           description: "填写开场介绍，并按内容需要添加可排序的正文区块。",
           searchable: true,
           fields: [
@@ -596,6 +599,7 @@ const config = defineConfig({
             },
           ],
         },
+        { ...travelGuideBodyField, ui: { component: TravelGuideBodyField as never } },
         {
           type: "object",
           name: "seo",

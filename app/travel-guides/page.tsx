@@ -46,13 +46,6 @@ export const metadata: Metadata = {
   },
 };
 
-const ratioValues = {
-  "landscape-16-9": "16 / 9",
-  "landscape-4-3": "4 / 3",
-  "portrait-3-4": "3 / 4",
-  "portrait-9-16": "9 / 16",
-} as const;
-
 const focalPointValues = {
   center: "50% 50%",
   top: "50% 20%",
@@ -64,12 +57,7 @@ const focalPointValues = {
 function guideImageStyle(guide: TravelGuideCard) {
   const image = guide.hero;
   if (!image) return undefined;
-  const naturalRatio = image.width && image.height ? `${image.width} / ${image.height}` : "4 / 3";
-  const ratio = image.displayRatio && image.displayRatio !== "original"
-    ? ratioValues[image.displayRatio]
-    : naturalRatio;
   return {
-    "--guide-card-ratio": ratio,
     "--guide-card-position": focalPointValues[image.focalPoint ?? "center"],
   } as CSSProperties;
 }

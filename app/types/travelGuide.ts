@@ -1,3 +1,4 @@
+import type { GuideBody } from "../../shared/travelGuideRichText";
 import type {
   TRAVEL_GUIDE_IMAGE_ALIGNMENTS,
   TRAVEL_GUIDE_IMAGE_FOCAL_POINTS,
@@ -37,6 +38,7 @@ export type TravelGuideContent = {
     summary: string;
   };
   hero?: TravelGuideImage;
+  body?: string | GuideBody;
   content?: {
     introduction?: string;
     sections?: TravelGuideSection[];

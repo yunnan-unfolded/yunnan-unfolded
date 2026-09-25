@@ -1,3 +1,4 @@
+import { guideBodyProblems, type GuideBody } from "../shared/travelGuideRichText.ts";
 import {
   normalizeTravelGuideSlug,
   resolveTravelGuideEditorLabel,
@@ -167,10 +168,12 @@ export function getTravelGuidePublishMissingFields(values: Record<string, unknow
   if (!cleanText(basic.summary)) missing.push("第 2 部分「简短摘要」");
   if (!cleanText(hero.src)) missing.push("第 3 部分「封面图片」");
   if (!cleanText(hero.alt)) missing.push("第 3 部分「封面图片英文说明」");
-  if (!sections.some((section) => Boolean(section.heading || section.body))) {
+  if (values.body && typeof values.body === "object") {
+    missing.push(...guideBodyProblems(values.body as GuideBody, true));
+  } else if (!sections.some((section) => Boolean(section.heading || section.body))) {
     missing.push("第 4 部分「至少一个有效正文区块」");
   }
-  sections.forEach((section, sectionIndex) => {
+  (values.body === undefined ? sections : []).forEach((section, sectionIndex) => {
     section.images.forEach((image, imageIndex) => {
       if (!image.alt) missing.push(`第 4 部分第 ${sectionIndex + 1} 个正文区块的第 ${imageIndex + 1} 张图片英文说明`);
     });
@@ -252,7 +255,20 @@ export async function prepareTravelGuideForSave({ values, cms, form }: SaveConte
     focalPoint: "center",
   };
   const contentValues = (values.content as Record<string, unknown> | undefined) ?? {};
-  const presetErrors = collectImagePresetErrors(heroValues, contentValues.sections);
+  // Only the six approved documents are migrated by the explicit migration
+  // script. Never silently replace an unconverted user's hidden legacy body.
+  const hasLegacyBody = Boolean(cleanText(contentValues.introduction) || cleanSections(contentValues.sections).length);
+  if (hasLegacyBody && values.body !== undefined && values.body !== null) {
+    failSave(cms, "保存失败：这篇攻略的旧正文尚未迁移。为保留原文，暂不允许用新正文覆盖；请先单独确认迁移。");
+  }
+  if (values.body !== undefined) {
+    if (!values.body || typeof values.body !== "object" || !Array.isArray((values.body as GuideBody).children)) {
+      failSave(cms, "保存失败：正文格式无效，请在富文本编辑器中编辑。");
+    }
+    const bodyErrors = guideBodyProblems(values.body as GuideBody, false);
+    if (bodyErrors.length) failSave(cms, `保存失败：${bodyErrors.join("；")}`);
+  }
+  const presetErrors = collectImagePresetErrors(heroValues, values.body === undefined ? contentValues.sections : undefined);
   if (presetErrors.length > 0) {
     failSave(cms, `保存失败：${presetErrors.join("、")}设置无效，请重新选择。内容尚未保存。`);
   }
@@ -290,7 +306,7 @@ export async function prepareTravelGuideForSave({ values, cms, form }: SaveConte
     title,
     basic,
     hero: heroImage,
-    content,
+    ...(values.body === undefined ? { content } : { body: values.body, content: {} }),
     seo,
     publication,
   };

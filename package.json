@@ -20,11 +20,12 @@
     "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
     "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
     "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs tests/phase-2-2b-migration.test.mjs",
-    "test:travel-guides": "node --experimental-strip-types --test tests/travel-guide-content.test.mjs tests/travel-guide-navigation.test.mjs",
+    "test:travel-guides": "node --experimental-strip-types --test tests/travel-guide-content.test.mjs tests/travel-guide-navigation.test.mjs tests/travel-guide-rich-text.test.mjs",
     "test:walks": "node --experimental-strip-types --test tests/tina-walk-save.test.mjs tests/walk-content.test.mjs",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern artifacts"
   },
   "dependencies": {
+    "@tinacms/mdx": "2.2.1",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",

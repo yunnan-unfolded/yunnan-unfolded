@@ -1,3 +1,5 @@
+import { readGuideBody } from "./travelGuideRichText.ts";
+import type { GuideBody } from "../../shared/travelGuideRichText.ts";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { normalizeTravelGuideParagraphs } from "../../shared/travelGuideDefaults.ts";
@@ -20,6 +22,7 @@ export type TravelGuideCard = {
 };
 
 export type TravelGuideDetail = TravelGuideCard & {
+  body: GuideBody;
   introduction: string[];
   sections: Array<Omit<TravelGuideSection, "body" | "images"> & { body: string[]; images: TravelGuideImage[] }>;
   seo: { title: string; description: string };
@@ -58,6 +61,7 @@ export function travelGuideContentToDetail(content: TravelGuideContent): TravelG
   const card = travelGuideContentToCard(content);
   return {
     ...card,
+    body: readGuideBody(content),
     introduction: normalizeTravelGuideParagraphs(content.content?.introduction),
     sections: (content.content?.sections ?? []).map((section) => ({
       ...section,

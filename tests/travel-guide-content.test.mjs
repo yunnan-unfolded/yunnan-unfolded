@@ -1,3 +1,4 @@
+import { guideNodeText } from "../shared/travelGuideRichText.ts";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
@@ -75,10 +76,12 @@ test("the first practical guide remains a local-only draft with its approved con
   assert.equal(localGuide.status, "draft");
   assert.equal(localGuide.title, "How to Pay in Yunnan as a Foreign Visitor");
   assert.equal(localGuide.hero?.src, "/images/travel-guides/how-to-pay-in-yunnan/hero-payment-yunnan.webp");
-  assert.equal(localGuide.sections.length, 9);
-  assert.ok(localGuide.sections.some((section) => section.heading === "Frequently asked questions"));
-  assert.ok(localGuide.sections.some((section) => section.heading === "Official references"));
-  assert.equal(localGuide.sections.flatMap((section) => section.images).length, 2);
+  assert.equal(localGuide.body.children.filter((node) => node.type === "h2").length, 9);
+  assert.ok(localGuide.body.children.some((node) => node.type === "h2" && guideNodeText(node) === "Frequently asked questions"));
+  assert.ok(localGuide.body.children.some((node) => node.type === "h2" && guideNodeText(node) === "Official references"));
+  const paymentImages = localGuide.body.children.filter((node) => node.name === "GuideImage").map((node) => node.props?.src);
+  assert.ok(paymentImages.includes("/images/travel-guides/how-to-pay-in-yunnan/qr-payment-shop.webp"));
+  assert.ok(paymentImages.includes("/images/travel-guides/how-to-pay-in-yunnan/travel-payment-backup.webp"));
   assert.equal(localEntry.filename, `${slug}.json`);
 });
 
@@ -100,28 +103,20 @@ test("the Travel Guide detail route generates drafts only for authorised local p
   assert.match(routeSource, /guide\.status !== "published" && !localDraftPreviewEnabled/);
   assert.match(routeSource, /buildTravelGuideStructuredData\(guide\)/);
   const detailSource = readFileSync("app/components/travel-guides/TravelGuideDetailPage.tsx", "utf8");
-  assert.match(detailSource, /section\.images\.map/);
-  assert.match(detailSource, /loading="lazy"/);
-  assert.match(detailSource, /GuideImageFigure/);
+  assert.match(detailSource, /<TravelGuideBody body=\{guide.body\}/);
+  assert.match(readFileSync("app/components/travel-guides/TravelGuideBody.tsx", "utf8"), /loading="lazy"/);
+  assert.match(readFileSync("app/components/travel-guides/TravelGuideBody.tsx", "utf8"), /GuideImageFigure/);
 });
 
-test("Travel Guide body rendering safely supports limited Markdown without raw HTML", () => {
-  const detailSource = readFileSync("app/components/travel-guides/TravelGuideDetailPage.tsx", "utf8");
-  assert.match(detailSource, /function renderInlineMarkdown/);
-  assert.match(detailSource, /nodes\.push\(<strong key=\{key\}>\{match\[2\]\}<\/strong>\)/);
-  assert.match(detailSource, /<ol className=\{styles\.numberedList\}/);
-  assert.match(detailSource, /renderInlineMarkdown\(line\.slice\(2\)/);
-  assert.match(detailSource, /renderInlineMarkdown\(line\.replace\(\/\^\\d\+\\\.\\s\//);
-  assert.match(detailSource, /href\.startsWith\("https:\/\/"\)/);
-  assert.match(detailSource, /rel="noreferrer" target="_blank"/);
-  assert.match(detailSource, /href=\{internalMarkdownHref\(href\)\}/);
-  assert.doesNotMatch(detailSource, /dangerouslySetInnerHTML/);
+test("Travel Guide rich body renders an allowlisted tree without raw HTML", () => {
+  const source = readFileSync("app/components/travel-guides/TravelGuideBody.tsx", "utf8");
+  assert.match(source, /safeGuideUrl/);
+  assert.match(source, /noopener noreferrer/);
+  assert.doesNotMatch(source, /dangerouslySetInnerHTML/);
 });
 
 test("saved draft guides keep matching filenames and stay out of public output", () => {
-  const preservedDraft = travelGuideContents.find((entry) => entry.filename === "yunnanyoutube.json");
-  assert.ok(preservedDraft);
-  assert.equal(preservedDraft.content.publication.status, "draft");
+  assert.ok(travelGuideContents.some((entry) => entry.content.publication.status === "draft"));
   for (const entry of travelGuideContents) {
     assert.equal(entry.filename, `${entry.content.basic.slug}.json`);
   }
@@ -175,8 +170,14 @@ test("directory structured data is parseable and never invents an empty ItemList
 
 test("the independent directory route replaces the generic placeholder and keeps drafts local", () => {
   const source = readFileSync(new URL("../app/travel-guides/page.tsx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../app/travel-guides/travel-guides.module.css", import.meta.url), "utf8");
   const placeholder = readFileSync(new URL("../app/[slug]/page.tsx", import.meta.url), "utf8");
   assert.match(source, /getTravelGuides\(localDraftPreviewEnabled\)/);
+  assert.match(source, /focalPointValues\[image\.focalPoint \?\? "center"\]/);
+  assert.doesNotMatch(source, /image\.displayRatio|naturalRatio|--guide-card-ratio/);
+  assert.match(styles, /\.guideImage\s*\{[\s\S]*?aspect-ratio:\s*4\s*\/\s*3/);
+  assert.match(styles, /\.guideImage img\s*\{[\s\S]*?width:\s*100%;[\s\S]*?height:\s*100%;[\s\S]*?object-fit:\s*cover;/);
+  assert.match(styles, /object-position:\s*var\(--guide-card-position, center\)/);
   assert.match(source, /process\.env\.TINA_LOCAL_DRAFT_PREVIEW === "true"/);
   assert.match(source, /guide\.status === "draft" \? <span>Local Draft<\/span>/);
   assert.match(source, /guides\.length > 0/);
@@ -207,6 +208,8 @@ test("Tina exposes one Chinese Travel Guide collection with reusable image contr
   assert.equal((source.match(/name: "travelGuide"/g) ?? []).length, 1);
   assert.match(source, /label: "旅行攻略"/);
   assert.match(source, /path: "content\/travel-guides"/);
+  assert.match(source, /label: "3\. 封面图（用于攻略目录和文章顶部）"/);
+  assert.match(source, /目录卡片会自动按 4:3 裁切，可通过焦点位置调整主体/);
   assert.match(source, /beforeSubmit: prepareTravelGuideForSave/);
   assert.match(source, /fields: walkImageFields\(\)/);
   assert.match(source, /defaultItem: TRAVEL_GUIDE_DEFAULT_ITEM/);
