@@ -11,7 +11,7 @@ export function buildTravelGuideMetadata(guide: TravelGuideDetail): Metadata {
     title: { absolute: guide.seo.title },
     description: guide.seo.description,
     robots: { index: isPublished, follow: isPublished },
-    ...(isPublished ? { alternates: { canonical: pageUrl } } : {}),
+    alternates: { canonical: isPublished ? pageUrl : null },
     openGraph: {
       title: guide.seo.title,
       description: guide.seo.description,

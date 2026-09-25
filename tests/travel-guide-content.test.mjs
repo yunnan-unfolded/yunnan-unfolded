@@ -90,7 +90,7 @@ test("draft Travel Guide metadata is noindex and omits canonical and public stru
   assert.ok(guide);
   const metadata = buildTravelGuideMetadata(guide);
   assert.deepEqual(metadata.robots, { index: false, follow: false });
-  assert.equal(metadata.alternates, undefined);
+  assert.deepEqual(metadata.alternates, { canonical: null });
   assert.equal(metadata.openGraph?.url, undefined);
   assert.deepEqual(buildTravelGuideStructuredData(guide), []);
 });
