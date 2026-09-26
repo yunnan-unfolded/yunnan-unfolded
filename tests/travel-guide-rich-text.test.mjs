@@ -87,7 +87,7 @@ test('six approved guides use only new body; payment images and FAQs remain', ()
   for (const slug of slugs) {
     const document = JSON.parse(readFileSync(`content/travel-guides/${slug}.json`, 'utf8'));
     assert.ok(document.content === undefined || (document.content && Object.keys(document.content).length === 0));
-    assert.equal(document.publication.status, 'draft');
+    assert.equal(document.publication.status, 'published');
     const body = readGuideBody(document);
     assert.equal(body.children.some((node) => node.type === 'invalid_markdown'), false);
     assert.ok(guideNodeText(body).includes('Frequently asked questions'));
@@ -104,7 +104,7 @@ test('six release candidates keep accurate image descriptions and exclude the tw
   const documents = slugs.map((slug) => JSON.parse(readFileSync(`content/travel-guides/${slug}.json`, 'utf8')));
 
   for (const document of documents) {
-    assert.equal(document.publication.status, 'draft');
+    assert.equal(document.publication.status, 'published');
     if (document.hero?.src) assert.ok(document.hero.alt?.trim(), `${document.basic.slug} Hero needs English alt text`);
     const images = readGuideBody(document).children.filter((node) => node.name === 'GuideImage');
     for (const image of images) assert.ok(image.props?.alt?.trim(), `${document.basic.slug} body image needs English alt text`);

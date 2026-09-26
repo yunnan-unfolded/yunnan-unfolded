@@ -64,16 +64,16 @@ const draftContent = {
 const publishedEntry = { filename: `${publishedContent.basic.slug}.json`, content: publishedContent };
 const draftEntry = { filename: `${draftContent.basic.slug}.json`, content: draftContent };
 
-test("the first practical guide remains a local-only draft with its approved content", () => {
+test("the first practical guide is published with its approved content", () => {
   const slug = "how-to-pay-in-yunnan";
-  assert.equal(getTravelGuideBySlug(slug), undefined);
-  assert.equal(getTravelGuideContentBySlug(slug), undefined);
+  assert.ok(getTravelGuideBySlug(slug));
+  assert.ok(getTravelGuideContentBySlug(slug));
 
   const localGuide = getTravelGuideBySlug(slug, true);
   const localEntry = getTravelGuideContentBySlug(slug, true);
   assert.ok(localGuide);
   assert.ok(localEntry);
-  assert.equal(localGuide.status, "draft");
+  assert.equal(localGuide.status, "published");
   assert.equal(localGuide.title, "How to Pay in Yunnan as a Foreign Visitor");
   assert.equal(localGuide.hero?.src, "/images/travel-guides/how-to-pay-in-yunnan/hero-payment-yunnan.webp");
   assert.equal(localGuide.body.children.filter((node) => node.type === "h2").length, 9);
@@ -85,14 +85,15 @@ test("the first practical guide remains a local-only draft with its approved con
   assert.equal(localEntry.filename, `${slug}.json`);
 });
 
-test("draft Travel Guide metadata is noindex and omits canonical and public structured data", () => {
-  const guide = getTravelGuideBySlug("how-to-pay-in-yunnan", true);
+test("published Travel Guide metadata is indexable with canonical and public structured data", () => {
+  const guide = getTravelGuideBySlug("how-to-pay-in-yunnan");
   assert.ok(guide);
   const metadata = buildTravelGuideMetadata(guide);
-  assert.deepEqual(metadata.robots, { index: false, follow: false });
-  assert.deepEqual(metadata.alternates, { canonical: null });
-  assert.equal(metadata.openGraph?.url, undefined);
-  assert.deepEqual(buildTravelGuideStructuredData(guide), []);
+  const canonical = "https://yunnanunfolded.com/travel-guides/how-to-pay-in-yunnan/";
+  assert.deepEqual(metadata.robots, { index: true, follow: true });
+  assert.deepEqual(metadata.alternates, { canonical });
+  assert.equal(metadata.openGraph?.url, canonical);
+  assert.deepEqual(buildTravelGuideStructuredData(guide).map((entry) => entry["@type"]), ["BreadcrumbList", "Article"]);
 });
 
 test("the Travel Guide detail route generates drafts only for authorised local preview", () => {
@@ -115,8 +116,7 @@ test("Travel Guide rich body renders an allowlisted tree without raw HTML", () =
   assert.doesNotMatch(source, /dangerouslySetInnerHTML/);
 });
 
-test("saved draft guides keep matching filenames and stay out of public output", () => {
-  assert.ok(travelGuideContents.some((entry) => entry.content.publication.status === "draft"));
+test("saved guides keep matching filenames and any drafts stay out of public output", () => {
   for (const entry of travelGuideContents) {
     assert.equal(entry.filename, `${entry.content.basic.slug}.json`);
   }
