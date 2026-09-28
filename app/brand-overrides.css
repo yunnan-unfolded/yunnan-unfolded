@@ -124,10 +124,10 @@
 
 .journeys { background: #fbf8f1; }
 .journey-card__image-wrap,
-.guide-card__image-wrap,
+.home-travel-guide-card__image-wrap,
 .local__portrait { box-shadow: 0 22px 60px rgba(18,43,36,.07); }
 .journey-card__image,
-.guide-card img,
+.home-travel-guide-card img,
 .local__portrait img,
 .walk__image-panel img {
   filter: saturate(.76) contrast(.98);
@@ -263,7 +263,7 @@
   }
   .intro__copy h2 { margin-bottom: 3.25rem; }
   .journey-card__image-wrap,
-  .guide-card__image-wrap,
+  .home-travel-guide-card__image-wrap,
   .local__portrait { box-shadow: 0 16px 40px rgba(18,43,36,.06); }
   .walk__content::before {
     top: 3rem;

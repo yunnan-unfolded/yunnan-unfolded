@@ -4,8 +4,9 @@ import { Header } from "./components/Header";
 import { ArrowLink } from "./components/ArrowLink";
 import { QuickInquiryForm } from "./components/QuickInquiryForm";
 import { HeroSlideshow } from "./components/HeroSlideshow";
-import { guides, upcomingJourneys } from "./data/siteContent";
+import { upcomingJourneys } from "./data/siteContent";
 import { publishedJourneys } from "./lib/journeyContent";
+import { getTravelGuides, type TravelGuideCard } from "./lib/travelGuideContent";
 import type { WalkDetail } from "./lib/walkAdapter";
 import { getWalks } from "./lib/walkContent";
 import Image from "next/image";
@@ -14,6 +15,24 @@ import { assetPath } from "./lib/sitePaths";
 
 const localDraftPreviewEnabled = process.env.NODE_ENV === "development"
   && process.env.TINA_LOCAL_DRAFT_PREVIEW === "true";
+
+const homepageTravelGuideSlugs = [
+  "how-to-pay-in-yunnan",
+  "best-time-to-visit-yunnan",
+  "how-to-get-around-yunnan",
+] as const;
+
+const travelGuideFocalPoints = {
+  center: "50% 50%",
+  top: "50% 0%",
+  bottom: "50% 100%",
+  left: "0% 50%",
+  right: "100% 50%",
+} as const;
+
+function isHomepageTravelGuide(guide: TravelGuideCard | undefined): guide is TravelGuideCard & { hero: NonNullable<TravelGuideCard["hero"]> & { src: string } } {
+  return Boolean(guide?.status === "published" && guide.hero?.src);
+}
 
 function walkHref(walk: WalkDetail) {
   return `/walk-yunnan/${walk.slug}/`;
@@ -36,6 +55,11 @@ function walkCoverStyle(walk: WalkDetail) {
 
 export default function Home() {
   const homepageWalks = getWalks(localDraftPreviewEnabled).slice(0, 1);
+  const publishedTravelGuides = getTravelGuides();
+  const travelGuideBySlug = new Map(publishedTravelGuides.map((guide) => [guide.slug, guide]));
+  const homepageTravelGuides = homepageTravelGuideSlugs
+    .map((slug) => travelGuideBySlug.get(slug))
+    .filter(isHomepageTravelGuide);
   const journeyCards = [
     ...publishedJourneys.map((journey) => ({
       title: journey.collection,
@@ -181,14 +205,54 @@ export default function Home() {
         </div>
       </section>
 
+      {homepageTravelGuides.length > 0 ? (
+        <section className="home-travel-guides section" id="home-travel-guides" aria-labelledby="home-travel-guides-title">
+          <div className="home-travel-guides__heading shell">
+            <div>
+              <p className="eyebrow">Travel Guides</p>
+              <h2 id="home-travel-guides-title">Practical advice for travelling in Yunnan</h2>
+            </div>
+            <div className="home-travel-guides__introduction">
+              <p>Clear, useful guidance on payments, seasons and getting around, written for international travellers planning an independent trip.</p>
+              <Link className="button button--gold" href="/travel-guides/">Explore all Travel Guides</Link>
+            </div>
+          </div>
+          <div className="home-travel-guides__grid shell">
+            {homepageTravelGuides.map((guide, index) => {
+              const focalPoint = guide.hero.focalPoint ?? "center";
+              return (
+                <article className="home-travel-guide-card" key={guide.slug}>
+                  <Link
+                    className="home-travel-guide-card__image-wrap"
+                    href={guide.href}
+                    aria-label={`Read ${guide.title}`}
+                    style={{ "--home-guide-focus": travelGuideFocalPoints[focalPoint] } as CSSProperties}
+                  >
+                    <Image
+                      src={assetPath(guide.hero.src)}
+                      alt={guide.hero.alt ?? ""}
+                      width={guide.hero.width ?? 1200}
+                      height={guide.hero.height ?? 900}
+                      sizes="(max-width: 760px) 88vw, 30vw"
+                    />
+                    <span className="home-travel-guide-card__number">0{index + 1}</span>
+                  </Link>
+                  <div className="home-travel-guide-card__content">
+                    <p className="home-travel-guide-card__category">{guide.category}</p>
+                    <h3><Link href={guide.href}>{guide.title}</Link></h3>
+                    <p>{guide.summary}</p>
+                    <ArrowLink href={guide.href}>Read the guide</ArrowLink>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
       <section className="local section shell" aria-labelledby="local-title">
         <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="" width={1000} height={1250}/></div>
         <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A journey shaped from the inside.</h2><p className="local__lead">Yunnan Unfolded grows from Chloe’s firsthand knowledge of the province—and a lasting curiosity for the paths, people and stories found between the well-known places.</p><p>She is a local travel professional and passionate hiker who knows both classic Yunnan and its quieter routes. Her approach is simple: listen closely, travel thoughtfully and let each place set the pace.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
-      </section>
-
-      <section className="guides section" aria-labelledby="guides-title">
-        <div className="section-heading shell"><div><p className="eyebrow">Field notes</p><h2 id="guides-title">Read before you wander.</h2></div><ArrowLink href="/travel-guides">Explore travel guides</ArrowLink></div>
-        <div className="guide-grid shell">{guides.map((guide,index)=><article className="guide-card" key={guide.title}><Link href="/travel-guides" className="guide-card__image-wrap"><Image src={guide.image} alt={guide.alt} width={900} height={675}/></Link><p className="guide-card__meta">{guide.category}<span>0{index+1}</span></p><h3><Link href="/travel-guides">{guide.title}</Link></h3><ArrowLink href="/travel-guides">Read the guide</ArrowLink></article>)}</div>
       </section>
 
       <section className="planning section" aria-labelledby="planning-title">

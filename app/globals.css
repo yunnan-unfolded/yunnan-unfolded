@@ -195,13 +195,22 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
 .local__lead { color:var(--forest); font-family:var(--font-serif); font-size:clamp(1.5rem,2.3vw,2.2rem); line-height:1.35; }
 .local__content>p:not(.eyebrow):not(.local__lead) { color:var(--muted); margin:2rem 0; }
 
-.guides { border-top:1px solid var(--line); background:#efe9de; }
-.guide-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.5rem,3vw,3.5rem); }
-.guide-card__image-wrap { display:block; aspect-ratio:4/3; overflow:hidden; background:#d7d5cb; }
-.guide-card img { height:100%; filter:saturate(.75); transition:transform .6s; }
-.guide-card:hover img { transform:scale(1.025); }
-.guide-card__meta { display:flex; justify-content:space-between; margin:1.4rem 0 .8rem; color:var(--gold); font-size:.6rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase; }
-.guide-card h3 { min-height:2.2em; font-size:clamp(1.8rem,2.5vw,2.8rem); line-height:1.08; }
+.home-travel-guides { border-top:1px solid var(--line); background:#efe9de; }
+.home-travel-guides__heading { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr); gap:clamp(3rem,8vw,8rem); align-items:end; margin-bottom:clamp(3.5rem,6vw,5.5rem); }
+.home-travel-guides__heading h2 { max-width:850px; margin-bottom:0; font-size:clamp(3.2rem,5.5vw,5.9rem); line-height:1.01; }
+.home-travel-guides__introduction { display:grid; gap:1.7rem; justify-items:start; padding-bottom:.35rem; }
+.home-travel-guides__introduction p { max-width:470px; margin:0; color:var(--muted); font-size:.94rem; line-height:1.75; }
+.home-travel-guides__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(1.5rem,3vw,3.5rem); align-items:stretch; }
+.home-travel-guide-card { display:flex; min-width:0; flex-direction:column; }
+.home-travel-guide-card__image-wrap { position:relative; display:block; overflow:hidden; aspect-ratio:4/3; background:#d7d5cb; }
+.home-travel-guide-card__image-wrap img { width:100%; height:100%; object-fit:cover; object-position:var(--home-guide-focus,center); filter:saturate(.76) contrast(.98); transition:transform .6s cubic-bezier(.2,.6,.2,1); }
+.home-travel-guide-card:hover .home-travel-guide-card__image-wrap img { transform:scale(1.025); }
+.home-travel-guide-card__number { position:absolute; right:0; bottom:0; padding:.65rem .75rem; background:rgba(247,243,235,.95); color:var(--forest); font-family:var(--font-serif); font-size:.82rem; }
+.home-travel-guide-card__content { display:flex; flex:1; flex-direction:column; padding-top:1.5rem; }
+.home-travel-guide-card__category { margin-bottom:.7rem; color:var(--gold); font-size:.6rem; font-weight:650; letter-spacing:.14em; text-transform:uppercase; }
+.home-travel-guide-card h3 { min-height:2.16em; margin:0 0 1rem; color:var(--forest); font-size:clamp(1.85rem,2.55vw,2.85rem); line-height:1.08; }
+.home-travel-guide-card__content>p:not(.home-travel-guide-card__category) { margin-bottom:1.6rem; color:var(--muted); font-size:.88rem; line-height:1.72; }
+.home-travel-guide-card .arrow-link { margin-top:auto; }
 
 .planning { position:relative; overflow:hidden; padding:clamp(5.5rem,8vw,8rem) 0 clamp(5.5rem,8vw,8rem); background:#0f3028; color:white; text-align:center; }
 .planning::before,.planning::after { content:""; position:absolute; width:45vw; height:22vw; border:1px solid rgba(179,151,91,.22); border-radius:50%; transform:rotate(-12deg); left:-22vw; top:20%; }
@@ -410,9 +419,11 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
   .local { display:flex; flex-direction:column; }
   .local__portrait { width:90%; align-self:flex-start; }
   .image-note { left:auto; right:-2rem; }
-  .guide-grid { display:block; }
-  .guide-card { margin-bottom:4.5rem; }
-  .guide-card h3 { min-height:0; }
+  .home-travel-guides__heading { display:block; margin-bottom:3.5rem; }
+  .home-travel-guides__heading h2 { margin-bottom:2rem; font-size:clamp(2.8rem,12.5vw,4.15rem); }
+  .home-travel-guides__introduction { gap:1.5rem; }
+  .home-travel-guides__grid { grid-template-columns:1fr; gap:4.25rem; }
+  .home-travel-guide-card h3 { min-height:0; font-size:clamp(2rem,9vw,2.8rem); }
   .planning { padding:5rem 0 4.75rem; }
   .planning__inner { width:86vw; }
   .planning .eyebrow { margin-bottom:1.25rem; }
