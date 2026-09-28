@@ -22,6 +22,12 @@ const homepageTravelGuideSlugs = [
   "how-to-get-around-yunnan",
 ] as const;
 
+const homepageTravelGuideCardImages: Record<string, string> = {
+  "how-to-pay-in-yunnan": "/images/travel-guides/homepage-cards/how-to-pay-in-yunnan.webp",
+  "best-time-to-visit-yunnan": "/images/travel-guides/homepage-cards/best-time-to-visit-yunnan.webp",
+  "how-to-get-around-yunnan": "/images/travel-guides/homepage-cards/how-to-get-around-yunnan.webp",
+};
+
 const travelGuideFocalPoints = {
   center: "50% 50%",
   top: "50% 0%",
@@ -220,6 +226,7 @@ export default function Home() {
           <div className="home-travel-guides__grid shell">
             {homepageTravelGuides.map((guide, index) => {
               const focalPoint = guide.hero.focalPoint ?? "center";
+              const cardImage = homepageTravelGuideCardImages[guide.slug];
               return (
                 <article className="home-travel-guide-card" key={guide.slug}>
                   <Link
@@ -229,10 +236,10 @@ export default function Home() {
                     style={{ "--home-guide-focus": travelGuideFocalPoints[focalPoint] } as CSSProperties}
                   >
                     <Image
-                      src={assetPath(guide.hero.src)}
+                      src={assetPath(cardImage)}
                       alt={guide.hero.alt ?? ""}
-                      width={guide.hero.width ?? 1200}
-                      height={guide.hero.height ?? 900}
+                      width={1200}
+                      height={900}
                       sizes="(max-width: 760px) 88vw, 30vw"
                     />
                     <span className="home-travel-guide-card__number">0{index + 1}</span>
