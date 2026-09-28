@@ -187,6 +187,33 @@ test("the independent directory route replaces the generic placeholder and keeps
   assert.doesNotMatch(source, /search|filter|pagination/i);
 });
 
+test("the homepage selects three published Travel Guides from Tina data in the approved order", () => {
+  const source = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
+  const staticContent = readFileSync(new URL("../app/data/siteContent.ts", import.meta.url), "utf8");
+  const expectedSlugs = [
+    "how-to-pay-in-yunnan",
+    "best-time-to-visit-yunnan",
+    "how-to-get-around-yunnan",
+  ];
+  const selected = expectedSlugs
+    .map((slug) => getTravelGuides().find((guide) => guide.slug === slug))
+    .filter(Boolean);
+
+  assert.deepEqual(selected.map((guide) => guide.slug), expectedSlugs);
+  assert.ok(selected.every((guide) => guide.status === "published" && guide.hero?.src));
+  assert.match(source, /const publishedTravelGuides = getTravelGuides\(\)/);
+  assert.match(source, /homepageTravelGuides\.length > 0/);
+  assert.match(source, /href=\{guide\.href\}/);
+  assert.match(source, /travelGuideFocalPoints\[focalPoint\]/);
+  assert.match(source, /Practical advice for travelling in Yunnan/);
+  assert.doesNotMatch(source, /\bguides\.map\(|import \{ guides,/);
+  assert.match(staticContent, /export const guides =/);
+  assert.match(styles, /\.home-travel-guide-card__image-wrap\s*\{[^}]*aspect-ratio:4\/3/);
+  assert.match(styles, /\.home-travel-guide-card__image-wrap img\s*\{[^}]*width:100%;[^}]*height:100%;[^}]*object-fit:cover;[^}]*object-position:var\(--home-guide-focus,center\)/);
+  assert.match(styles, /@media \(max-width:760px\)[\s\S]*?\.home-travel-guides__grid \{ grid-template-columns:1fr;/);
+});
+
 test("metadata uses the public canonical and the existing site share image", () => {
   const source = readFileSync(new URL("../app/travel-guides/page.tsx", import.meta.url), "utf8");
   assert.match(source, /absolutePageUrl\("\/travel-guides"\)/);
