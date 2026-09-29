@@ -1,0 +1,339 @@
+.page {
+  min-width: 0;
+  overflow: clip;
+  background: var(--paper);
+}
+
+.topbar {
+  background: var(--forest-dark);
+  color: #fff;
+}
+
+.topbar :global(.header) {
+  position: relative;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(320px, .72fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: end;
+  width: min(88vw, 1240px);
+  min-height: clamp(560px, 68svh, 760px);
+  margin: auto;
+  padding: clamp(5.5rem, 9vw, 9rem) 0 clamp(5rem, 8vw, 8rem);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--gold-dark);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.chloe h2,
+.planning h2,
+.explore h2,
+.final h2 {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -.038em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.hero h1 {
+  max-width: 780px;
+  margin: 1.55rem 0 0;
+  color: var(--forest-dark);
+  font-size: clamp(3.8rem, 6.1vw, 7rem);
+}
+
+.heroIntroduction {
+  padding-bottom: .3rem;
+  color: #4e5a50;
+}
+
+.heroIntroduction p,
+.chloeCopy p,
+.planningCopy p,
+.exploreIntroduction > p,
+.finalInner > p {
+  margin: 0 0 1.45rem;
+  font-size: 1.01rem;
+  line-height: 1.86;
+}
+
+.heroIntroduction p:last-child,
+.chloeCopy p:last-child,
+.planningCopy p:last-child,
+.exploreIntroduction > p:last-child {
+  margin-bottom: 0;
+}
+
+.heroIntroduction .heroLead {
+  color: var(--forest);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.35rem, 1.75vw, 1.7rem);
+  line-height: 1.55;
+}
+
+.chloe,
+.planning,
+.explore {
+  width: min(88vw, 1160px);
+  margin: auto;
+}
+
+.chloe {
+  display: grid;
+  grid-template-columns: minmax(320px, .82fr) minmax(0, 1fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: center;
+  padding: clamp(6.5rem, 10vw, 10rem) 0;
+}
+
+.chloePortrait,
+.planningImage {
+  margin: 0;
+  overflow: hidden;
+  background: #d8ddd4;
+}
+
+.chloePortrait {
+  aspect-ratio: 4 / 5;
+}
+
+.chloePortrait img,
+.planningImage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chloePortrait img {
+  object-position: 50% 48%;
+}
+
+.chloeCopy {
+  max-width: 610px;
+}
+
+.chloe h2,
+.planning h2,
+.explore h2 {
+  margin: 0 0 2.35rem;
+  color: var(--forest);
+  font-size: clamp(3.1rem, 4.8vw, 5.25rem);
+}
+
+.chloeCopy .chloeLead,
+.planningCopy .planningLead {
+  color: var(--forest);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.3rem, 1.65vw, 1.6rem);
+  line-height: 1.55;
+}
+
+.planning {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, .96fr) minmax(320px, .82fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: center;
+  padding: clamp(6.5rem, 9vw, 9rem) 0;
+}
+
+.planning::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  background: #ebe8dd;
+}
+
+.planningCopy {
+  max-width: 610px;
+}
+
+.planningImage {
+  aspect-ratio: 3 / 4;
+}
+
+.planningImage img {
+  object-position: center;
+}
+
+.explore {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1fr);
+  gap: clamp(3.5rem, 9vw, 9rem);
+  align-items: start;
+  padding: clamp(7rem, 10vw, 10rem) 0;
+}
+
+.exploreIntroduction {
+  max-width: 530px;
+}
+
+.exploreLinks {
+  border-top: 1px solid var(--line);
+}
+
+.exploreLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: center;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--forest-dark);
+  transition: color .2s ease;
+}
+
+.exploreLink:hover {
+  color: var(--gold-dark);
+}
+
+.exploreLinkTitle {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.25;
+}
+
+.exploreLinkArrow {
+  font-size: 1.1rem;
+}
+
+.final {
+  padding: clamp(6.5rem, 9vw, 9rem) 0;
+  background: var(--forest-dark);
+  color: #fff;
+}
+
+.finalInner {
+  width: min(88vw, 820px);
+  margin: auto;
+  text-align: center;
+}
+
+.final h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(3.2rem, 5.2vw, 5.6rem);
+}
+
+.finalInner > p {
+  max-width: 660px;
+  margin-inline: auto;
+  color: rgba(255, 255, 255, .8);
+}
+
+.finalInner .finalLead {
+  margin-bottom: .8rem;
+  color: #fff;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.25rem, 1.7vw, 1.55rem);
+  line-height: 1.5;
+}
+
+.finalInner :global(.button) {
+  margin-top: 1.7rem;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+    min-height: 0;
+  }
+
+  .heroIntroduction {
+    max-width: 680px;
+  }
+
+  .chloe,
+  .planning,
+  .explore {
+    grid-template-columns: 1fr;
+  }
+
+  .chloePortrait,
+  .planningImage {
+    width: min(100%, 560px);
+  }
+
+  .chloeCopy,
+  .planningCopy,
+  .exploreIntroduction {
+    max-width: 680px;
+  }
+
+  .planningCopy {
+    order: 1;
+  }
+
+  .planningImage {
+    order: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    width: 88vw;
+    padding: 4.8rem 0 5.5rem;
+  }
+
+  .hero h1 {
+    margin-top: 1.1rem;
+    font-size: clamp(3.25rem, 13vw, 4.8rem);
+  }
+
+  .heroIntroduction {
+    padding-bottom: 0;
+  }
+
+  .chloe,
+  .planning,
+  .explore {
+    width: 88vw;
+    gap: 3.2rem;
+    padding: 5.8rem 0;
+  }
+
+  .chloe h2,
+  .planning h2,
+  .explore h2 {
+    margin-bottom: 1.8rem;
+    font-size: clamp(2.85rem, 11vw, 4rem);
+  }
+
+  .chloePortrait,
+  .planningImage {
+    width: 100%;
+  }
+
+  .exploreLink {
+    grid-template-columns: 1fr auto;
+    gap: .65rem 1rem;
+  }
+
+  .final {
+    padding: 5.8rem 0;
+  }
+
+  .finalInner :global(.button) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exploreLink {
+    transition: none;
+  }
+}
