@@ -17,6 +17,7 @@
     "start": "next start",
     "test": "next build",
     "typecheck": "tsc --noEmit",
+    "test:plan-my-trip:browser": "node --test tests/plan-my-trip-interactions.test.mjs",
     "verify:pages:project": "node scripts/verify-static-export.mjs github-project",
     "verify:pages:domain": "node scripts/verify-static-export.mjs custom-domain",
     "test:journeys": "node --experimental-strip-types --test tests/journey-content.test.mjs tests/tina-journey-save.test.mjs tests/phase-2-2b-migration.test.mjs",
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "16.4.0",
+    "playwright": "1.62.1",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.59.3"

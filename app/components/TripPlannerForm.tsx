@@ -1,8 +1,9 @@
 "use client";
 
-import { ChangeEvent, FormEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import styles from "../plan-my-trip/plan-my-trip.module.css";
 import { submitEnquiry } from "../lib/enquiryClient";
+import { addEnquiryContextToNotes, getEnquiryContext } from "../lib/enquiryContext";
 import { EnquirySuccess } from "./EnquirySuccess";
 
 const timingOptions = [
@@ -103,6 +104,19 @@ const initialState: FormState = {
   startedAt: 0,
 };
 
+function subscribeToSearch(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  return () => window.removeEventListener("popstate", callback);
+}
+
+function getSearchSnapshot() {
+  return getEnquiryContext(window.location.search);
+}
+
+function getServerSearchSnapshot() {
+  return "";
+}
+
 function ChoiceGroup({ name, label, options, value, onChange, className = "" }: {
   name: string;
   label: string;
@@ -142,6 +156,7 @@ export function TripPlannerForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const enquiryContext = useSyncExternalStore(subscribeToSearch, getSearchSnapshot, getServerSearchSnapshot);
   const formRef = useRef<HTMLFormElement>(null);
   const stepTitleRef = useRef<HTMLLegendElement>(null);
   const previousStep = useRef(1);
@@ -236,7 +251,11 @@ export function TripPlannerForm() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const result = await submitEnquiry({ source: "detailed", ...formData });
+      const result = await submitEnquiry({
+        source: "detailed",
+        ...formData,
+        notes: addEnquiryContextToNotes(formData.notes, enquiryContext),
+      });
       if (!result.ok) throw new Error(result.message);
       setSubmitted(true);
     } catch (error) {
@@ -272,13 +291,15 @@ export function TripPlannerForm() {
       </div>
 
       <div className={styles.progressRow} aria-live="polite">
-        <span>Step {String(step).padStart(2, "0")} of 05</span>
+        <span>Step <span translate="no">{String(step).padStart(2, "0")}</span> of 05</span>
         <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${step * 20}%` }} /></div>
       </div>
 
       <div className={styles.stepViewport} key={step}>
         {step === 1 ? (
           <StepFrame title="First, a little about you" titleRef={stepTitleRef}>
+            <p className={styles.privacy}>Your details are only used to plan your journey. We won’t add you to a mailing list or use them for marketing.</p>
+            {enquiryContext ? <p className={styles.contextNote}>We’ll let our team know you came from “{enquiryContext}”.</p> : null}
             <label className={styles.field}>
               <span>Your name *</span>
               <input name="name" type="text" autoComplete="name" value={formData.name} onChange={updateField} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
@@ -358,7 +379,7 @@ export function TripPlannerForm() {
               <span>Are there any places already on your mind?</span>
               <input name="places" type="text" value={formData.places} onChange={updateField} placeholder="For example: Dali, Lijiang, Shangri-La, Meili Snow Mountain or Yuanyang" />
             </label>
-            <ChoiceGroup name="budget" label="What budget would feel comfortable for this journey?" options={budgetOptions} value={formData.budget} onChange={(value) => setChoice("budget", value)} />
+            <ChoiceGroup name="budget" label="If you have a range in mind, what budget feels comfortable for this journey?" options={budgetOptions} value={formData.budget} onChange={(value) => setChoice("budget", value)} />
             <p className={styles.choiceHelp}>An approximate range is enough. This helps us recommend the right balance of accommodation, transport and experiences.</p>
             <label className={styles.field}>
               <span>Is there anything else you’d like us to know?</span>
@@ -388,7 +409,6 @@ export function TripPlannerForm() {
           </button>
         )}
       </div>
-      {step === 5 ? <p className={styles.privacy}>Your details will only be used to help plan your journey. We won’t add you to a mailing list or share your information for marketing.</p> : null}
     </form>
   );
 }

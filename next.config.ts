@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { networkInterfaces } from "node:os";
 
 const deploymentMode = process.env.SITE_DEPLOYMENT_MODE ?? "local";
 
@@ -16,6 +17,20 @@ const siteOrigin = isGitHubProject
   : "https://yunnanunfolded.com";
 
 const nextConfig: NextConfig = {
+  // Next dev's React debug stream also uses HMR. Allow the exact local preview
+  // hosts so binding to 0.0.0.0 does not leave IP-address visitors unhydrated.
+  ...(process.env.NODE_ENV === "development"
+    ? {
+        allowedDevOrigins: [
+          "127.0.0.1",
+          ...Object.values(networkInterfaces()).flatMap((addresses) =>
+            (addresses ?? [])
+              .filter((address) => address.family === "IPv4" && !address.internal)
+              .map((address) => address.address),
+          ),
+        ],
+      }
+    : {}),
   ...(isStaticExport ? { output: "export" as const } : {}),
   ...(isGitHubProject
     ? { basePath: siteBasePath, assetPrefix: siteBasePath }

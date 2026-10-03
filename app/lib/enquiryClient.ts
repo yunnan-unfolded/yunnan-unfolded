@@ -31,17 +31,23 @@ export type EnquiryResult = {
 
 const endpoint = process.env.NEXT_PUBLIC_ENQUIRY_API_URL?.trim();
 
-function getEndpoint() {
+export function resolveEnquiryEndpoint(endpointValue: string | undefined, environment: string | undefined) {
+  const endpoint = endpointValue?.trim();
   if (!endpoint) return null;
 
   try {
     const url = new URL(endpoint);
-    const isLocal = url.hostname === "localhost" || url.hostname === "127.0.0.1";
+    const isLocal = environment !== "production"
+      && (url.hostname === "localhost" || url.hostname === "127.0.0.1");
     if (url.protocol !== "https:" && !(isLocal && url.protocol === "http:")) return null;
     return url.toString();
   } catch {
     return null;
   }
+}
+
+function getEndpoint() {
+  return resolveEnquiryEndpoint(endpoint, process.env.NODE_ENV);
 }
 
 export async function submitEnquiry(submission: EnquirySubmission): Promise<EnquiryResult> {
