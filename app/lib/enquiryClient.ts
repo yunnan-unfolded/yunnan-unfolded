@@ -37,6 +37,7 @@ export function resolveEnquiryEndpoint(endpointValue: string | undefined, enviro
 
   try {
     const url = new URL(endpoint);
+    if (url.hostname === "invalid" || url.hostname.endsWith(".invalid")) return null;
     const isLocal = environment !== "production"
       && (url.hostname === "localhost" || url.hostname === "127.0.0.1");
     if (url.protocol !== "https:" && !(isLocal && url.protocol === "http:")) return null;
@@ -80,8 +81,8 @@ export async function submitEnquiry(submission: EnquirySubmission): Promise<Enqu
   } catch {
     return {
       ok: false,
-      code: "SERVICE_UNAVAILABLE",
-      message: "The server can’t connect to our email service right now. Please try again shortly.",
+      code: "CLIENT_NETWORK_ERROR",
+      message: "We couldn’t reach our enquiry service just now. Please try again shortly.",
     };
   }
 }
