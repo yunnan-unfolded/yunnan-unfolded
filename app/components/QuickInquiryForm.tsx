@@ -141,6 +141,7 @@ export function QuickInquiryForm() {
         {submitting ? "Sending your trip idea…" : "Send my trip idea"} <span>↗</span>
       </button>
       {submitError && <p className="quick-form__error" role="alert">{submitError} Your details are still here, so you can try again.</p>}
+      <p className="quick-form__privacy">Your details are only used to plan your journey—not for marketing.</p>
       <p className="quick-form__detail">Already have a detailed plan? <Link href="/plan-my-trip">Complete our full trip planner →</Link></p>
     </form>
   );

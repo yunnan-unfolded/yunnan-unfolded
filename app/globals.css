@@ -119,6 +119,7 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
 .quick-form__submit { width:100%; margin-top:1.6rem; border:0; cursor:pointer; }
 .quick-form__submit span { margin-left:.7rem; font-size:1rem; }
 .quick-form__error { margin:.85rem 0 0; padding:.72rem .8rem; border-left:2px solid #963b30; background:rgba(150,59,48,.07); color:#772f27; font-size:.72rem; line-height:1.5; }
+.quick-form__privacy { margin:.85rem 0 0; color:var(--muted); font-size:.66rem; line-height:1.5; text-align:center; }
 .quick-form__detail { margin:1rem 0 0; color:var(--muted); font-size:.68rem; text-align:center; }
 .quick-form__detail a { border-bottom:1px solid currentColor; color:var(--forest); }
 

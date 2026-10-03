@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "../lib/sitePaths";
@@ -14,12 +14,16 @@ const nav = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", open);
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
 
     if (open) document.addEventListener("keydown", handleKeyDown);
@@ -42,6 +46,7 @@ export function Header() {
       <button
         type="button"
         className="menu-button"
+        ref={menuButtonRef}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-controls="mobile-navigation"
