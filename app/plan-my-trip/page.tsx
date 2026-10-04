@@ -5,7 +5,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { PlanTripFaq, PlannerJumpLink } from "../components/PlanTripInteractions";
 import { TripPlannerForm } from "../components/TripPlannerForm";
-import { absolutePageUrl, assetPath } from "../lib/sitePaths";
+import { absoluteAssetUrl, absolutePageUrl, assetPath } from "../lib/sitePaths";
 import styles from "./plan-my-trip.module.css";
 
 export const metadata: Metadata = {
@@ -18,8 +18,12 @@ export const metadata: Metadata = {
     description:
       "Tell our Kunming-based team how you’d like to experience Yunnan. Receive thoughtful, locally informed journey ideas and a personal reply within 24 hours.",
     url: absolutePageUrl("/plan-my-trip"),
+    type: "website",
+    images: [{ url: absoluteAssetUrl("/images/hero/laoyao-mountain.jpg"), width: 1920, height: 1080, alt: "Mountain meadows at Laoyao Mountain in Yunnan" }],
   },
   twitter: {
+    card: "summary_large_image",
+    images: [absoluteAssetUrl("/images/hero/laoyao-mountain.jpg")],
     title: "Plan a Private Yunnan Journey | Yunnan Unfolded",
     description:
       "Tell our Kunming-based team how you’d like to experience Yunnan. Receive thoughtful, locally informed journey ideas and a personal reply within 24 hours.",
@@ -95,14 +99,18 @@ export default function PlanMyTripPage() {
 
       <section className={styles.hero} aria-labelledby="plan-trip-title">
         <div className={styles.story}>
-          <Image
-            className={styles.storyImage}
-            src={assetPath("/images/hero/laoyao-mountain.jpg")}
-            alt="Clouds moving across mountain meadows at Laoyao Mountain in Yunnan"
-            fill
-            priority
-            sizes="(max-width: 760px) 100vw, 52vw"
-          />
+          <picture>
+            <source media="(max-width: 760px)" srcSet={assetPath("/images/optimized/laoyao-mountain-960.webp")} />
+            <Image
+              className={styles.storyImage}
+              src={assetPath("/images/hero/laoyao-mountain.jpg")}
+              alt="Clouds moving across mountain meadows at Laoyao Mountain in Yunnan"
+              fill
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 760px) 100vw, 52vw"
+            />
+          </picture>
           <div className={styles.storyVeil} />
           <div className={styles.storyCopy}>
             <p className={styles.eyebrow}>Plan your journey</p>

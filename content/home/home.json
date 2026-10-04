@@ -1,0 +1,19 @@
+{
+  "title": "Homepage images",
+  "first": {
+    "desktopSrc": "/images/hero/jiuzihai-panorama.jpg",
+    "mobileSrc": "/images/hero/jiuzihai-aerial.jpg",
+    "alt": "Alpine lakes and a lone hiker at Jiuzihai in Yunnan",
+    "place": "Jiuzihai · Yunnan"
+  },
+  "second": {
+    "desktopSrc": "/images/hero/laoyao-mountain.jpg",
+    "alt": "Clouds drifting over the mountain meadows of Laoyao Mountain in Yunnan",
+    "place": "Laoyao Mountain · Yunnan"
+  },
+  "third": {
+    "desktopSrc": "https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400",
+    "alt": "Snow-covered mountain peaks in Diqing, northwest Yunnan",
+    "place": "Diqing · Northwest Yunnan"
+  }
+}

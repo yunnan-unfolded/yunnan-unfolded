@@ -1,3 +1,4 @@
+import { optimizedHeroSource } from "../../lib/optimizedImages";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -238,7 +239,7 @@ export function WalkDetailPage({
         <div className={`${styles.heroGrid} shell`}>
           <div className={styles.heroMedia}>
             <Image
-              src={assetPath(walk.hero.src)}
+              src={assetPath(optimizedHeroSource(walk.hero.src))}
               alt={walk.hero.alt}
               fill
               sizes="(max-width: 700px) 100vw, 60vw"

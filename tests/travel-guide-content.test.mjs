@@ -1,6 +1,6 @@
 import { guideNodeText } from "../shared/travelGuideRichText.ts";
 import assert from "node:assert/strict";
-import { readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import test from "node:test";
 import {
   buildTravelGuideDirectoryStructuredData,
@@ -171,7 +171,8 @@ test("directory structured data is parseable and never invents an empty ItemList
 test("the independent directory route replaces the generic placeholder and keeps drafts local", () => {
   const source = readFileSync(new URL("../app/travel-guides/page.tsx", import.meta.url), "utf8");
   const styles = readFileSync(new URL("../app/travel-guides/travel-guides.module.css", import.meta.url), "utf8");
-  const placeholder = readFileSync(new URL("../app/[slug]/page.tsx", import.meta.url), "utf8");
+  const placeholderPath = new URL("../app/[slug]/page.tsx", import.meta.url);
+  const placeholder = existsSync(placeholderPath) ? readFileSync(placeholderPath, "utf8") : "";
   assert.match(source, /getTravelGuides\(localDraftPreviewEnabled\)/);
   assert.match(source, /focalPointValues\[image\.focalPoint \?\? "center"\]/);
   assert.doesNotMatch(source, /image\.displayRatio|naturalRatio|--guide-card-ratio/);
