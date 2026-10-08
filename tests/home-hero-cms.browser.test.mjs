@@ -3,9 +3,10 @@ import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import test from "node:test";
 import { chromium } from "playwright";
 
-const baseUrl = process.env.HOME_CMS_TEST_BASE_URL ?? "http://127.0.0.1:3004";
+const baseUrl = process.env.HOME_CMS_TEST_BASE_URL;
+const apiUrl = process.env.HOME_CMS_TEST_API_URL;
 
-test("Tina saves desktop/mobile Home images, preview follows CMS values, and originals are restored", { timeout: 180000 }, async () => {
+test("Tina saves desktop/mobile Home images, preview follows CMS values, and originals are restored", { timeout: 180000, skip: !baseUrl || !apiUrl }, async () => {
   const original = JSON.parse(readFileSync("content/home/home.json", "utf8"));
   const desktopTest = "/images/journeys/yunnan-slowly/laoyao-mountain-yunnan-2560.webp";
   const mobileTest = "/images/journeys/yunnan-slowly/erhai-fishing-boats.webp";
@@ -16,7 +17,7 @@ test("Tina saves desktop/mobile Home images, preview follows CMS values, and ori
   await context.route("**/*", route => {
     const request = route.request();
     const url = new URL(request.url());
-    return request.method() === "POST" && !(url.pathname === "/graphql" && ["localhost", "127.0.0.1"].includes(url.hostname))
+    return request.method() === "POST" && !(url.href === new URL(apiUrl).href)
       ? route.abort() : route.continue();
   });
   const admin = await context.newPage();

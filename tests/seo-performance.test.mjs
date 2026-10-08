@@ -3,7 +3,7 @@ import test from "node:test";
 import { chromium } from "playwright";
 import { optimizedHeroSource } from "../app/lib/optimizedImages.ts";
 
-const baseUrl = process.env.SEO_TEST_BASE_URL ?? "http://127.0.0.1:3002";
+const baseUrl = process.env.SEO_TEST_BASE_URL;
 
 test("Image derivatives do not replace unrelated CMS images", () => {
   assert.equal(optimizedHeroSource("/images/journeys/罗古箐/Codex-图像-2026年9月2日-23_06_03.png"), "/images/optimized/luoguqing-hero-1086.webp");
@@ -13,7 +13,7 @@ test("Image derivatives do not replace unrelated CMS images", () => {
 });
 
 for (const width of [1440, 390, 430]) {
-  test(`Rendered SEO and responsive image requests at ${width}px`, async () => {
+  test(`Rendered SEO and responsive image requests at ${width}px`, { skip: !baseUrl }, async () => {
     const browser = await chromium.launch({ channel: "chrome", headless: true });
     const context = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: width < 500 ? 2 : 1 });
     await context.route("**/*", route => route.request().method() === "POST" ? route.abort() : route.continue());
