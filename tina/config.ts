@@ -1,3 +1,4 @@
+import { homeCollection } from "./homeCollection";
 import { travelGuideBodyField } from "../shared/travelGuideRichTextSchema";
 import { defineConfig, type TinaField } from "tinacms";
 import { normalizeJourneySlug } from "../shared/journeyDefaults.ts";
@@ -147,7 +148,7 @@ const config = defineConfig({
     },
   } : {}),
   schema: {
-    collections: [{
+    collections: [homeCollection, {
       name: "journey",
       label: "精品行程",
       path: "content/journeys",

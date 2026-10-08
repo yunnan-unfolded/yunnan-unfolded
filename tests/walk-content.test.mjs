@@ -71,7 +71,8 @@ test("shared placeholder headers stay at the top in normal document flow", () =>
 test("the Walk directory replaces the placeholder and keeps drafts local", () => {
   const source = readFileSync(new URL("../app/walk-yunnan/page.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../app/walk-yunnan/walk-directory.module.css", import.meta.url), "utf8");
-  const placeholderSource = readFileSync(new URL("../app/[slug]/page.tsx", import.meta.url), "utf8");
+  const placeholderPath = new URL("../app/[slug]/page.tsx", import.meta.url);
+  const placeholderSource = existsSync(placeholderPath) ? readFileSync(placeholderPath, "utf8") : "";
   assert.match(source, /getWalks\(localDraftPreviewEnabled\)/);
   assert.match(source, /process\.env\.TINA_LOCAL_DRAFT_PREVIEW === "true"/);
   assert.match(source, /Route choices/);

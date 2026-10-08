@@ -1,0 +1,47 @@
+{
+  "title": "Homepage images",
+  "first": {
+    "desktopSrc": "/images/hero/jiuzihai-panorama.jpg",
+    "mobileSrc": "/images/hero/jiuzihai-aerial.jpg",
+    "alt": "Alpine lakes and a lone hiker at Jiuzihai in Yunnan",
+    "place": "Jiuzihai · Yunnan"
+  },
+  "second": {
+    "desktopSrc": "/images/hero/laoyao-mountain.jpg",
+    "alt": "Clouds drifting over the mountain meadows of Laoyao Mountain in Yunnan",
+    "place": "Laoyao Mountain · Yunnan"
+  },
+  "third": {
+    "desktopSrc": "https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400",
+    "alt": "Snow-covered mountain peaks in Diqing, northwest Yunnan",
+    "place": "Diqing · Northwest Yunnan"
+  },
+  "introduction": {
+    "src": "/images/journeys/攻略/季节2.avif",
+    "alt": " Yunnan",
+    "focalPoint": ""
+  },
+  "inquiry": {
+    "src": "/images/journeys/香格里拉/023b5bb5c9ea15ceb5e105218c79f1e33a87b211.jpeg",
+    "alt": "Mountain country and open fields in Yunnan",
+    "focalPoint": ""
+  },
+  "oldRoads": {
+    "src": "https://images.pexels.com/photos/6513729/pexels-photo-6513729.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "alt": "Temporary rural fields and mountain ridges placeholder"
+  },
+  "southGreen": {
+    "src": "https://images.pexels.com/photos/2832039/pexels-photo-2832039.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "alt": "Temporary green terraced hills landscape placeholder"
+  },
+  "walkBanner": {
+    "src": "/images/journeys/香格里拉/3ac79f3df8dcd1007570cc2553e1951eb8122fba.jpeg",
+    "alt": "A narrow trail leading through misty mountains",
+    "focalPoint": ""
+  },
+  "chloe": {
+    "src": "/images/about/chloe-alpine-lake.webp",
+    "alt": "Chloe hiking beside an alpine lake in Yunnan",
+    "focalPoint": ""
+  }
+}

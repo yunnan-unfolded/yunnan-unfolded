@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap");
 @import "tailwindcss";
 
-:root { --font-playfair:"Playfair Display","Times New Roman",Georgia,serif; --font-serif:"Iowan Old Style","Baskerville","Times New Roman",serif; --font-sans:"Avenir Next","Segoe UI",Arial,sans-serif; --forest:#173f35; --forest-dark:#0f2e27; --ivory:#f5f1e8; --paper:#faf8f2; --gold:#b3975b; --charcoal:#252925; --muted:#68706a; --line:rgba(23,63,53,.18); --shell:min(92vw,1320px); }
+:root { --font-serif:"Iowan Old Style","Baskerville","Times New Roman",serif; --font-sans:"Avenir Next","Segoe UI",Arial,sans-serif; --forest:#173f35; --forest-dark:#0f2e27; --ivory:#f5f1e8; --paper:#faf8f2; --gold:#b3975b; --charcoal:#252925; --muted:#68706a; --line:rgba(23,63,53,.18); --shell:min(92vw,1320px); }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; background:var(--ivory); color:var(--charcoal); font-family:var(--font-sans),Arial,sans-serif; font-size:16px; line-height:1.7; overflow-x:hidden; }

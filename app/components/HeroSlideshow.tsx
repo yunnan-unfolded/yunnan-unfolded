@@ -1,53 +1,47 @@
 import Image from "next/image";
+import { getHomeHeroSlides } from "../lib/homeContent";
 import { assetPath } from "../lib/sitePaths";
 
-const slides = [
-  {
-    desktopSrc: "/images/hero/jiuzihai-panorama.jpg",
-    mobileSrc: "/images/hero/jiuzihai-aerial.jpg",
-    alt: "Alpine lakes and a lone hiker at Jiuzihai in Yunnan",
-    place: "Jiuzihai · Yunnan",
-  },
-  {
-    desktopSrc: "/images/hero/laoyao-mountain.jpg",
-    alt: "Clouds drifting over the mountain meadows of Laoyao Mountain in Yunnan",
-    place: "Laoyao Mountain · Yunnan",
-  },
-  {
-    desktopSrc:
-      "https://images.pexels.com/photos/1060267/pexels-photo-1060267.jpeg?auto=compress&cs=tinysrgb&w=2400",
-    alt: "Snow-covered mountain peaks in Diqing, northwest Yunnan",
-    place: "Diqing · Northwest Yunnan",
-  },
-];
-
 export function HeroSlideshow() {
+  const slides = getHomeHeroSlides();
   return (
     <>
       <div className="hero__slideshow" aria-hidden="true">
         {slides.map((slide, index) => (
           <div
             className={`hero__slide hero__slide--${index + 1}`}
-            key={slide.desktopSrc}
+            key={index}
           >
-            <Image
-              className={`hero__image${slide.mobileSrc ? " hero__image--desktop" : ""}`}
-              src={assetPath(slide.desktopSrc)}
-              alt=""
-              fill
-              sizes="100vw"
-              priority={index === 0}
-            />
             {slide.mobileSrc ? (
+              <picture style={{ position: "absolute", inset: 0 }}>
+                <source
+                  media="(max-width: 760px)"
+                  srcSet={assetPath(slide.mobileSrc)}
+                  sizes="100vw"
+                />
+                <Image
+                  className="hero__image"
+                  src={assetPath(slide.desktopSrc)}
+                  alt=""
+                  fill
+                  unoptimized
+                  sizes="100vw"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
+              </picture>
+            ) : (
               <Image
-                className="hero__image hero__image--mobile"
-                src={assetPath(slide.mobileSrc)}
+                className="hero__image"
+                src={assetPath(slide.desktopSrc)}
                 alt=""
                 fill
+                unoptimized
                 sizes="100vw"
-                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
               />
-            ) : null}
+            )}
           </div>
         ))}
       </div>

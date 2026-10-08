@@ -6,7 +6,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import type { WalkDetail } from "../lib/walkAdapter";
 import { getWalks } from "../lib/walkContent";
-import { absolutePageUrl, assetPath } from "../lib/sitePaths";
+import { absoluteAssetUrl, absolutePageUrl, assetPath } from "../lib/sitePaths";
 import styles from "./walk-directory.module.css";
 
 const localDraftPreviewEnabled = process.env.NODE_ENV === "development"
@@ -24,6 +24,13 @@ export const metadata: Metadata = {
     url: absolutePageUrl("/walk-yunnan"),
     siteName: "Yunnan Unfolded",
     type: "website",
+    images: [{ url: absoluteAssetUrl("/images/optimized/luoguqing-hero-1086.webp"), width: 1086, height: 1448, alt: "Rhododendron-covered mountain slopes on the Luoguqing walking route" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Walk Yunnan | Guided Walking Routes | Yunnan Unfolded",
+    description: "Compare guided walking routes through Yunnan by distance, elevation, terrain and season, with practical notes shaped by local knowledge.",
+    images: [absoluteAssetUrl("/images/optimized/luoguqing-hero-1086.webp")],
   },
 };
 
