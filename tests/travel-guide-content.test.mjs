@@ -1,6 +1,6 @@
 import { guideNodeText } from "../shared/travelGuideRichText.ts";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import {
   buildTravelGuideDirectoryStructuredData,
@@ -215,8 +215,8 @@ test("the homepage selects three published Travel Guides from Tina data in the a
   assert.match(styles, /\.home-travel-guide-card__image-wrap img\s*\{[^}]*width:100%;[^}]*height:100%;[^}]*object-fit:cover;[^}]*object-position:var\(--home-guide-focus,center\)/);
   assert.match(styles, /@media \(max-width:760px\)[\s\S]*?\.home-travel-guides__grid \{ grid-template-columns:1fr;/);
 
-  const cardImages = expectedSlugs.map((slug) => new URL(`../public/images/travel-guides/homepage-cards/${slug}.webp`, import.meta.url));
-  assert.ok(cardImages.every((image) => statSync(image).size < 300_000));
+  assert.match(source, /const cardImage = guide\.hero\.src/);
+  assert.doesNotMatch(source, /homepageTravelGuideCardImages/);
 });
 
 test("metadata uses the public canonical and the existing site share image", () => {

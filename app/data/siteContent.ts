@@ -8,20 +8,18 @@ export type Journey = {
   startingPrice?: string;
 };
 
-export const upcomingJourneys: Journey[] = [
+export const upcomingJourneys: (Omit<Journey, "image" | "alt"> & { homeImageKey: "oldRoads" | "southGreen" })[] = [
   {
     title: "The Old Roads of Yunnan",
     route: "Dali to Nuodeng · Culture & food",
     description: "Ancient towns, village tables and the living traditions found along Yunnan’s quieter old roads.",
-    image: "https://images.pexels.com/photos/6513729/pexels-photo-6513729.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Temporary rural fields and mountain ridges placeholder",
+    homeImageKey: "oldRoads",
   },
   {
     title: "South into the Green",
     route: "Tropical Yunnan · Tea & rainforest",
     description: "From lakes and old towns into tropical forests, coffee country and the ancient tea landscapes of the south.",
-    image: "https://images.pexels.com/photos/2832039/pexels-photo-2832039.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    alt: "Temporary green terraced hills landscape placeholder",
+    homeImageKey: "southGreen",
   },
 ];
 

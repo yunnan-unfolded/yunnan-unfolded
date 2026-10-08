@@ -1,3 +1,4 @@
+import { getHomeSectionImages, homeImagePosition } from "./lib/homeContent";
 import type { CSSProperties } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -21,12 +22,6 @@ const homepageTravelGuideSlugs = [
   "best-time-to-visit-yunnan",
   "how-to-get-around-yunnan",
 ] as const;
-
-const homepageTravelGuideCardImages: Record<string, string> = {
-  "how-to-pay-in-yunnan": "/images/travel-guides/homepage-cards/how-to-pay-in-yunnan.webp",
-  "best-time-to-visit-yunnan": "/images/travel-guides/homepage-cards/best-time-to-visit-yunnan.webp",
-  "how-to-get-around-yunnan": "/images/travel-guides/homepage-cards/how-to-get-around-yunnan.webp",
-};
 
 const travelGuideFocalPoints = {
   center: "50% 50%",
@@ -60,6 +55,7 @@ function walkCoverStyle(walk: WalkDetail) {
 }
 
 export default function Home() {
+  const homeImages = getHomeSectionImages();
   const homepageWalks = getWalks(localDraftPreviewEnabled).slice(0, 1);
   const publishedTravelGuides = getTravelGuides();
   const travelGuideBySlug = new Map(publishedTravelGuides.map((guide) => [guide.slug, guide]));
@@ -76,7 +72,11 @@ export default function Home() {
       href: `/journeys/${journey.slug}`,
       startingPrice: undefined,
     })),
-    ...upcomingJourneys,
+    ...upcomingJourneys.map((journey) => ({
+      ...journey,
+      image: homeImages[journey.homeImageKey].src,
+      alt: homeImages[journey.homeImageKey].alt,
+    })),
   ];
   return (
     <main>
@@ -98,7 +98,7 @@ export default function Home() {
       <section className="intro section" id="introduction">
         <div className="intro__visual">
           <div className="intro__image-wrap">
-            <Image className="intro__image" src="https://images.pexels.com/photos/2832039/pexels-photo-2832039.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Green rice terraces unfolding across the hills of Yunnan" width={1120} height={1400} />
+            <Image className="intro__image" src={assetPath(homeImages.introduction.src)} alt={homeImages.introduction.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.introduction) }} width={1120} height={1400} />
             <span className="intro__caption">Southern Yunnan · China</span>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function Home() {
 
       <section className="quick-inquiry" aria-labelledby="quick-inquiry-title">
         <div className="quick-inquiry__story">
-          <Image src="https://images.pexels.com/photos/6513729/pexels-photo-6513729.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Mountain country and open fields in Yunnan" width={1800} height={1500} />
+          <Image src={assetPath(homeImages.inquiry.src)} alt={homeImages.inquiry.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.inquiry) }} width={1800} height={1500} />
           <div className="quick-inquiry__veil" />
           <div className="quick-inquiry__story-copy">
             <small>Personal journeys · locally shaped</small>
@@ -136,14 +136,14 @@ export default function Home() {
         <div className="journey-grid shell">
           {journeyCards.map((journey,index)=>{
             const href = journey.href ?? "/journeys";
-            return <article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href={href} className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href={href}>{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href={href}>Discover the journey</ArrowLink></div></article>;
+            return <article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href={href} className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} unoptimized width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href={href}>{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href={href}>Discover the journey</ArrowLink></div></article>;
           })}
         </div>
       </section>
 
       <section className="walk" aria-labelledby="walk-title">
         <div className="walk__hero">
-          <Image className="walk__hero-image" src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=2200" alt="A narrow trail leading through misty mountains" width={2200} height={1500} />
+          <Image className="walk__hero-image" src={assetPath(homeImages.walkBanner.src)} alt={homeImages.walkBanner.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.walkBanner) }} width={2200} height={1500} />
           <div className="walk__hero-veil" />
           <div className="walk__hero-content shell">
             <p className="eyebrow eyebrow--gold">Walk Yunnan</p>
@@ -186,6 +186,7 @@ export default function Home() {
                       >
                         <Image
                           src={assetPath(walk.hero.src)}
+                          unoptimized
                           alt={walk.hero.alt}
                           width={walk.hero.width ?? 720}
                           height={walk.hero.height ?? 480}
@@ -226,7 +227,7 @@ export default function Home() {
           <div className="home-travel-guides__grid shell">
             {homepageTravelGuides.map((guide, index) => {
               const focalPoint = guide.hero.focalPoint ?? "center";
-              const cardImage = homepageTravelGuideCardImages[guide.slug];
+              const cardImage = guide.hero.src;
               return (
                 <article className="home-travel-guide-card" key={guide.slug}>
                   <Link
@@ -237,6 +238,7 @@ export default function Home() {
                   >
                     <Image
                       src={assetPath(cardImage)}
+                      unoptimized
                       alt={guide.hero.alt ?? ""}
                       width={1200}
                       height={900}
@@ -258,7 +260,7 @@ export default function Home() {
       ) : null}
 
       <section className="local section shell" aria-labelledby="local-title">
-        <div className="local__portrait"><Image src="https://images.pexels.com/photos/868097/pexels-photo-868097.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="" width={1000} height={1250}/></div>
+        <div className="local__portrait"><Image src={assetPath(homeImages.chloe.src)} alt={homeImages.chloe.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.chloe) }} width={1000} height={1250}/></div>
         <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A journey shaped from the inside.</h2><p className="local__lead">Yunnan Unfolded grows from Chloe’s firsthand knowledge of the province—and a lasting curiosity for the paths, people and stories found between the well-known places.</p><p>She is a local travel professional and passionate hiker who knows both classic Yunnan and its quieter routes. Her approach is simple: listen closely, travel thoughtfully and let each place set the pace.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
       </section>
 
