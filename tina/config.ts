@@ -132,8 +132,6 @@ function walkImageFields(): TinaField[] {
 }
 
 const tinaSearchToken = process.env.TINA_SEARCH_TOKEN?.trim();
-const hasSearchToken = Boolean(tinaSearchToken);
-const searchUiEnabled = process.env.TINA_PUBLIC_SEARCH_ENABLED === "true";
 
 const config = defineConfig({
   branch: process.env.GITHUB_BRANCH || process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main",
@@ -141,12 +139,10 @@ const config = defineConfig({
   token: process.env.TINA_TOKEN || "",
   build: { outputFolder: "admin", publicFolder: "public" },
   media: { tina: { mediaRoot: "images/journeys", publicFolder: "public" } },
-  ...((hasSearchToken || searchUiEnabled) ? {
-    search: {
-      tina: { indexerToken: tinaSearchToken || "", stopwordLanguages: ["eng"] },
-      maxSearchIndexFieldLength: 500,
-    },
-  } : {}),
+  search: {
+    tina: { indexerToken: tinaSearchToken || "", stopwordLanguages: ["eng"] },
+    maxSearchIndexFieldLength: 500,
+  },
   schema: {
     collections: [homeCollection, {
       name: "journey",

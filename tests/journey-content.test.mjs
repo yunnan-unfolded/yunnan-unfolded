@@ -147,8 +147,9 @@ test("Tina editor exposes Chinese groups and visual media presets", () => {
   assert.match(config, /isTitle:\s*true/);
   assert.match(config, /readonly:\s*true/);
   assert.match(config, /process\.env\.TINA_SEARCH_TOKEN/);
-  assert.match(config, /process\.env\.TINA_PUBLIC_SEARCH_ENABLED/);
-  assert.match(config, /hasSearchToken \|\| searchUiEnabled/);
+  assert.doesNotMatch(config, /process\.env\.TINA_PUBLIC_SEARCH_ENABLED/);
+  assert.doesNotMatch(config, /hasSearchToken \|\| searchUiEnabled/);
+  assert.match(config, /media:[\s\S]*search:[\s\S]*schema:/);
   assert.match(config, /indexerToken: tinaSearchToken \|\| ""/);
   assert.match(config, /stopwordLanguages:\s*\["eng"\]/);
   assert.match(config, /textList\("searchKeywords",\s*"后台搜索关键词"/);
