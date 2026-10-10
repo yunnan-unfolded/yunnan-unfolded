@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: "How quickly will you reply?",
-    answer: "We reply personally within 24 hours. If your enquiry arrives during a public holiday or while our team is travelling in a remote part of Yunnan, we’ll still let you know when to expect a fuller response.",
+    answer: "Chloe replies personally within 24 hours. If your enquiry arrives during a public holiday or while she is travelling in a remote part of Yunnan, she’ll still let you know when to expect a fuller response.",
   },
   {
     question: "Can you provide an English-speaking guide?",

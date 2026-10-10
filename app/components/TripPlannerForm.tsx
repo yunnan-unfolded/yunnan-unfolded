@@ -299,7 +299,7 @@ export function TripPlannerForm() {
         {step === 1 ? (
           <StepFrame title="First, a little about you" titleRef={stepTitleRef}>
             <p className={styles.privacy}>Your details are only used to plan your journey. We won’t add you to a mailing list or use them for marketing.</p>
-            {enquiryContext ? <p className={styles.contextNote}>We’ll let our team know you came from “{enquiryContext}”.</p> : null}
+            {enquiryContext ? <p className={styles.contextNote}>We’ll let Chloe know you came from “{enquiryContext}”.</p> : null}
             <label className={styles.field}>
               <span>Your name *</span>
               <input name="name" type="text" autoComplete="name" value={formData.name} onChange={updateField} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} />
@@ -386,7 +386,7 @@ export function TripPlannerForm() {
               <textarea name="notes" rows={5} value={formData.notes} onChange={updateField} placeholder="Tell us about a special occasion, dietary needs, mobility considerations, altitude concerns, children travelling with you, or simply the kind of moments you hope to remember." />
             </label>
             <div className={styles.personalNote}>
-              <p>We read every enquiry personally. You’ll hear from our Kunming-based team within 24 hours, with no pressure to book.</p>
+              <p>Chloe reads every enquiry personally and replies within 24 hours, with no pressure to book.</p>
             </div>
           </StepFrame>
         ) : null}
