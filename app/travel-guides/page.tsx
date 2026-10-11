@@ -79,13 +79,12 @@ export default function TravelGuidesPage() {
         <div className={`${styles.heroInner} shell`}>
           <div className={styles.heroHeading}>
             <p className={styles.eyebrow}>Travel Guides · Yunnan</p>
-            <h1 id="travel-guides-title">Practical notes for travelling well.</h1>
+            <h1 id="travel-guides-title">Practical answers for your Yunnan trip.</h1>
           </div>
           <div className={styles.heroIntroduction}>
             <p>
-              Clear, grounded guidance for planning a journey through Yunnan—from choosing the season and arranging transport to understanding what different places ask of your time.
+              Find help with payments, transport, seasons, mobile data and entry planning.
             </p>
-            <Link href="/plan-my-trip/">Ask us about your plans <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
@@ -105,7 +104,7 @@ export default function TravelGuidesPage() {
               <p className={styles.eyebrow}>From our field notes</p>
               <h2 id="guide-directory-title">Plan with better context.</h2>
             </div>
-            <p>Useful details should make a journey easier to understand—not turn it into a checklist. Each guide will focus on the decisions that genuinely shape a trip.</p>
+            <p>Choose a guide for the question you have now.</p>
           </div>
 
           {guides.length > 0 ? (
@@ -152,7 +151,7 @@ export default function TravelGuidesPage() {
               </p>
               <div className={styles.emptyActions}>
                 <Link className={styles.primaryButton} href="/journeys/">Explore journeys</Link>
-                <Link className={styles.secondaryLink} href="/plan-my-trip/">Ask a travel question <span aria-hidden="true">↗</span></Link>
+                <Link className={styles.secondaryLink} href="/plan-my-trip/">Plan My Trip <span aria-hidden="true">↗</span></Link>
               </div>
             </div>
           )}
@@ -162,14 +161,14 @@ export default function TravelGuidesPage() {
       <section className={styles.cta} aria-labelledby="guides-cta-title">
         <div className="shell">
           <p className={`${styles.eyebrow} ${styles.eyebrowLight}`}>Planning something specific?</p>
-          <h2 id="guides-cta-title">Begin with the questions that matter to you.</h2>
-          <p>Share your dates, interests and pace. Our Yunnan-based team will respond with practical ideas shaped around the journey you have in mind.</p>
-          <Link className={styles.goldButton} href="/plan-my-trip/">Plan my Yunnan journey</Link>
+          <h2 id="guides-cta-title">Want help putting it together?</h2>
+          <p>Tell Chloe what you are considering.</p>
+          <Link className={styles.goldButton} href="/plan-my-trip/">Plan My Trip</Link>
         </div>
       </section>
 
       <Footer />
-      <Link className="side-cta" href="/plan-my-trip/"><span>Plan my trip</span></Link>
+
     </main>
   );
 }

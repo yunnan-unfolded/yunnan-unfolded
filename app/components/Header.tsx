@@ -42,7 +42,7 @@ export function Header() {
       <nav className="desktop-nav" aria-label="Main navigation">
         {nav.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
       </nav>
-      <Link className="header__cta" href="/plan-my-trip">Plan my trip <span>↗</span></Link>
+      <Link className="header__cta" href="/plan-my-trip/">Plan My Trip <span>↗</span></Link>
       <button
         type="button"
         className="menu-button"
@@ -67,7 +67,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <Link className="button button--gold" href="/plan-my-trip" onClick={() => setOpen(false)}>Plan my trip</Link>
+        <Link className="button button--gold" href="/plan-my-trip/" onClick={() => setOpen(false)}>Plan My Trip</Link>
         <p>hello@yunnanunfolded.com</p>
       </div>
     </header>

@@ -113,7 +113,7 @@ export default function WalkYunnanPage() {
                 </Link>
               </div>
             ) : (
-              <Link className={styles.primaryButton} href="/plan-my-trip/">Plan a walking journey</Link>
+              <Link className={styles.primaryButton} href="/plan-my-trip/">Plan My Trip</Link>
             )}
           </div>
 
@@ -147,9 +147,9 @@ export default function WalkYunnanPage() {
         <div className="shell">
           <p className={styles.eyebrow}>Choose with confidence</p>
           <div>
-            <h2 id="walk-introduction-title">Start with distance, terrain and how you want the day to feel.</h2>
+            <h2 id="walk-introduction-title">Know what the walk involves.</h2>
             <p>
-              A short walk and a full mountain traverse can pass through the same landscape while asking very different things of the people walking. Each route below separates scenery from the practical facts: time, elevation, trail surface and risk.
+              Each route includes time, elevation, terrain and risk, so you can judge whether it suits you.
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function WalkYunnanPage() {
               <p className={styles.eyebrow}>Walking routes</p>
               <h2 id="walk-list-title">Find your way into Yunnan.</h2>
             </div>
-            <p>Every walk can be discussed with our Yunnan-based team and adjusted around current weather, trail conditions and your walking level.</p>
+            <p>Check the route notes, then discuss current conditions with Chloe.</p>
           </div>
 
           {walks.length > 0 ? (
@@ -213,7 +213,7 @@ export default function WalkYunnanPage() {
               <p className={styles.eyebrow}>More routes are being prepared</p>
               <h3>Looking for a particular kind of walk?</h3>
               <p>Tell us the season, distance and level that feel right. We can begin with local conditions rather than a fixed list.</p>
-              <Link className={styles.primaryButton} href="/plan-my-trip/">Ask about walking in Yunnan</Link>
+              <Link className={styles.primaryButton} href="/plan-my-trip/">Plan My Trip</Link>
             </div>
           )}
         </div>
@@ -223,14 +223,14 @@ export default function WalkYunnanPage() {
         <div className="shell">
           <p className={`${styles.eyebrow} ${styles.eyebrowLight}`}>Plan with local knowledge</p>
           <h2 id="walk-cta-title">Not sure which distance or elevation is right for you?</h2>
-          <p>Tell us how much walking feels comfortable and when you plan to travel. We’ll suggest a route that fits the people walking and the mountain conditions.</p>
-          <Link className={styles.goldButton} href="/plan-my-trip/">Plan my walking journey</Link>
+          <p>Tell Chloe when you are coming and how much walking you enjoy.</p>
+          <Link className={styles.goldButton} href="/plan-my-trip/">Plan My Trip</Link>
         </div>
       </section>
 
       <Footer />
-      <Link className="side-cta" href="/plan-my-trip/"><span>Plan my trip</span></Link>
-      <Link className="mobile-cta" href="/plan-my-trip/">Plan my Yunnan trip <span>↗</span></Link>
+
+
     </main>
   );
 }

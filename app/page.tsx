@@ -5,7 +5,6 @@ import { Header } from "./components/Header";
 import { ArrowLink } from "./components/ArrowLink";
 import { QuickInquiryForm } from "./components/QuickInquiryForm";
 import { HeroSlideshow } from "./components/HeroSlideshow";
-import { upcomingJourneys } from "./data/siteContent";
 import { publishedJourneys } from "./lib/journeyContent";
 import { getTravelGuides, type TravelGuideCard } from "./lib/travelGuideContent";
 import type { WalkDetail } from "./lib/walkAdapter";
@@ -72,11 +71,6 @@ export default function Home() {
       href: `/journeys/${journey.slug}`,
       startingPrice: undefined,
     })),
-    ...upcomingJourneys.map((journey) => ({
-      ...journey,
-      image: homeImages[journey.homeImageKey].src,
-      alt: homeImages[journey.homeImageKey].alt,
-    })),
   ];
   return (
     <main>
@@ -85,11 +79,12 @@ export default function Home() {
         <HeroSlideshow />
         <div className="hero__veil" />
         <div className="hero__content shell reveal">
-          <p className="eyebrow eyebrow--light">Southwest China, seen slowly</p>
-          <h1 id="hero-title">Yunnan is our home.<br />Let us show you a side of it most travelers never see.</h1>
+          <p className="eyebrow eyebrow--light">Yunnan Unfolded · Kunming</p>
+          <h1 id="hero-title">Private journeys<br />through Yunnan.</h1>
+          <p className="hero__introduction">Tailor-made trips with Chloe in Kunming. Browse the journeys, or tell her what you have in mind.</p>
           <div className="hero__actions">
             <Link className="button button--ivory" href="/journeys">Explore journeys</Link>
-            <ArrowLink href="/plan-my-trip" light>Plan my trip</ArrowLink>
+            <ArrowLink href="/plan-my-trip/" light>Plan My Trip</ArrowLink>
           </div>
         </div>
         <a className="hero__scroll" href="#introduction" aria-label="Scroll to introduction"><span /></a>
@@ -110,19 +105,18 @@ export default function Home() {
           </h2>
           <div className="intro__body">
             <p>Beyond the familiar routes are mountain trails, old villages, family kitchens, tea forests and landscapes that reveal themselves slowly.</p>
-            <p>We create thoughtful journeys for travelers who want to experience Yunnan more deeply—with local knowledge, unhurried pacing and room for discovery.</p>
-          </div>
+                      </div>
         </div>
       </section>
 
-      <section className="quick-inquiry" aria-labelledby="quick-inquiry-title">
+      <section className="quick-inquiry" aria-labelledby="quick-inquiry-story-title">
         <div className="quick-inquiry__story">
           <Image src={assetPath(homeImages.inquiry.src)} alt={homeImages.inquiry.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.inquiry) }} width={1800} height={1500} />
           <div className="quick-inquiry__veil" />
           <div className="quick-inquiry__story-copy">
             <small>Personal journeys · locally shaped</small>
-            <p id="quick-inquiry-title">Tell us what draws you to Yunnan.</p>
-            <span>Share a few details. We’ll respond personally with ideas shaped around your time and interests.</span>
+            <p id="quick-inquiry-story-title">Tell Chloe what draws you to Yunnan.</p>
+            <span>A few ideas are enough to start a conversation.</span>
           </div>
         </div>
         <div className="quick-inquiry__panel"><QuickInquiryForm /></div>
@@ -133,7 +127,7 @@ export default function Home() {
           <div><p className="eyebrow">Curated journeys</p><h2 id="journeys-title">Follow a different path.</h2></div>
           <ArrowLink href="/journeys">View all journeys</ArrowLink>
         </div>
-        <div className="journey-grid shell">
+        <div className={`journey-grid shell${journeyCards.length === 1 ? " journey-grid--single" : ""}`}>
           {journeyCards.map((journey,index)=>{
             const href = journey.href ?? "/journeys";
             return <article className={`journey-card journey-card--${index+1}`} key={journey.title}><Link href={href} className="journey-card__image-wrap" aria-label={`Explore ${journey.title}`}><Image className="journey-card__image" src={assetPath(journey.image)} alt={journey.alt} unoptimized width={1000} height={1250}/><span className="journey-card__number">0{index+1}</span></Link><div className="journey-card__content"><p className="journey-card__route">{journey.route}{journey.startingPrice ? ` · From ${journey.startingPrice} per person` : ""}</p><h3><Link href={href}>{journey.title}</Link></h3><p>{journey.description}</p><ArrowLink href={href}>Discover the journey</ArrowLink></div></article>;
@@ -155,7 +149,7 @@ export default function Home() {
           <div className="shell">
             <div className="walk__directory-heading">
               <div><p className="eyebrow">Selected walking journeys</p><h3>Routes shaped by the land</h3></div>
-              <p>These are just a few ways to experience Yunnan on foot. Every journey can be adapted to your pace, interests and time.</p>
+              <p>Read the route notes to see what the walking involves.</p>
             </div>
             {homepageWalks.length > 0 ? (
               <div className="walk__route-list">
@@ -206,7 +200,6 @@ export default function Home() {
             )}
             <div className="walk__actions">
               <ArrowLink href="/walk-yunnan">Explore all walking journeys</ArrowLink>
-              <Link className="button button--gold" href="/plan-my-trip">Plan a walking trip</Link>
             </div>
           </div>
         </div>
@@ -220,7 +213,7 @@ export default function Home() {
               <h2 id="home-travel-guides-title">Practical advice for travelling in Yunnan</h2>
             </div>
             <div className="home-travel-guides__introduction">
-              <p>Clear, useful guidance on payments, seasons and getting around, written for international travellers planning an independent trip.</p>
+              <p>Practical answers on payments, seasons and getting around.</p>
               <Link className="button button--gold" href="/travel-guides/">Explore all Travel Guides</Link>
             </div>
           </div>
@@ -261,16 +254,16 @@ export default function Home() {
 
       <section className="local section shell" aria-labelledby="local-title">
         <div className="local__portrait"><Image src={assetPath(homeImages.chloe.src)} alt={homeImages.chloe.alt} unoptimized style={{ objectPosition: homeImagePosition(homeImages.chloe) }} width={1000} height={1250}/></div>
-        <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A journey shaped from the inside.</h2><p className="local__lead">Yunnan Unfolded grows from Chloe’s firsthand knowledge of the province—and a lasting curiosity for the paths, people and stories found between the well-known places.</p><p>She is a local travel professional and passionate hiker who knows both classic Yunnan and its quieter routes. Her approach is simple: listen closely, travel thoughtfully and let each place set the pace.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
+        <div className="local__content"><p className="eyebrow">Meet Chloe</p><h2 id="local-title">A local perspective.</h2><p className="local__lead">Chloe works in travel in Kunming and spends her free time exploring Yunnan’s mountains.</p><p>Get to know the person behind your trip.</p><ArrowLink href="/about">Meet Chloe</ArrowLink></div>
       </section>
 
       <section className="planning section" aria-labelledby="planning-title">
-        <div className="planning__inner shell"><p className="eyebrow eyebrow--gold">Begin a conversation</p><h2 id="planning-title">What kind of Yunnan<br />are you dreaming of?</h2><p>Tell us about your time, interests and travel style. We’ll help shape a journey that feels entirely your own.</p><Link className="button button--gold" href="/plan-my-trip">Plan my trip</Link></div>
+        <div className="planning__inner shell"><p className="eyebrow eyebrow--gold">Begin a conversation</p><h2 id="planning-title">What kind of Yunnan<br />are you dreaming of?</h2><p>Share your ideas with Chloe, even if they are still taking shape.</p><Link className="button button--gold" href="/plan-my-trip/">Plan My Trip</Link></div>
       </section>
 
       <Footer/>
-      <Link className="side-cta" href="/plan-my-trip"><span>Plan my trip</span></Link>
-      <Link className="mobile-cta" href="/plan-my-trip">Plan my Yunnan trip <span>↗</span></Link>
+
+
     </main>
   );
 }

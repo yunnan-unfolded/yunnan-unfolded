@@ -16,14 +16,14 @@ export function Footer() {
       <div className="footer__top shell">
         <div className="footer__brand">
           <Image className="footer__logo" src={assetPath("/brand/logo-wordmark-light.svg")} alt="Yunnan Unfolded" width={430} height={190} />
-          <p>Thoughtful, locally rooted journeys through Yunnan, China.</p>
+          <p>Private Yunnan journeys with Chloe in Kunming.</p>
           <div className="footer__socials" aria-label="Social media">
             <span className="footer__social-link footer__social-link--pending" aria-label="Instagram link coming soon" title="Instagram link coming soon"><InstagramIcon /><span>Instagram</span></span>
             <span className="footer__social-link footer__social-link--pending" aria-label="YouTube link coming soon" title="YouTube link coming soon"><YouTubeIcon /><span>YouTube</span></span>
           </div>
         </div>
         <div><p className="footer__label">Explore</p><nav><Link href="/journeys">Journeys</Link><Link href="/walk-yunnan">Walk Yunnan</Link><Link href="/travel-guides">Travel Guides</Link></nav></div>
-        <div><p className="footer__label">About</p><nav><Link href="/about">Our Story</Link><Link href="/plan-my-trip">Plan My Trip</Link></nav></div>
+        <div><p className="footer__label">About</p><nav><Link href="/about">Meet Chloe</Link><Link href="/plan-my-trip/">Plan My Trip</Link></nav></div>
         <div><p className="footer__label">Write to us</p><a className="footer__email" href="mailto:hello@yunnanunfolded.com">hello@yunnanunfolded.com</a><p className="footer__domain">yunnanunfolded.com</p></div>
       </div>
     </footer>
