@@ -91,12 +91,10 @@ export default function AboutPage() {
       <section className={styles.hero} aria-labelledby="about-title">
         <div className={styles.heroHeading}>
           <p className={styles.eyebrow}>ABOUT YUNNAN UNFOLDED</p>
-          <h1 id="about-title">A more personal way to experience Yunnan.</h1>
+          <h1 id="about-title">The person behind your journey.</h1>
         </div>
         <div className={styles.heroIntroduction}>
-          <p className={styles.heroLead}>Yunnan Unfolded is a travel studio based in Kunming. We create tailor-made journeys for travellers who want to experience Yunnan at a pace that feels right for them.</p>
-          <p>Yunnan is beautiful, but it is not always simple to plan. Distances can be longer than they look on a map. Altitude changes quickly, the seasons feel different from one region to another, and trying to fit too much into one trip can take the pleasure out of it.</p>
-          <p>We are here to make the journey clearer, more comfortable and more personal.</p>
+          <p className={styles.heroLead}>Yunnan Unfolded grew out of Chloe’s work in travel in Kunming and her love of exploring the province on foot.</p>
         </div>
       </section>
 
@@ -113,20 +111,17 @@ export default function AboutPage() {
         <div className={styles.chloeCopy}>
           <h2 id="meet-chloe-title">Meet Chloe</h2>
           <p className={styles.chloeLead}>Hi, I’m Chloe, the person behind Yunnan Unfolded.</p>
-          <p>I work in travel in Kunming, and whenever I have time, I head for the mountains. Hiking has taken me through forests, alpine meadows, quiet villages and many corners of Yunnan that are easy to miss when you are rushing from one famous sight to the next.</p>
-          <p>I enjoy Yunnan’s well-known places, but I am equally drawn to the quieter parts: a small road through the countryside, a local market in the morning, a family-run guesthouse, or a trail that gives you enough time to stop and look around.</p>
-          <p>When I plan a trip, I start by getting to know the traveller. Some people want long days outdoors. Some prefer good food, comfortable stays and unhurried mornings. Others are visiting China for the first time and simply want someone to make the practical side feel less overwhelming.</p>
-          <p>There is no single “best” way to travel through Yunnan. The right trip depends on who you are, when you come and what you would like to take home from the experience.</p>
+          <p>Whenever I have time, I head for the mountains. Hiking has taken me through forests, alpine meadows and quiet villages across Yunnan.</p>
+          <p>I enjoy the well-known places, but I am just as drawn to a morning market, a family-run guesthouse or a trail with time to stop and look around.</p>
         </div>
       </section>
 
       <section className={styles.planning} aria-labelledby="planning-title">
         <div className={styles.planningCopy}>
-          <h2 id="planning-title">How we plan a journey</h2>
-          <p className={styles.planningLead}>We begin with a conversation.</p>
-          <p>Tell us what brought Yunnan to mind, how many days you have and the kind of travel you enjoy. You do not need to arrive with a finished itinerary. A few places, a photograph, a walking route or even a rough idea is enough to begin.</p>
-          <p>From there, we shape the journey around the season, distances, altitude, transport and your preferred pace. We keep the plan practical, but leave enough space for the trip to feel like a journey rather than a checklist.</p>
-          <p>The result is not a standard tour taken from a shelf. It is a route made for you.</p>
+          <h2 id="planning-title">Why I plan this way</h2>
+          <p className={styles.planningLead}>A good trip leaves room to notice where you are.</p>
+          <p>Distances, seasons and altitude shape a journey here. I prefer a realistic route with time to enjoy each place, rather than fit in every famous stop.</p>
+          <p>Getting to know the traveller matters just as much. Long days on the trail and quiet mornings over breakfast belong in different kinds of trips.</p>
         </div>
         <figure className={styles.planningImage}>
           <Image
@@ -142,9 +137,7 @@ export default function AboutPage() {
       <section className={styles.explore} aria-labelledby="explore-title">
         <div className={styles.exploreIntroduction}>
           <h2 id="explore-title">What you will find here</h2>
-          <p>The journeys, walks and practical guides on this website are a way to share the Yunnan we know.</p>
-          <p>Some will help you understand the main travel regions. Others offer ideas for walking, choosing the right season, getting around or handling everyday things such as payments and mobile internet.</p>
-          <p>You can use them to plan independently, or as a starting point for a tailor-made journey with us.</p>
+          <p>The journeys, walks and guides share places I know and practical details that make travelling here easier.</p>
         </div>
         <nav className={styles.exploreLinks} aria-label="Explore Yunnan Unfolded">
           {contentLinks.map((item) => (
@@ -159,9 +152,8 @@ export default function AboutPage() {
       <section className={styles.final} aria-labelledby="about-final-title">
         <div className={styles.finalInner}>
           <h2 id="about-final-title">Thinking about Yunnan?</h2>
-          <p className={styles.finalLead}>You do not need to have everything figured out.</p>
-          <p>Tell us what you are interested in, when you might travel and what kind of pace feels comfortable. We will help you turn those first ideas into a journey that makes sense.</p>
-          <Link className="button button--gold" href="/plan-my-trip/">PLAN MY YUNNAN TRIP</Link>
+          <p>Tell me what you have in mind. We can take it from there.</p>
+          <Link className="button button--gold" href="/plan-my-trip/">Plan My Trip</Link>
         </div>
       </section>
 

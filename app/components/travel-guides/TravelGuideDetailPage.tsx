@@ -72,7 +72,7 @@ export function TravelGuideDetailPage({
             <p className={styles.ctaEyebrow}>Travel with confidence</p>
             <h2 id="travel-guide-cta-title">Plan the Yunnan journey that fits you.</h2>
             <p>Tell us how you like to travel, how much time you have and what you want to experience. We will help shape a route with the right pace and practical support.</p>
-            <Link className="button button--gold" href={enquiryHref}>Plan my Yunnan trip</Link>
+            <Link className="button button--gold" href={enquiryHref}>Plan My Trip</Link>
           </div>
         </section>
       </main>

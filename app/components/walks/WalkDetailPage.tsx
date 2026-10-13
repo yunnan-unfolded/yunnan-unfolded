@@ -358,7 +358,7 @@ export function WalkDetailPage({
             <h2>Shape this walk around your journey.</h2>
             <p>Tell us when you plan to travel, how much walking feels comfortable and what draws you to Luoguqing. Our Yunnan-based team will reply personally and shape the walk around the season and current conditions.</p>
             <div className={styles.enquiryActions}>
-              <Link className="button button--gold" href={walk.primaryHref}>Plan this walk</Link>
+              <Link className="button button--gold" href={walk.primaryHref}>Plan My Trip</Link>
               <Link className={styles.enquiryLink} href={walk.questionHref}>Ask a question <span aria-hidden="true">↗</span></Link>
             </div>
           </div>

@@ -75,9 +75,9 @@ export default function JourneysPage() {
         <div className="shell">
           <p className={styles.eyebrow}>A place to begin</p>
           <div>
-            <h2 id="journeys-introduction-title">Choose the feeling of a journey before the final shape.</h2>
+            <h2 id="journeys-introduction-title">A route to start from.</h2>
             <p>
-              Our journeys bring together landscapes, living culture and the quieter roads between familiar places. They show what is possible; the final route is always shaped through conversation.
+              Open a journey to see its stops, travel time and options.
             </p>
           </div>
         </div>
@@ -117,15 +117,15 @@ export default function JourneysPage() {
       <section className={styles.directoryCta} aria-labelledby="journeys-cta-title">
         <div className="shell">
           <p className={`${styles.eyebrow} ${styles.eyebrowLight}`}>Your journey, personally shaped</p>
-          <h2 id="journeys-cta-title">Not looking for a journey off the shelf?</h2>
-          <p>Tell us what draws you to Yunnan and we’ll begin with the places, pace and experiences that make sense for you.</p>
-          <Link className={styles.goldButton} href="/plan-my-trip/">Plan my journey</Link>
+          <h2 id="journeys-cta-title">Have a different route in mind?</h2>
+          <p>Tell Chloe where you would like to go.</p>
+          <Link className={styles.goldButton} href="/plan-my-trip/">Plan My Trip</Link>
         </div>
       </section>
 
       <Footer />
-      <Link className="side-cta" href="/plan-my-trip/"><span>Plan my trip</span></Link>
-      <Link className="mobile-cta" href="/plan-my-trip/">Plan my Yunnan trip <span>↗</span></Link>
+
+
     </main>
   );
 }

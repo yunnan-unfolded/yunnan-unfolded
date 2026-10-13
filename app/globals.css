@@ -464,3 +464,9 @@ h2 { font-size:clamp(3.25rem,6.2vw,6.5rem); }
   .hero__place--1 { opacity:.72!important; }
   .hero__dot--1 { opacity:1!important; background:white; box-shadow:0 0 0 3px rgba(255,255,255,.14); }
 }
+
+/* A short service introduction and one real journey retain the existing brand layout. */
+.hero__introduction { max-width: 38rem; margin: 0 0 2rem; color: rgba(255,255,255,.88); font-size: clamp(.95rem,1.2vw,1.1rem); line-height: 1.6; text-wrap: balance; }
+.journey-grid--single { grid-template-columns: minmax(0,1fr); }
+.journey-grid--single .journey-card { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1fr); gap: clamp(2rem,5vw,5rem); align-items: center; }
+@media (max-width: 760px) { .journey-grid--single .journey-card { display: flex; gap: 0; } }

@@ -64,7 +64,7 @@ test("Home section images save through Tina, retain single-owner card covers, an
       assert.equal(await preview.locator(".walk-route img").getAttribute("src"), walk.hero.src);
       const journey = JSON.parse(readFileSync("content/journeys/yunnan-slowly.json", "utf8"));
       assert.equal(await preview.locator(".journey-card img").first().getAttribute("src"), journey.hero.src);
-      assert.deepEqual(await preview.locator(".journey-card h3").allTextContents(), ["Yunnan, Slowly", "The Old Roads of Yunnan", "South into the Green"]);
+      assert.deepEqual(await preview.locator(".journey-card h3").allTextContents(), ["Yunnan, Slowly"]);
       await preview.locator(".intro__image").scrollIntoViewIfNeeded();
       await preview.screenshot({ path: `artifacts/home-section-images/${label}-intro-${width}.png` });
       await preview.locator(".local__portrait img").scrollIntoViewIfNeeded();

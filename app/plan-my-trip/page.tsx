@@ -76,15 +76,15 @@ export default function PlanMyTripPage() {
             <div className={styles.storyVeil} />
           <div className={styles.storyCopy}>
             <p className={styles.eyebrow}>Plan your journey</p>
-            <h1 id="plan-trip-title">Tell Chloe what kind of Yunnan journey feels right for you.</h1>
+            <h1 id="plan-trip-title">Plan your private Yunnan trip.</h1>
             <p className={styles.introduction}>
-              You don’t need a finished itinerary. Share when you’re thinking of travelling, what interests you and the kind of pace you enjoy. Chloe will use her local knowledge to help shape a private journey that works in the real Yunnan—not just on paper.
+              Tell Chloe your dates, interests and preferred pace. She’ll help shape a private trip from Kunming. This is an enquiry, not a booking; you don’t need a finished itinerary.
             </p>
             <p className={styles.trustLine}>
               Based in Kunming <span aria-hidden="true">·</span> Personal reply within 24 hours <span aria-hidden="true">·</span> No obligation
             </p>
             <div className={styles.heroActions}>
-              <PlannerJumpLink className={styles.primaryButton}>Start planning my journey</PlannerJumpLink>
+              <PlannerJumpLink className={styles.primaryButton}>Start planning my trip</PlannerJumpLink>
               <Link className={styles.textLink} href="mailto:hello@yunnanunfolded.com">
                 Prefer to talk first? Send us a message.
               </Link>
